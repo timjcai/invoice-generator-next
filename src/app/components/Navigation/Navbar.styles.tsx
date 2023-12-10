@@ -6,7 +6,7 @@ export const NavbarWrapper = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 32px 200px;
+    padding: 32px 0px;
 `;
 
 export const NavbarLinkButton = styled.div`
