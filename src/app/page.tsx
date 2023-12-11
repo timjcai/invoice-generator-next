@@ -3,6 +3,7 @@ import * as React from "react";
 import CSVPage from "./components/ReactGrid/CSVPage";
 import { InvoicePreview } from "./components/InvoiceTemplate";
 import { BuyerType, SellerType } from "./types";
+import { AppTabs } from "./components/Navigation";
 
 const Tim: SellerType = {
     sellerId: "1",
@@ -50,11 +51,17 @@ export default function Home() {
                     Sign Up
                 </button>
             </section>
+            <AppTabs></AppTabs>
             <CSVPage />
             <InvoicePreview
                 sellerDetails={Tim}
                 invoiceNumber={1}
                 buyerDetails={ABNGroup}
+                invoiceDate={new Date()}
+                dueDate={new Date()}
+                itemDescriptions={[]}
+                termsAndConditions={"these are my terms and conditions"}
+                notes={"job number: 1234"}
             />
         </div>
     );
