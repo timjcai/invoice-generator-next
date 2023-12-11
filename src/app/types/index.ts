@@ -1,3 +1,5 @@
 export * from './UserType'
 export * from './LocationType'
 export * from './PaymentDetailType'
+export * from './DescriptionType'
+export * from './CountryType'
