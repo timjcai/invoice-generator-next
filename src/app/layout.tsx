@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Poppins, Roboto_Flex } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "./components/Navigation";
+import { Navbar, SmallNavbar } from "./components/Navigation";
+import { useEffect, useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 

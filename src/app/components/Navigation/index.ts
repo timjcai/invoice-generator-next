@@ -1,3 +1,3 @@
 export * from './Navbar'
-export * from './Navbar.styles'
+export * from './Common.styles'
 export * from './AppTabs'

@@ -2,6 +2,7 @@ import { IconType } from "@/app/types";
 import { IconDefinition } from "@fortawesome/free-brands-svg-icons";
 import {
     faCircleUser,
+    faClipboard,
     faClipboardUser,
     faCog,
     faCube,
@@ -18,6 +19,7 @@ const iconMapping: { [key in IconType]: IconDefinition } = {
     settings: faCog,
     profile: faCircleUser,
     contacts: faClipboardUser,
+    menu: faClipboard,
 };
 
 export const Icon: FC<IconProps> = ({ label }) => {

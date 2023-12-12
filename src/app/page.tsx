@@ -38,8 +38,8 @@ const ABNGroup: BuyerType = {
 
 export default function Home() {
     return (
-        <div className="w-screen flex justify-center flex-col">
-            <section className="flex flex-col py-[32px] max-w-screen-lg">
+        <div className="flex items-center justify-center flex-col mx-4 md:mx-[100px] lg:w-[1024px]">
+            <div className="flex flex-col py-[32px]">
                 <h1>Free Invoice Generator</h1>
                 <p>
                     Build minimally designed invoices in bulk! Create invoices
@@ -50,7 +50,7 @@ export default function Home() {
                 <button className="border-2 border-black px-4 py-2 w-36">
                     Sign Up
                 </button>
-            </section>
+            </div>
             <AppTabs></AppTabs>
             <CSVPage />
             <InvoicePreview
