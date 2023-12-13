@@ -32,7 +32,13 @@ export const Navbar = () => {
                     <div className="flex flex-row justify-between">
                         <div></div>
                         <NavbarLinkButton label={<a>Pricing</a>} />
-                        <NavbarLinkButton label={<a>Donate</a>} />
+                        <NavbarLinkButton
+                            label={
+                                <a href="https://www.buymeacoffee.com/shelbythesnag">
+                                    Donate
+                                </a>
+                            }
+                        />
                         <NavbarLinkButton label={<a>Support</a>} />
                     </div>
                     <div className="flex flex-row justify-between">
