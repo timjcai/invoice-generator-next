@@ -1,4 +1,3 @@
-"use client";
 import * as React from "react";
 import { render } from "react-dom";
 import {
@@ -23,7 +22,7 @@ const applyChangesToPeople = (
     return [...prevPeople];
 };
 
-export default function CSVPage() {
+export const InvoiceGrid = () => {
     const [people, setPeople] = React.useState<Person[]>(getPeople());
 
     const rows = getRows(people);
@@ -40,4 +39,4 @@ export default function CSVPage() {
             onCellsChanged={handleChanges}
         />
     );
-}
+};

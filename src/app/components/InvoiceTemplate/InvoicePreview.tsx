@@ -9,6 +9,7 @@ import {
     SellerType,
 } from "@/app/types";
 import { displayABN, displayCurrency } from "@/app/utils";
+import { ImageDropzone } from "../Dropzone";
 
 export type InvoiceType = {
     invoiceNumber: number;
@@ -35,7 +36,7 @@ export const InvoicePreview: FC<InvoiceType> = ({
     return (
         <div className="w-[840px] bg-[rgba(154, 152, 152, 0.53)] backdrop-filter backdrop-blur-lg rounded-xl border-2 border-[#ccc] p-12 shadow-black">
             <div className="flex flex-row justify-between mb-8 border-b-black border-b-2 pb-4">
-                <p>Logo</p>
+                {<ImageDropzone />}
                 <div className="w-48">
                     <h1 className="text-4xl mb-1">Invoice #{invoiceNumber}</h1>
                     <div id="sellerDetails">
