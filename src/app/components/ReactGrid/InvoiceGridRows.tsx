@@ -2,21 +2,22 @@
 import { Column, Row } from "@silevis/reactgrid";
 import { Person } from ".";
 
-interface InvoiceType = {
-    
+export interface LineItemType {
+    description: string;
+    quantity: number;
+    rate: number;
 }
 
-export const getPeople = (): Person[] => [
-    { name: "Thomas", surname: "Goldman" },
-    { name: "Susie", surname: "Quattro" },
-    { name: "", surname: "" },
+export const getInvoice = (): LineItemType[] => [
+    { description: "example", quantity: 1, rate: 100 },
+    { description: "", quantity: 0, rate: 0 },
 ];
 
 export const getInvoiceColumns = (): Column[] => [
-    { columnId: "description", width: 600 },
-    { columnId: "quantity", width: 150 },
-    { columnId: "rate", width: 150 },
-    { columnId: "amount", width: 150 },
+    { columnId: "description", width: 440 },
+    { columnId: "quantity", width: 100 },
+    { columnId: "rate", width: 100 },
+    { columnId: "amount", width: 100 },
 ];
 
 export const invoiceHeaderRow: Row = {
@@ -29,13 +30,15 @@ export const invoiceHeaderRow: Row = {
     ],
 };
 
-export const getInvoiceRows = (invoice: Person[]): Row[] => [
+export const getInvoiceRows = (invoice: LineItemType[]): Row[] => [
     invoiceHeaderRow,
-    ...people.map<Row>((invoice, idx) => ({
+    ...invoice.map<Row>((invoice, idx) => ({
         rowId: idx,
         cells: [
             { type: "text", text: invoice.description },
-            { type: "text", text: person.surname },
+            { type: "number", value: invoice.quantity },
+            { type: "number", value: invoice.rate },
+            { type: "number", value: invoice.quantity * invoice.rate },
         ],
     })),
 ];

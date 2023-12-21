@@ -9,6 +9,7 @@ import {
 } from "@/app/types";
 import { displayABN, displayCurrency } from "@/app/utils";
 import { ImageDropzone } from "../Dropzone";
+import { InvoiceGrid } from "../ReactGrid";
 
 export type InvoiceType = {
     invoiceNumber: number;
@@ -49,7 +50,7 @@ export const InvoicePreview: FC<InvoiceType> = ({
                     </div>
                 </div>
             </div>
-            <div className="flex flex-row justify-between gap-8">
+            <div className="flex flex-row justify-between gap-8 mb-8">
                 <div id="buyerDetails" className="flex flex-row gap-4">
                     <div id="billTo">
                         <p>Bill to:</p>
@@ -72,8 +73,9 @@ export const InvoicePreview: FC<InvoiceType> = ({
                     <p>PO number</p>
                 </div>
             </div>
-            <div className="mb-4">
+            <div className="mb-4 border-t-black border-t-2 pt-4">
                 <h1>Title</h1>
+                <InvoiceGrid />
             </div>
             <div className="flex flex-row justify-between border-t-black border-t-2 pt-4">
                 <div className="w-96">

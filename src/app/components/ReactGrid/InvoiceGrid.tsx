@@ -8,28 +8,41 @@ import {
     TextCell,
 } from "@silevis/reactgrid";
 import "@silevis/reactgrid/styles.css";
-import { Person, getColumns, getPeople, getRows } from ".";
+import {
+    LineItemType,
+    Person,
+    getColumns,
+    getInvoice,
+    getInvoiceColumns,
+    getInvoiceRows,
+    getPeople,
+    getRows,
+} from ".";
 
-const applyChangesToPeople = (
+const applyChangesToLineItems = (
     changes: CellChange<TextCell>[],
-    prevPeople: Person[]
-): Person[] => {
+    prevPeople: LineItemType[]
+): LineItemType[] => {
     changes.forEach((change) => {
-        const personIndex = change.rowId;
+        const itemIndex = change.rowId;
         const fieldName = change.columnId;
-        prevPeople[personIndex][fieldName] = change.newCell.text;
+        prevPeople[itemIndex][fieldName] = change.newCell.text;
     });
     return [...prevPeople];
 };
 
 export const InvoiceGrid = () => {
-    const [people, setPeople] = React.useState<Person[]>(getPeople());
+    const [lineItems, setLineItems] = React.useState<LineItemType[]>(
+        getInvoice()
+    );
 
-    const rows = getRows(people);
-    const columns = getColumns();
+    const rows = getInvoiceRows(lineItems);
+    const columns = getInvoiceColumns();
 
     const handleChanges = (changes: CellChange<TextCell>[]) => {
-        setPeople((prevPeople) => applyChangesToPeople(changes, prevPeople));
+        setLineItems((prevLineItems) =>
+            applyChangesToLineItems(changes, prevLineItems)
+        );
     };
 
     return (

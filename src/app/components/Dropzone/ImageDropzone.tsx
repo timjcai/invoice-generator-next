@@ -53,7 +53,7 @@ export const ImageDropzone = (props) => {
         <div className="container">
             <div {...getRootProps({ style })}>
                 <input {...getInputProps()} />
-                <p>Drag 'n' drop OR click to add files</p>
+                <p>Drag 'n' drop OR click to add logo</p>
             </div>
         </div>
     );
