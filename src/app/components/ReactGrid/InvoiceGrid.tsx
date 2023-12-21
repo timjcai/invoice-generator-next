@@ -36,6 +36,13 @@ export const InvoiceGrid = () => {
         getInvoice()
     );
 
+    const addRow = () => {
+        setLineItems((prevLineItems) => [
+            ...prevLineItems,
+            { description: "", quantity: 0, rate: 0 },
+        ]);
+    };
+
     const rows = getInvoiceRows(lineItems);
     const columns = getInvoiceColumns();
 
@@ -46,10 +53,18 @@ export const InvoiceGrid = () => {
     };
 
     return (
-        <ReactGrid
-            rows={rows}
-            columns={columns}
-            onCellsChanged={handleChanges}
-        />
+        <>
+            <ReactGrid
+                rows={rows}
+                columns={columns}
+                onCellsChanged={handleChanges}
+            />
+            <button
+                className="border-black border-2 p-2 rounded-lg mt-2"
+                onClick={() => addRow()}
+            >
+                add line item
+            </button>
+        </>
     );
 };
