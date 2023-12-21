@@ -18,6 +18,7 @@ import {
     getPeople,
     getRows,
 } from ".";
+import { Icon } from "../UI";
 
 const applyChangesToLineItems = (
     changes: CellChange<TextCell>[],
@@ -60,10 +61,11 @@ export const InvoiceGrid = () => {
                 onCellsChanged={handleChanges}
             />
             <button
-                className="border-black border-2 p-2 rounded-lg mt-2"
+                className="border-black border-[0.5px] p-2 rounded-[4px] mt-2"
                 onClick={() => addRow()}
             >
-                add line item
+                <Icon label={"add"} />
+                Line item
             </button>
         </>
     );

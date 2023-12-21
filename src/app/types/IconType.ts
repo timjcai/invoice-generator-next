@@ -21,6 +21,7 @@ export type ActionTypes =
     | "share"
     | "light"
     | "dark"
+    | "add"
 
 export type NavigationTypes = 
     | "home" 

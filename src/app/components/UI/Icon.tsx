@@ -6,6 +6,8 @@ import {
     faClipboardUser,
     faCog,
     faCube,
+    faPlus,
+    faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FC } from "react";
@@ -20,6 +22,8 @@ const iconMapping: { [key in IconType]: IconDefinition } = {
     profile: faCircleUser,
     contacts: faClipboardUser,
     menu: faClipboard,
+    add: faPlus,
+    delete: faXmark,
 };
 
 export const Icon: FC<IconProps> = ({ label }) => {

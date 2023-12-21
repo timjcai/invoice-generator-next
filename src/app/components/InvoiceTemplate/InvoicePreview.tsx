@@ -80,9 +80,9 @@ export const InvoicePreview: FC<InvoiceType> = ({
             <div className="flex flex-row justify-between border-t-black border-t-2 pt-4">
                 <div className="w-96">
                     <h1>Notes:</h1>
-                    <textarea className="w-full"></textarea>
+                    <textarea className="w-full border-black border-[0.5px]"></textarea>
                     <h1>Payment Terms:</h1>
-                    <textarea className="w-full"></textarea>
+                    <textarea className="w-full border-black border-[0.5px]"></textarea>
                 </div>
                 <div>
                     <div className="grid grid-cols-2 gap-2">

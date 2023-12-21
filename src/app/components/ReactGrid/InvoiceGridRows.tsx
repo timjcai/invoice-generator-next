@@ -14,7 +14,7 @@ export const getInvoice = (): LineItemType[] => [
 ];
 
 export const getInvoiceColumns = (): Column[] => [
-    { columnId: "description", width: 440 },
+    { columnId: "description", width: 400 },
     { columnId: "quantity", width: 100 },
     { columnId: "rate", width: 100 },
     { columnId: "amount", width: 100 },
