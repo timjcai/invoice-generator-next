@@ -1,7 +1,6 @@
 "use client";
 
 import React, { FC, useState } from "react";
-import { BubbleWrapper } from ".";
 import {
     BuyerType,
     DescriptionType,
