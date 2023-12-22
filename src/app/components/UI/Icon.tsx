@@ -1,5 +1,10 @@
 import { IconType } from "@/app/types";
-import { IconDefinition } from "@fortawesome/free-brands-svg-icons";
+import {
+    IconDefinition,
+    faApple,
+    faFacebook,
+    faGoogle,
+} from "@fortawesome/free-brands-svg-icons";
 import {
     faCircleUser,
     faClipboard,
@@ -24,11 +29,14 @@ const iconMapping: { [key in IconType]: IconDefinition } = {
     Menu: faClipboard,
     add: faPlus,
     delete: faXmark,
+    Facebook: faFacebook,
+    Google: faGoogle,
+    Apple: faApple,
 };
 
 export const Icon: FC<IconProps> = ({ label }) => {
     const icon = iconMapping[label];
     return (
-        <FontAwesomeIcon className="h-4 flex self-center mx-2" icon={icon} />
+        <FontAwesomeIcon className="h-6 flex self-center mx-2" icon={icon} />
     );
 };

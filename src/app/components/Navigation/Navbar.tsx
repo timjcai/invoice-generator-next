@@ -1,6 +1,7 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Icon } from "../UI";
+import Link from "next/link";
 
 export const Navbar = () => {
     const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
@@ -28,10 +29,12 @@ export const Navbar = () => {
             {isSmallScreen && <SmallNavbar />}
             {isMediumScreen && (
                 <div className="flex flex-row justify-between py-[32px] w-[calc(100%-32px)] md:w-[calc(100%-200px)] lg:w-[1024px]">
-                    <NavbarLinkButton label={<a>Logo</a>} />
+                    <NavbarLinkButton label={<Link href="/">Logo</Link>} />
                     <div className="flex flex-row justify-between">
                         <div></div>
-                        <NavbarLinkButton label={<a>Pricing</a>} />
+                        <NavbarLinkButton
+                            label={<Link href="/pricing">Pricing</Link>}
+                        />
                         <NavbarLinkButton
                             label={
                                 <a href="https://www.buymeacoffee.com/shelbythesnag">
@@ -42,8 +45,12 @@ export const Navbar = () => {
                         <NavbarLinkButton label={<a>Support</a>} />
                     </div>
                     <div className="flex flex-row justify-between">
-                        <SecondaryButton label={<a>Sign In</a>} />
-                        <PrimaryButton label={<a>Sign Up</a>} />
+                        <SecondaryButton
+                            label={<Link href="/login">Login</Link>}
+                        />
+                        <PrimaryButton
+                            label={<Link href="/signup">Sign Up</Link>}
+                        />
                     </div>
                 </div>
             )}
@@ -54,7 +61,7 @@ export const Navbar = () => {
 export const SmallNavbar = () => {
     return (
         <div className="flex flex-row justify-between py-[32px] w-[calc(100%-32px)] md:w-[calc(100%-200px)] lg:w-[1024px]">
-            <SecondaryButton label={<Icon label={"menu"} />} />
+            <SecondaryButton label={<Icon label={"Menu"} />} />
         </div>
     );
 };
