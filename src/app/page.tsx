@@ -52,7 +52,6 @@ export default function Home() {
                 </button>
             </div>
             <AppTabs></AppTabs>
-            <CSVPage />
             <InvoicePreview
                 sellerDetails={Tim}
                 invoiceNumber={1}

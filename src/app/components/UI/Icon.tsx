@@ -17,11 +17,11 @@ type IconProps = {
 };
 
 const iconMapping: { [key in IconType]: IconDefinition } = {
-    dashboard: faCube,
-    settings: faCog,
-    profile: faCircleUser,
-    contacts: faClipboardUser,
-    menu: faClipboard,
+    Dashboard: faCube,
+    Settings: faCog,
+    Profile: faCircleUser,
+    "Invoice Details": faClipboardUser,
+    Menu: faClipboard,
     add: faPlus,
     delete: faXmark,
 };
