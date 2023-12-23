@@ -19,7 +19,7 @@ export function useAuth() {
     return useContext(AuthContext);
 }
 
-export const AuthProvider = (children: React.ReactNode) => {
+export const AuthProvider = (children: React.JSX.Element) => {
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState<boolean>(true);
 

@@ -35,7 +35,4 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
-export const providerGoogle = new GoogleAuthProvider();
-export const providerFacebook = new FacebookAuthProvider();
-
 const analytics = getAnalytics(app);

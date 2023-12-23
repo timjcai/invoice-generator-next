@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, FormEventHandler, useState } from "react";
 import { Icon } from "../UI";
 import Link from "next/link";
+import { LoginPayload } from "@/app/types";
+import { signIn } from "next-auth/react";
 
 export const LoginForm = () => {
     const [loginPayload, setLoginPayload] = useState<LoginPayload>({
@@ -15,6 +17,10 @@ export const LoginForm = () => {
         setLoginPayload((prev) => {
             return { ...prev, ...fields };
         });
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
     }
 
     return (
@@ -38,7 +44,10 @@ export const LoginForm = () => {
                         </button>
                     </li>
                     <li>
-                        <button className="border-2 border-[#EDEEEF] px-10 py-2 rounded-md">
+                        <button
+                            className="border-2 border-[#EDEEEF] px-10 py-2 rounded-md"
+                            onClick={() => signIn("google")}
+                        >
                             <Icon label="Google" />
                         </button>
                     </li>

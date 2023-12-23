@@ -4,6 +4,8 @@ import CSVPage from "./components/ReactGrid/CSVPage";
 import { InvoicePreview } from "./components/InvoiceTemplate";
 import { BuyerType, SellerType } from "./types";
 import { AppTabs } from "./components/Navigation";
+import { AuthContext, AuthProvider } from "./context";
+import { signOut, useSession } from "next-auth/react";
 
 const Tim: SellerType = {
     sellerId: "1",
@@ -37,32 +39,38 @@ const ABNGroup: BuyerType = {
 };
 
 export default function Home() {
+    const session = useSession();
+
     return (
-        <div className="flex items-center justify-center flex-col mx-4 md:mx-[100px] lg:w-[1024px]">
-            <div className="flex flex-col py-[32px]">
-                <h1>Free Invoice Generator</h1>
-                <p>
-                    Build minimally designed invoices in bulk! Create invoices
-                    within the browser through our in-line excel-like
-                    spreadsheet fast, without having to download and reupload
-                    your excel spreadsheet or CSV file.
-                </p>
-                <button className="border-2 border-black px-4 py-2 w-36">
-                    Sign Up
-                </button>
+        <>
+            <div>{session?.data?.user?.name}</div>
+            <button onClick={() => signOut}>Logout</button>
+            <div className="flex items-center justify-center flex-col mx-4 md:mx-[100px] lg:w-[1024px]">
+                <div className="flex flex-col py-[32px]">
+                    <h1>Free Invoice Generator</h1>
+                    <p>
+                        Build minimally designed invoices in bulk! Create
+                        invoices within the browser through our in-line
+                        excel-like spreadsheet fast, without having to download
+                        and reupload your excel spreadsheet or CSV file.
+                    </p>
+                    <button className="border-2 border-black px-4 py-2 w-36">
+                        Sign Up
+                    </button>
+                </div>
+                <AppTabs></AppTabs>
+                <InvoicePreview
+                    sellerDetails={Tim}
+                    invoiceNumber={1}
+                    buyerDetails={ABNGroup}
+                    invoiceDate={new Date()}
+                    dueDate={new Date()}
+                    itemDescriptions={[]}
+                    termsAndConditions={"these are my terms and conditions"}
+                    notes={"job number: 1234"}
+                />
             </div>
-            <AppTabs></AppTabs>
-            <InvoicePreview
-                sellerDetails={Tim}
-                invoiceNumber={1}
-                buyerDetails={ABNGroup}
-                invoiceDate={new Date()}
-                dueDate={new Date()}
-                itemDescriptions={[]}
-                termsAndConditions={"these are my terms and conditions"}
-                notes={"job number: 1234"}
-            />
-        </div>
+        </>
     );
 }
 
