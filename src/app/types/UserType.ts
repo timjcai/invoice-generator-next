@@ -13,3 +13,8 @@ export interface SellerType extends UserType {
 
 export type BuyerType = UserType;
 
+
+export type LoginPayload = {
+    email: string;
+    password: string;
+};

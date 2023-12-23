@@ -5,11 +5,6 @@ import React, { ChangeEvent, useState } from "react";
 import { Icon } from "../UI";
 import Link from "next/link";
 
-type LoginPayload = {
-    email: string;
-    password: string;
-};
-
 export const LoginForm = () => {
     const [loginPayload, setLoginPayload] = useState<LoginPayload>({
         email: "",
