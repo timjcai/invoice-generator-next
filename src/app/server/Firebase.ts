@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import { getApp, getApps, initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { FacebookAuthProvider, GoogleAuthProvider } from "firebase/auth/cordova";
@@ -32,7 +32,8 @@ const firebaseConfig = {
 //   });
 
 // Initialize Firebase
-export const app = initializeApp(firebaseConfig);
+export const app = getApps().length ? getApp(): initializeApp(firebaseConfig);
+// export const app = initializeApp(firebaseConfig).length 
 export const auth = getAuth(app);
 
-const analytics = getAnalytics(app);
+// const analytics = getAnalytics(app);

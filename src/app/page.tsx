@@ -43,8 +43,8 @@ export default function Home() {
 
     return (
         <>
-            <div>{session?.data?.user?.name}</div>
-            <button onClick={() => signOut}>Logout</button>
+            <div>{session?.data?.user?.email}</div>
+            <button onClick={() => signOut()}>Logout</button>
             <div className="flex items-center justify-center flex-col mx-4 md:mx-[100px] lg:w-[1024px]">
                 <div className="flex flex-col py-[32px]">
                     <h1>Free Invoice Generator</h1>

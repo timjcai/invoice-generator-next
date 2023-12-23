@@ -19,8 +19,14 @@ export const LoginForm = () => {
         });
     }
 
-    function handleSubmit(e) {
+    function handleSignIn(e) {
         e.preventDefault();
+        signIn("credentials", {
+            email: loginPayload.email,
+            password: loginPayload.password,
+            redirect: true,
+            callbackUrl: "/",
+        });
     }
 
     return (
@@ -101,11 +107,18 @@ export const LoginForm = () => {
                             <input id="remember" type="checkbox"></input>
                             <label htmlFor="remember">Remember me</label>
                         </div>
-                        <a className="underline underline-offset-2">
+                        <Link
+                            href="/forgot-password"
+                            className="underline underline-offset-2"
+                        >
                             Forgot password?
-                        </a>
+                        </Link>
                     </div>
-                    <button className="w-full border-2 bg-[#212122] border-[#212122] py-2 text-white font-light rounded-md mt-4 mb-4">
+                    <button
+                        className="w-full border-2 bg-[#212122] border-[#212122] py-2 text-white font-light rounded-md mt-4 mb-4 disabled:opacity-40"
+                        onClick={(e) => handleSignIn(e)}
+                        disabled={!loginPayload.email || !loginPayload.password}
+                    >
                         Sign in
                     </button>
                 </form>
