@@ -8,22 +8,14 @@ import { LoginPayload } from "@/app/types";
 import { signIn } from "next-auth/react";
 
 export const LoginForm = () => {
-    const [loginPayload, setLoginPayload] = useState<LoginPayload>({
-        email: "",
-        password: "",
-    });
+    const [userEmail, setUserEmail] = useState<string>("");
+    const [userPassword, setUserPassword] = useState<string>("");
 
-    function updateLoginPayload(fields: Partial<LoginPayload>) {
-        setLoginPayload((prev) => {
-            return { ...prev, ...fields };
-        });
-    }
-
-    function handleSignIn(e) {
+    function handleSignIn(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault();
         signIn("credentials", {
-            email: loginPayload.email,
-            password: loginPayload.password,
+            email: userEmail,
+            password: userPassword,
             redirect: true,
             callbackUrl: "/",
         });
@@ -80,10 +72,8 @@ export const LoginForm = () => {
                         placeholder="Enter your email"
                         className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={loginPayload?.email}
-                        onChange={(e) =>
-                            updateLoginPayload({ email: e.target.value })
-                        }
+                        value={userEmail}
+                        onChange={(e) => setUserEmail(e.target.value)}
                     ></input>
                     <label
                         htmlFor="password"
@@ -97,10 +87,8 @@ export const LoginForm = () => {
                         placeholder="Enter your password"
                         className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={loginPayload?.password}
-                        onChange={(e) =>
-                            updateLoginPayload({ password: e.target.value })
-                        }
+                        value={userPassword}
+                        onChange={(e) => setUserPassword(e.target.value)}
                     ></input>
                     <div className="flex flex-row justify-between">
                         <div className="flex flex-row gap-2 ms-2">
@@ -117,7 +105,7 @@ export const LoginForm = () => {
                     <button
                         className="w-full border-2 bg-[#212122] border-[#212122] py-2 text-white font-light rounded-md mt-4 mb-4 disabled:opacity-40"
                         onClick={(e) => handleSignIn(e)}
-                        disabled={!loginPayload.email || !loginPayload.password}
+                        disabled={!userEmail || !userPassword}
                     >
                         Sign in
                     </button>

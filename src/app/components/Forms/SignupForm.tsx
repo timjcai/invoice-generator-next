@@ -14,7 +14,7 @@ export const SignupForm = () => {
     const [userPassword, setUserPassword] = useState<string>("");
     const [userPasswordAgain, setUserPasswordAgain] = useState<string>("");
 
-    function signUp(e) {
+    function signUp(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault();
         createUserWithEmailAndPassword(auth, userEmail, userPassword);
         console.log("creating user...");

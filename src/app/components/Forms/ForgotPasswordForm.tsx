@@ -9,14 +9,11 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "@/app/server";
 
 export const ForgotPasswordForm = () => {
-    const [userEmail, setUserEmail] = useState<string>();
+    const [userEmail, setUserEmail] = useState<string>("");
 
-    function resetEmail() {
-        sendPasswordResetEmail(auth, loginPayload!.email);
-    }
-
-    function handleSubmit(e) {
+    function resetEmail(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault();
+        sendPasswordResetEmail(auth, userEmail);
     }
 
     return (
@@ -50,7 +47,7 @@ export const ForgotPasswordForm = () => {
                         ></input>
                         <button
                             className="w-full border-2 bg-[#212122] border-[#212122] py-2 text-white font-light rounded-md mt-4 mb-4 disabled:opacity-40"
-                            onClick={() => resetEmail()}
+                            onClick={(e) => resetEmail(e)}
                             disabled={!userEmail}
                         >
                             Send recovery email

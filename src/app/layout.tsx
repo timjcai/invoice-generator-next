@@ -27,14 +27,10 @@ export default async function RootLayout({
         <html lang="en">
             <body className={roboto.className}>
                 <SessionProvider session={session}>
-                    {!session ? (
-                        <LoginPage />
-                    ) : (
-                        <>
-                            <Navbar />
-                            {children}
-                        </>
-                    )}
+                    <>
+                        <Navbar />
+                        {children}
+                    </>
                 </SessionProvider>
             </body>
         </html>

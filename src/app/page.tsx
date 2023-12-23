@@ -4,7 +4,6 @@ import CSVPage from "./components/ReactGrid/CSVPage";
 import { InvoicePreview } from "./components/InvoiceTemplate";
 import { BuyerType, SellerType } from "./types";
 import { AppTabs } from "./components/Navigation";
-import { AuthContext, AuthProvider } from "./context";
 import { signOut, useSession } from "next-auth/react";
 
 const Tim: SellerType = {
