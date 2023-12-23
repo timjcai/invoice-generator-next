@@ -28,7 +28,7 @@ export const Navbar = () => {
         <>
             {isSmallScreen && <SmallNavbar />}
             {isMediumScreen && (
-                <div className="flex flex-row justify-between py-[32px] w-[calc(100%-32px)] md:w-[calc(100%-200px)] lg:w-[1024px]">
+                <div className="flex flex-row justify-between py-[12px] w-[calc(100%-32px)] md:w-[calc(100%-200px)] lg:w-[1024px]">
                     <NavbarLinkButton label={<Link href="/">Logo</Link>} />
                     <div className="flex flex-row justify-between">
                         <div></div>
@@ -79,7 +79,7 @@ export const NavbarLinkButton: FC<ButtonProps> = ({ label }) => {
 
 export const PrimaryButton: FC<ButtonProps> = ({ label }) => {
     return (
-        <div className="flex bg-[#0C356A] text-white px-6 py-1 rounded-md justify-center items-center mx-4 text-lg font-normal">
+        <div className="border-2 bg-[#212122] border-[#212122] py-2 text-white font-light rounded-md px-6 justify-center items-center mx-4 flex">
             {label}
         </div>
     );
@@ -87,7 +87,7 @@ export const PrimaryButton: FC<ButtonProps> = ({ label }) => {
 
 export const SecondaryButton: FC<ButtonProps> = ({ label }) => {
     return (
-        <div className="flex bg-[#FFFFFF] border-2 border-black text-black px-6 py-1 rounded-md justify-center items-center mx-4 text-lg font-normal">
+        <div className="border-2 bg-[#FFFFFF] border-[#212122] py-2 text-[#212122] font-light rounded-md px-6 justify-center items-center mx-4 flex">
             {label}
         </div>
     );

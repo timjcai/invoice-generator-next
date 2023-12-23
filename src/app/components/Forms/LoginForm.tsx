@@ -1,8 +1,27 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 import { Icon } from "../UI";
+import Link from "next/link";
+
+type LoginPayload = {
+    email: string;
+    password: string;
+};
 
 export const LoginForm = () => {
+    const [loginPayload, setLoginPayload] = useState<LoginPayload>({
+        email: "",
+        password: "",
+    });
+
+    function updateLoginPayload(fields: Partial<LoginPayload>) {
+        setLoginPayload((prev) => {
+            return { ...prev, ...fields };
+        });
+    }
+
     return (
         <div className="bg-white h-fit border-2 border-white rounded-lg py-12 px-8 w-[480px] mt-4">
             <div className="flex flex-col items-center">
@@ -50,6 +69,11 @@ export const LoginForm = () => {
                         type="email"
                         placeholder="Enter your email"
                         className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                        required={true}
+                        value={loginPayload?.email}
+                        onChange={(e) =>
+                            updateLoginPayload({ email: e.target.value })
+                        }
                     ></input>
                     <label
                         htmlFor="password"
@@ -62,6 +86,11 @@ export const LoginForm = () => {
                         type="password"
                         placeholder="Enter your password"
                         className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                        required={true}
+                        value={loginPayload?.password}
+                        onChange={(e) =>
+                            updateLoginPayload({ password: e.target.value })
+                        }
                     ></input>
                     <div className="flex flex-row justify-between">
                         <div className="flex flex-row gap-2 ms-2">
@@ -79,7 +108,7 @@ export const LoginForm = () => {
             </div>
             <div className="flex flex-row justify-center items-center">
                 <p className="me-2">Don't have an account yet?</p>
-                <a>Sign Up</a>
+                <Link href="/signup">Sign Up</Link>
             </div>
         </div>
     );
