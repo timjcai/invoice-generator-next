@@ -2,9 +2,6 @@ import type { Metadata } from "next";
 import { Inter, Poppins, Roboto_Flex } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "./components/Navigation";
-import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
-import { SessionProvider } from "./context/SessionProvider";
 import LoginPage from "./login/page";
 import { AuthProvider } from "./context";
 
@@ -23,18 +20,14 @@ export default async function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const session = await getServerSession(authOptions);
-    console.log(session);
     return (
         <html lang="en">
             <body className={roboto.className}>
                 <AuthProvider>
-                    <SessionProvider session={session}>
-                        <>
-                            <Navbar />
-                            {children}
-                        </>
-                    </SessionProvider>
+                    <>
+                        <Navbar />
+                        {children}
+                    </>
                 </AuthProvider>
             </body>
         </html>

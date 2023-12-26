@@ -9,11 +9,11 @@ import React, {
 import { Icon } from "../UI";
 import Link from "next/link";
 import { LoginPayload } from "@/app/types";
-import { signIn } from "next-auth/react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/app/server";
 import { redirect } from "next/dist/server/api-utils";
 import { useAuth } from "@/app/context";
+import AuthButtons from "../common/AuthButtons";
 
 export const SignupForm = () => {
     const [userEmail, setUserEmail] = useState<string>("");
@@ -61,26 +61,7 @@ export const SignupForm = () => {
                 />
                 <p className="mb-2 text-2xl font-semibold">Hello 👋</p>
                 <p className="text-[#404347] mb-8">Create an account using:</p>
-                <ul className="flex flex-row justify-between w-full">
-                    <li>
-                        <button className="border-2 border-[#EDEEEF] px-10 py-2 rounded-md">
-                            <Icon label="Apple" />
-                        </button>
-                    </li>
-                    <li>
-                        <button
-                            className="border-2 border-[#EDEEEF] px-10 py-2 rounded-md"
-                            onClick={() => googleSignIn()}
-                        >
-                            <Icon label="Google" />
-                        </button>
-                    </li>
-                    <li>
-                        <button className="border-2 border-[#EDEEEF] px-10 py-2 rounded-md">
-                            <Icon label="Facebook" />
-                        </button>
-                    </li>
-                </ul>
+                <AuthButtons googleSignIn={googleSignIn} />
             </div>
             <div>
                 <div className="flex items-center before:content-[''] before:block before:w-full before:h-0.5 before:bg-[#EDEEEF] before:mr-2 after:content-[''] after:block after:w-full after:h-0.5 after:bg-[#EDEEEF] after:ml-2 text-sm mt-6 mb-6">

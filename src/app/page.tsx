@@ -4,7 +4,6 @@ import CSVPage from "./components/ReactGrid/CSVPage";
 import { InvoicePreview } from "./components/InvoiceTemplate";
 import { BuyerType, SellerType } from "./types";
 import { AppTabs } from "./components/Navigation";
-import { signOut, useSession } from "next-auth/react";
 
 const Tim: SellerType = {
     sellerId: "1",
@@ -37,14 +36,12 @@ const ABNGroup: BuyerType = {
     ABN: 82130382188,
 };
 
-export default function Home() {
-    const { data: session, status, update } = useSession();
-    console.log(session);
+//  add signout functionality
 
+export default function Home() {
     return (
         <>
-            <div>{session?.user?.email}</div>
-            <button onClick={() => signOut()}>Logout</button>
+            <button>Logout</button>
             <div className="flex items-center justify-center flex-col mx-4 md:mx-[100px] lg:w-[1024px]">
                 <div className="flex flex-col py-[32px]">
                     <h1>Free Invoice Generator</h1>
