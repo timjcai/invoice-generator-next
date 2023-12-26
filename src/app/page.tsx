@@ -38,11 +38,12 @@ const ABNGroup: BuyerType = {
 };
 
 export default function Home() {
-    const session = useSession();
+    const { data: session, status, update } = useSession();
+    console.log(session);
 
     return (
         <>
-            <div>{session?.data?.user?.email}</div>
+            <div>{session?.user?.email}</div>
             <button onClick={() => signOut()}>Logout</button>
             <div className="flex items-center justify-center flex-col mx-4 md:mx-[100px] lg:w-[1024px]">
                 <div className="flex flex-col py-[32px]">

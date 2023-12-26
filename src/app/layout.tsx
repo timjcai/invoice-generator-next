@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 import { SessionProvider } from "./context/SessionProvider";
 import LoginPage from "./login/page";
+import { AuthProvider } from "./context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,15 +24,18 @@ export default async function RootLayout({
     children: React.ReactNode;
 }) {
     const session = await getServerSession(authOptions);
+    console.log(session);
     return (
         <html lang="en">
             <body className={roboto.className}>
-                <SessionProvider session={session}>
-                    <>
-                        <Navbar />
-                        {children}
-                    </>
-                </SessionProvider>
+                <AuthProvider>
+                    <SessionProvider session={session}>
+                        <>
+                            <Navbar />
+                            {children}
+                        </>
+                    </SessionProvider>
+                </AuthProvider>
             </body>
         </html>
     );

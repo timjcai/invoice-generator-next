@@ -1,3 +1,4 @@
+"use client";
 import React, {
     FC,
     createContext,
@@ -8,18 +9,41 @@ import React, {
 import { auth } from "../server";
 import { LoginPayload } from "../types";
 import {
+    GoogleAuthProvider,
+    signOut,
     createUserWithEmailAndPassword,
     onAuthStateChanged,
     signInWithEmailAndPassword,
+    signInWithRedirect,
+    signInWithPopup,
+    User,
+    UserCredential,
 } from "firebase/auth";
+import { signIn } from "next-auth/react";
 
-export const AuthContext = createContext(null);
+interface AuthContextValue {
+    currentUser: User | null | undefined;
+    signUp: (payload: LoginPayload) => Promise<UserCredential>;
+    signOut: () => Promise<void>;
+    googleSignIn: () => void;
+    login: (payload: LoginPayload) => Promise<UserCredential>;
+    getUser: () => User | null | undefined;
+    isAdmin: () => Promise<boolean>;
+}
+
+export const AuthContext = createContext<AuthContextValue | undefined>(
+    undefined
+);
 
 export function useAuth() {
     return useContext(AuthContext);
 }
 
-export const AuthProvider = (children: React.JSX.Element) => {
+interface AuthProviderProps {
+    children: React.JSX.Element;
+}
+
+export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -29,6 +53,11 @@ export const AuthProvider = (children: React.JSX.Element) => {
 
     function signOut() {
         return auth.signOut();
+    }
+
+    function googleSignIn() {
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider);
     }
 
     function login({ email, password }: LoginPayload) {
@@ -59,7 +88,15 @@ export const AuthProvider = (children: React.JSX.Element) => {
         return unsubscribe();
     }, []);
 
-    const value = { currentUser, signUp, signOut, login, getUser, isAdmin };
+    const value: AuthContextValue = {
+        currentUser,
+        signUp,
+        signOut,
+        login,
+        getUser,
+        isAdmin,
+        googleSignIn,
+    };
     return (
         <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
     );

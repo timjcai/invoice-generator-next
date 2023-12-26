@@ -4,6 +4,7 @@ import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from "next-auth/providers/credentials"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "@/app/server"
+import { signIn } from "next-auth/react"
 
 export const authOptions = {
     // Configure one or more authentication providers
@@ -37,7 +38,12 @@ export const authOptions = {
           }
         })
       ],
-    secret: process.env.NEXTAUTH_SECRET
+    secret: process.env.NEXTAUTH_SECRET,
+    // callbacks: {
+    //   async signIn({user, account, profile, email, credentials}) {
+    //     return true
+    //   }
+    // }
       // ...add more providers here 
   }
   

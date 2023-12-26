@@ -1,6 +1,11 @@
 "use client";
 import Image from "next/image";
-import React, { ChangeEvent, FormEventHandler, useState } from "react";
+import React, {
+    ChangeEvent,
+    FormEvent,
+    FormEventHandler,
+    useState,
+} from "react";
 import { Icon } from "../UI";
 import Link from "next/link";
 import { LoginPayload } from "@/app/types";
@@ -8,17 +13,41 @@ import { signIn } from "next-auth/react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/app/server";
 import { redirect } from "next/dist/server/api-utils";
+import { useAuth } from "@/app/context";
 
 export const SignupForm = () => {
     const [userEmail, setUserEmail] = useState<string>("");
     const [userPassword, setUserPassword] = useState<string>("");
     const [userPasswordAgain, setUserPasswordAgain] = useState<string>("");
+    const { googleSignIn } = useAuth();
 
-    function signUp(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    const signUp = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        createUserWithEmailAndPassword(auth, userEmail, userPassword);
+        try {
+            const response = await fetch("/api/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: userEmail,
+                    password: userPassword,
+                }),
+            });
+
+            if (response.ok) {
+                console.log("Post request successful");
+                console.log(response);
+                // You can handle success scenarios here
+            } else {
+                console.error("Post request failed");
+                // You can handle error scenarios here
+            }
+        } catch (error) {
+            console.error("Error making POST request:", error);
+        }
         console.log("creating user...");
-    }
+    };
 
     return (
         <div className="bg-white h-fit border-2 border-white rounded-lg py-12 px-8 w-[480px] mt-4">
@@ -41,7 +70,7 @@ export const SignupForm = () => {
                     <li>
                         <button
                             className="border-2 border-[#EDEEEF] px-10 py-2 rounded-md"
-                            onClick={() => signIn("google")}
+                            onClick={() => googleSignIn()}
                         >
                             <Icon label="Google" />
                         </button>
@@ -59,7 +88,7 @@ export const SignupForm = () => {
                 </div>
             </div>
             <div>
-                <form className="flex flex-col">
+                <form className="flex flex-col" onSubmit={(e) => signUp(e)}>
                     <label htmlFor="email" className="text-md font-medium mb-2">
                         Email Address
                     </label>
@@ -109,8 +138,8 @@ export const SignupForm = () => {
                         </div>
                     </div>
                     <button
+                        type="submit"
                         className="w-full border-2 bg-[#212122] border-[#212122] py-2 text-white font-light rounded-md mt-4 mb-4 disabled:opacity-40"
-                        onClick={(e) => signUp(e)}
                         disabled={
                             !userEmail ||
                             !userPassword ||
