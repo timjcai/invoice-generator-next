@@ -3,15 +3,35 @@
 import React, { FC, useState } from "react";
 import { Icon } from "../UI";
 import { IconType } from "@/app/types";
+import ProfileForm from "../Forms/ProfileForm";
 
 export const AppTabs = () => {
-    const [controller, setController] = useState<IconType>("Dashboard");
+    const [controller, setController] = useState<IconType>("Profile");
+    let element;
 
     const handleButtonClick = (
         event: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
         setController((event.target as HTMLButtonElement).id as IconType);
     };
+
+    switch (controller) {
+        case "Profile":
+            element = <ProfileForm />;
+            break;
+        case "Dashboard":
+            element = <div>{controller}</div>;
+            break;
+        case "Settings":
+            element = <div>{controller}</div>;
+            break;
+        case "Invoice Details":
+            element = <div>{controller}</div>;
+            break;
+        default:
+            element = <div>loading...</div>;
+    }
+
     return (
         <>
             <div>
@@ -72,7 +92,9 @@ export const AppTabs = () => {
                     </ul>
                 </div>
             </div>
-            <div>{controller}</div>
+            <div className="w-[840px] my-4 flex justify-center items-center">
+                {element}
+            </div>
         </>
     );
 };

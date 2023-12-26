@@ -4,7 +4,6 @@ import React, { ChangeEvent, FormEventHandler, useState } from "react";
 import { Icon } from "../UI";
 import Link from "next/link";
 import { LoginPayload } from "@/app/types";
-import { signIn } from "next-auth/react";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "@/app/server";
 

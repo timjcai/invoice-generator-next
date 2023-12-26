@@ -7,14 +7,28 @@ import Link from "next/link";
 import { LoginPayload } from "@/app/types";
 import AuthButtons from "../common/AuthButtons";
 import { useAuth } from "@/app/context";
+import { auth } from "@/app/server";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 export const LoginForm = () => {
     const [userEmail, setUserEmail] = useState<string>("");
     const [userPassword, setUserPassword] = useState<string>("");
-    const { googleSignIn } = useAuth();
+    const authentication = useAuth();
+    const { googleSignIn } = authentication;
 
     function handleSignIn(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault();
+        signInWithEmailAndPassword(auth, userEmail, userPassword)
+            .then((userCredential) => {
+                // Signed in
+                const user = userCredential.user;
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+            });
+        console.log("successfully signed in");
     }
 
     return (

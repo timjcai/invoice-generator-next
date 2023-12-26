@@ -19,7 +19,6 @@ import {
     User,
     UserCredential,
 } from "firebase/auth";
-import { signIn } from "next-auth/react";
 
 interface AuthContextValue {
     currentUser: User | null | undefined;

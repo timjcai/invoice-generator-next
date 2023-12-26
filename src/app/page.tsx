@@ -4,6 +4,7 @@ import CSVPage from "./components/ReactGrid/CSVPage";
 import { InvoicePreview } from "./components/InvoiceTemplate";
 import { BuyerType, SellerType } from "./types";
 import { AppTabs } from "./components/Navigation";
+import { useAuth } from "./context";
 
 const Tim: SellerType = {
     sellerId: "1",
@@ -39,8 +40,11 @@ const ABNGroup: BuyerType = {
 //  add signout functionality
 
 export default function Home() {
+    const { currentUser } = useAuth();
+    console.log(currentUser);
     return (
         <>
+            <div>{currentUser?.email}</div>
             <button>Logout</button>
             <div className="flex items-center justify-center flex-col mx-4 md:mx-[100px] lg:w-[1024px]">
                 <div className="flex flex-col py-[32px]">
