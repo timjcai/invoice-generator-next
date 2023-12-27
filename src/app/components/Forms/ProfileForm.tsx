@@ -13,7 +13,6 @@ const ProfileForm: FC = () => {
     const [postcode, setPostcode] = useState<number>();
     const { profileDetails, setProfileDetails } = useProfileContext();
 
-    console.log(profileDetails);
     return (
         <div className="w-full">
             <form className="flex flex-col">
@@ -29,7 +28,7 @@ const ProfileForm: FC = () => {
                     placeholder="Enter your Business Name"
                     className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                     required={true}
-                    value={profileDetails.businessName}
+                    value={profileDetails?.businessName}
                     onChange={(e) =>
                         setProfileDetails((prevState: Partial<SellerType>) => ({
                             ...prevState,
@@ -46,7 +45,7 @@ const ProfileForm: FC = () => {
                     placeholder="Enter your ABN"
                     className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                     required={true}
-                    value={profileDetails.ABN}
+                    value={profileDetails?.ABN}
                     onChange={(e) =>
                         setProfileDetails((prevState: Partial<SellerType>) => ({
                             ...prevState,
@@ -68,7 +67,7 @@ const ProfileForm: FC = () => {
                         placeholder="Enter your Street line 1"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={profileDetails.businessLocation.streetLine1}
+                        value={profileDetails?.businessLocation?.streetLine1}
                         onChange={(e) =>
                             setProfileDetails(
                                 (prevState: Partial<SellerType>) => ({
@@ -93,7 +92,7 @@ const ProfileForm: FC = () => {
                         placeholder="Enter your Street line 2"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={profileDetails.businessLocation.streetLine2}
+                        value={profileDetails?.businessLocation?.streetLine2}
                         onChange={(e) =>
                             setProfileDetails(
                                 (prevState: Partial<SellerType>) => ({
@@ -118,7 +117,7 @@ const ProfileForm: FC = () => {
                         placeholder="Enter your Country"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={profileDetails.businessLocation.country}
+                        value={profileDetails?.businessLocation?.country}
                         onChange={(e) =>
                             setProfileDetails(
                                 (prevState: Partial<SellerType>) => ({
@@ -140,7 +139,7 @@ const ProfileForm: FC = () => {
                         placeholder="Enter your State"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={profileDetails.businessLocation.state}
+                        value={profileDetails?.businessLocation?.state}
                         onChange={(e) =>
                             setProfileDetails(
                                 (prevState: Partial<SellerType>) => ({
@@ -165,7 +164,7 @@ const ProfileForm: FC = () => {
                         placeholder="Enter your Postcode"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={profileDetails.businessLocation.postcode}
+                        value={profileDetails?.businessLocation?.postcode}
                         onChange={(e) =>
                             setProfileDetails(
                                 (prevState: Partial<SellerType>) => ({

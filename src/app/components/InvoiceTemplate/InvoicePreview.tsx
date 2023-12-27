@@ -41,12 +41,15 @@ export const InvoicePreview: FC<InvoiceType> = ({
                     <h1 className="text-4xl mb-1">Invoice #{invoiceNumber}</h1>
                     <div id="sellerDetails">
                         <p className="font-medium text-md">
-                            {sellerDetails.businessName}
+                            {sellerDetails?.businessName}
                         </p>
                         <p className="text-sm">
-                            ABN: {displayABN(sellerDetails.ABN)}
+                            ABN:
+                            {sellerDetails
+                                ? displayABN(sellerDetails?.ABN)
+                                : null}
                         </p>
-                        <LocationGrid {...sellerDetails.businessLocation} />
+                        <LocationGrid {...sellerDetails?.businessLocation} />
                     </div>
                 </div>
             </div>

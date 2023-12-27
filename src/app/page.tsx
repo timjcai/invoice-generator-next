@@ -1,5 +1,5 @@
 "use client";
-import * as React from "react";
+import React, { useEffect } from "react";
 import CSVPage from "./components/ReactGrid/CSVPage";
 import { InvoicePreview } from "./components/InvoiceTemplate";
 import { BuyerType, SellerType } from "./types";
@@ -7,6 +7,7 @@ import { AppTabs } from "./components/Navigation";
 import { useAuth, useProfileContext } from "./context";
 import { signOut } from "firebase/auth";
 import { auth } from "./server";
+import { get } from "http";
 
 const Tim: SellerType = {
     sellerId: "1",
@@ -42,13 +43,26 @@ const ABNGroup: BuyerType = {
 //  add signout functionality
 
 export default function Home() {
-    const { currentUser } = useAuth();
-    const { profileDetails, setProfileDetails } = useProfileContext();
+    const { currentUser, getUser } = useAuth();
+    const { profileDetails, setProfileDetails, getProfileDetails } =
+        useProfileContext();
 
-    console.log(currentUser);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const loadedUser = await getUser();
+                console.log(loadedUser);
+                getProfileDetails(loadedUser.uid);
+            } catch (error) {
+                console.error("error fetching data", error);
+            }
+        };
+        fetchData();
+    }, []);
+
     return (
         <>
-            <div>{currentUser?.email}</div>
+            <div>{currentUser?.uid}</div>
             <button onClick={() => signOut(auth)}>Logout</button>
             <div className="flex items-center justify-center flex-col mx-4 md:mx-[100px] lg:w-[1024px]">
                 <div className="flex flex-col py-[32px]">

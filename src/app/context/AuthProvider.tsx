@@ -61,7 +61,7 @@ export const AuthProvider: FC<ProviderProps> = ({ children }) => {
     }
 
     function getUser() {
-        return auth.currentUser();
+        return auth.currentUser;
     }
 
     function isAdmin() {
