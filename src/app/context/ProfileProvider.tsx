@@ -10,10 +10,6 @@ interface ProfileContextValue {
             | Partial<SellerType>
             | ((prevState: Partial<SellerType>) => Partial<SellerType>)
     ) => void;
-    businessLocation: LocationType;
-    setBusinessLocation: (
-        prevState: LocationType | ((prevState: LocationType) => LocationType)
-    ) => void;
     getProfileDetails: () => void;
     updateProfileDetails: () => void;
 }
@@ -34,20 +30,20 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
     const [profileDetails, setProfileDetails] = useState<Partial<SellerType>>({
         sellerId: "1",
         businessName: "Tim Jianger Cai",
+        businessLocation: {
+            streetLine1: "3 Elliot Avenue",
+            streetLine2: "Flat G07",
+            country: "Australia",
+            suburb: "CARNEGIE",
+            state: "VIC",
+            postcode: 3163,
+        },
         ABN: 37676346082,
         sellerPaymentDetails: {
             BSB: 134134,
             ACC: 13613612,
             BankAccount: "Commonwealth Bank",
         },
-    });
-    const [businessLocation, setBusinessLocation] = useState<LocationType>({
-        streetLine1: "3 Elliot Avenue",
-        streetLine2: "Flat G07",
-        country: "Australia",
-        suburb: "CARNEGIE",
-        state: "VIC",
-        postcode: 3163,
     });
 
     function getProfileDetails() {}
@@ -57,8 +53,6 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
     const value: ProfileContextValue = {
         profileDetails,
         setProfileDetails,
-        businessLocation,
-        setBusinessLocation,
         getProfileDetails,
         updateProfileDetails,
     };

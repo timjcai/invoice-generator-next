@@ -4,7 +4,7 @@ import CSVPage from "./components/ReactGrid/CSVPage";
 import { InvoicePreview } from "./components/InvoiceTemplate";
 import { BuyerType, SellerType } from "./types";
 import { AppTabs } from "./components/Navigation";
-import { useAuth } from "./context";
+import { useAuth, useProfileContext } from "./context";
 import { signOut } from "firebase/auth";
 import { auth } from "./server";
 
@@ -43,6 +43,8 @@ const ABNGroup: BuyerType = {
 
 export default function Home() {
     const { currentUser } = useAuth();
+    const { profileDetails, setProfileDetails } = useProfileContext();
+
     console.log(currentUser);
     return (
         <>
@@ -63,7 +65,7 @@ export default function Home() {
                 </div>
                 <AppTabs></AppTabs>
                 <InvoicePreview
-                    sellerDetails={Tim}
+                    sellerDetails={profileDetails}
                     invoiceNumber={1}
                     buyerDetails={ABNGroup}
                     invoiceDate={new Date()}

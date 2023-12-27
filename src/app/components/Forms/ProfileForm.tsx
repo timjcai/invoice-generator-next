@@ -11,13 +11,9 @@ const ProfileForm: FC = () => {
     const [country, setCountry] = useState<string>();
     const [stateName, setStateName] = useState<string>();
     const [postcode, setPostcode] = useState<number>();
-    const {
-        profileDetails,
-        setProfileDetails,
-        businessLocation,
-        setBusinessLocation,
-    } = useProfileContext();
+    const { profileDetails, setProfileDetails } = useProfileContext();
 
+    console.log(profileDetails);
     return (
         <div className="w-full">
             <form className="flex flex-col">
@@ -72,12 +68,17 @@ const ProfileForm: FC = () => {
                         placeholder="Enter your Street line 1"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={businessLocation.streetLine1}
+                        value={profileDetails.businessLocation.streetLine1}
                         onChange={(e) =>
-                            setBusinessLocation((prevState: LocationType) => ({
-                                ...prevState,
-                                streetLine1: e.target.value,
-                            }))
+                            setProfileDetails(
+                                (prevState: Partial<SellerType>) => ({
+                                    ...prevState,
+                                    businessLocation: {
+                                        ...prevState.businessLocation,
+                                        streetLine1: e.target.value,
+                                    },
+                                })
+                            )
                         }
                     ></input>
                     <label
@@ -92,12 +93,17 @@ const ProfileForm: FC = () => {
                         placeholder="Enter your Street line 2"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={businessLocation.streetLine2}
+                        value={profileDetails.businessLocation.streetLine2}
                         onChange={(e) =>
-                            setBusinessLocation((prevState: LocationType) => ({
-                                ...prevState,
-                                streetLine2: e.target.value,
-                            }))
+                            setProfileDetails(
+                                (prevState: Partial<SellerType>) => ({
+                                    ...prevState,
+                                    businessLocation: {
+                                        ...prevState.businessLocation,
+                                        streetLine2: e.target.value,
+                                    },
+                                })
+                            )
                         }
                     ></input>
                     <label
@@ -112,12 +118,17 @@ const ProfileForm: FC = () => {
                         placeholder="Enter your Country"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={businessLocation.country}
+                        value={profileDetails.businessLocation.country}
                         onChange={(e) =>
-                            setBusinessLocation((prevState: LocationType) => ({
-                                ...prevState,
-                                country: e.target.value,
-                            }))
+                            setProfileDetails(
+                                (prevState: Partial<SellerType>) => ({
+                                    ...prevState,
+                                    businessLocation: {
+                                        ...prevState.businessLocation,
+                                        country: e.target.value,
+                                    },
+                                })
+                            )
                         }
                     ></input>
                     <label htmlFor="state" className="text-md font-medium mb-2">
@@ -129,12 +140,17 @@ const ProfileForm: FC = () => {
                         placeholder="Enter your State"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={businessLocation.state}
+                        value={profileDetails.businessLocation.state}
                         onChange={(e) =>
-                            setBusinessLocation((prevState: LocationType) => ({
-                                ...prevState,
-                                state: e.target.value,
-                            }))
+                            setProfileDetails(
+                                (prevState: Partial<SellerType>) => ({
+                                    ...prevState,
+                                    businessLocation: {
+                                        ...prevState.businessLocation,
+                                        state: e.target.value,
+                                    },
+                                })
+                            )
                         }
                     ></input>
                     <label
@@ -149,12 +165,17 @@ const ProfileForm: FC = () => {
                         placeholder="Enter your Postcode"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={businessLocation.postcode}
+                        value={profileDetails.businessLocation.postcode}
                         onChange={(e) =>
-                            setBusinessLocation((prevState: LocationType) => ({
-                                ...prevState,
-                                postcode: e.target.value,
-                            }))
+                            setProfileDetails(
+                                (prevState: Partial<SellerType>) => ({
+                                    ...prevState,
+                                    businessLocation: {
+                                        ...prevState.businessLocation,
+                                        postcode: Number(e.target.value),
+                                    },
+                                })
+                            )
                         }
                     ></input>
                 </div>
@@ -163,7 +184,7 @@ const ProfileForm: FC = () => {
                     // onClick={(e) => handleSignIn(e)}
                     // disabled={!userEmail || !userPassword}
                 >
-                    Sign in
+                    Save
                 </button>
             </form>
         </div>
