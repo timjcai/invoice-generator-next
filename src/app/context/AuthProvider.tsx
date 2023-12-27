@@ -19,6 +19,7 @@ import {
     User,
     UserCredential,
 } from "firebase/auth";
+import { ProviderProps } from ".";
 
 interface AuthContextValue {
     currentUser: User | null | undefined;
@@ -38,11 +39,7 @@ export function useAuth() {
     return useContext(AuthContext);
 }
 
-interface AuthProviderProps {
-    children: React.JSX.Element;
-}
-
-export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
+export const AuthProvider: FC<ProviderProps> = ({ children }) => {
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState<boolean>(true);
 

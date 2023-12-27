@@ -1,5 +1,6 @@
 "use client";
-import { StateType } from "@/app/types";
+import { useProfileContext } from "@/app/context";
+import { LocationType, SellerType, StateType } from "@/app/types";
 import React, { FC, useState } from "react";
 
 const ProfileForm: FC = () => {
@@ -10,6 +11,12 @@ const ProfileForm: FC = () => {
     const [country, setCountry] = useState<string>();
     const [stateName, setStateName] = useState<string>();
     const [postcode, setPostcode] = useState<number>();
+    const {
+        profileDetails,
+        setProfileDetails,
+        businessLocation,
+        setBusinessLocation,
+    } = useProfileContext();
 
     return (
         <div className="w-full">
@@ -26,8 +33,13 @@ const ProfileForm: FC = () => {
                     placeholder="Enter your Business Name"
                     className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                     required={true}
-                    value={businessName}
-                    onChange={(e) => setBusinessName(e.target.value)}
+                    value={profileDetails.businessName}
+                    onChange={(e) =>
+                        setProfileDetails((prevState: Partial<SellerType>) => ({
+                            ...prevState,
+                            businessName: e.target.value,
+                        }))
+                    }
                 ></input>
                 <label htmlFor="ABN" className="text-md font-medium mb-2">
                     ABN
@@ -38,8 +50,13 @@ const ProfileForm: FC = () => {
                     placeholder="Enter your ABN"
                     className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                     required={true}
-                    value={ABN}
-                    onChange={(e) => setABN(e.target.value)}
+                    value={profileDetails.ABN}
+                    onChange={(e) =>
+                        setProfileDetails((prevState: Partial<SellerType>) => ({
+                            ...prevState,
+                            ABN: e.target.value,
+                        }))
+                    }
                 ></input>
                 <p className="text-md font-medium mb-2">Business Location</p>
                 <div className="flex grid grid-cols-6">
@@ -55,8 +72,13 @@ const ProfileForm: FC = () => {
                         placeholder="Enter your Street line 1"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={streetLine1}
-                        onChange={(e) => setStreetLine1(e.target.value)}
+                        value={businessLocation.streetLine1}
+                        onChange={(e) =>
+                            setBusinessLocation((prevState: LocationType) => ({
+                                ...prevState,
+                                streetLine1: e.target.value,
+                            }))
+                        }
                     ></input>
                     <label
                         htmlFor="streeline2"
@@ -70,8 +92,13 @@ const ProfileForm: FC = () => {
                         placeholder="Enter your Street line 2"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={streetLine2}
-                        onChange={(e) => setStreetLine2(e.target.value)}
+                        value={businessLocation.streetLine2}
+                        onChange={(e) =>
+                            setBusinessLocation((prevState: LocationType) => ({
+                                ...prevState,
+                                streetLine2: e.target.value,
+                            }))
+                        }
                     ></input>
                     <label
                         htmlFor="country"
@@ -85,8 +112,13 @@ const ProfileForm: FC = () => {
                         placeholder="Enter your Country"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={country}
-                        onChange={(e) => setCountry(e.target.value)}
+                        value={businessLocation.country}
+                        onChange={(e) =>
+                            setBusinessLocation((prevState: LocationType) => ({
+                                ...prevState,
+                                country: e.target.value,
+                            }))
+                        }
                     ></input>
                     <label htmlFor="state" className="text-md font-medium mb-2">
                         State
@@ -97,8 +129,13 @@ const ProfileForm: FC = () => {
                         placeholder="Enter your State"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={stateName}
-                        onChange={(e) => setStateName(e.target.value)}
+                        value={businessLocation.state}
+                        onChange={(e) =>
+                            setBusinessLocation((prevState: LocationType) => ({
+                                ...prevState,
+                                state: e.target.value,
+                            }))
+                        }
                     ></input>
                     <label
                         htmlFor="postcode"
@@ -112,8 +149,13 @@ const ProfileForm: FC = () => {
                         placeholder="Enter your Postcode"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={postcode}
-                        onChange={(e) => setPostcode(Number(e.target.value))}
+                        value={businessLocation.postcode}
+                        onChange={(e) =>
+                            setBusinessLocation((prevState: LocationType) => ({
+                                ...prevState,
+                                postcode: e.target.value,
+                            }))
+                        }
                     ></input>
                 </div>
                 <button
