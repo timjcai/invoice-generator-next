@@ -5,6 +5,8 @@ import { InvoicePreview } from "./components/InvoiceTemplate";
 import { BuyerType, SellerType } from "./types";
 import { AppTabs } from "./components/Navigation";
 import { useAuth } from "./context";
+import { signOut } from "firebase/auth";
+import { auth } from "./server";
 
 const Tim: SellerType = {
     sellerId: "1",
@@ -45,7 +47,7 @@ export default function Home() {
     return (
         <>
             <div>{currentUser?.email}</div>
-            <button>Logout</button>
+            <button onClick={() => signOut(auth)}>Logout</button>
             <div className="flex items-center justify-center flex-col mx-4 md:mx-[100px] lg:w-[1024px]">
                 <div className="flex flex-col py-[32px]">
                     <h1>Free Invoice Generator</h1>
