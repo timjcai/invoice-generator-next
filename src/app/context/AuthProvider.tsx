@@ -21,7 +21,7 @@ import {
 } from "firebase/auth";
 import { ProviderProps } from ".";
 
-interface AuthContextValue {
+export interface AuthContextValue {
     currentUser: User | null | undefined;
     signUp: (payload: LoginPayload) => Promise<UserCredential>;
     signOut: () => Promise<void>;

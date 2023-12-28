@@ -13,7 +13,7 @@ import { InvoiceGrid } from "../ReactGrid";
 
 export type InvoiceType = {
     invoiceNumber: number;
-    sellerDetails: SellerType;
+    sellerDetails: Partial<SellerType> | undefined;
     buyerDetails: BuyerType;
     invoiceDate: Date;
     dueDate: Date;

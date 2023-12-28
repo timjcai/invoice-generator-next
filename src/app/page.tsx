@@ -1,10 +1,15 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import CSVPage from "./components/ReactGrid/CSVPage";
 import { InvoicePreview } from "./components/InvoiceTemplate";
 import { BuyerType, SellerType } from "./types";
 import { AppTabs } from "./components/Navigation";
-import { useAuth, useProfileContext } from "./context";
+import {
+    AuthContextValue,
+    ProfileContextValue,
+    useAuth,
+    useProfileContext,
+} from "./context";
 import { signOut } from "firebase/auth";
 import { auth } from "./server";
 import { get } from "http";
@@ -43,51 +48,59 @@ const ABNGroup: BuyerType = {
 //  add signout functionality
 
 export default function Home() {
-    const { currentUser, getUser } = useAuth();
-    const { profileDetails, setProfileDetails, getProfileDetails } =
-        useProfileContext();
+    const { currentUser, getUser } = useAuth() as AuthContextValue;
+    const {
+        profileDetails,
+        setProfileDetails,
+        getProfileDetails,
+        uid,
+        loading,
+    } = useProfileContext() as ProfileContextValue;
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const loadedUser = await getUser();
-                console.log(loadedUser);
-                getProfileDetails(loadedUser.uid);
-            } catch (error) {
-                console.error("error fetching data", error);
-            }
-        };
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const loadedUser = await getUser();
+    //         setLoading(true);
+    //         getProfileDetails(loadedUser.uid);
+    //     };
+    //     fetchData();
+    // }, []);
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
 
     return (
         <>
-            <div>{currentUser?.uid}</div>
-            <button onClick={() => signOut(auth)}>Logout</button>
-            <div className="flex items-center justify-center flex-col mx-4 md:mx-[100px] lg:w-[1024px]">
-                <div className="flex flex-col py-[32px]">
-                    <h1>Free Invoice Generator</h1>
-                    <p>
-                        Build minimally designed invoices in bulk! Create
-                        invoices within the browser through our in-line
-                        excel-like spreadsheet fast, without having to download
-                        and reupload your excel spreadsheet or CSV file.
-                    </p>
-                    <button className="border-2 border-black px-4 py-2 w-36">
-                        Sign Up
-                    </button>
+            <div>
+                <div>{uid}</div>
+                <button onClick={() => signOut(auth)}>Logout</button>
+                <div className="flex items-center justify-center flex-col mx-4 md:mx-[100px] lg:w-[1024px]">
+                    <div className="flex flex-col py-[32px]">
+                        <h1>Free Invoice Generator</h1>
+                        <p>
+                            Build minimally designed invoices in bulk! Create
+                            invoices within the browser through our in-line
+                            excel-like spreadsheet fast, without having to
+                            download and reupload your excel spreadsheet or CSV
+                            file.
+                        </p>
+                        <button className="border-2 border-black px-4 py-2 w-36">
+                            Sign Up
+                        </button>
+                    </div>
+                    <AppTabs></AppTabs>
+                    <InvoicePreview
+                        sellerDetails={profileDetails}
+                        invoiceNumber={1}
+                        buyerDetails={ABNGroup}
+                        invoiceDate={new Date()}
+                        dueDate={new Date()}
+                        itemDescriptions={[]}
+                        termsAndConditions={"these are my terms and conditions"}
+                        notes={"job number: 1234"}
+                    />
                 </div>
-                <AppTabs></AppTabs>
-                <InvoicePreview
-                    sellerDetails={profileDetails}
-                    invoiceNumber={1}
-                    buyerDetails={ABNGroup}
-                    invoiceDate={new Date()}
-                    dueDate={new Date()}
-                    itemDescriptions={[]}
-                    termsAndConditions={"these are my terms and conditions"}
-                    notes={"job number: 1234"}
-                />
             </div>
         </>
     );

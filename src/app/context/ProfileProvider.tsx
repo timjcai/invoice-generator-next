@@ -1,19 +1,32 @@
 "use client";
 
-import React, { FC, createContext, useContext, useState } from "react";
+import React, {
+    FC,
+    createContext,
+    useContext,
+    useEffect,
+    useState,
+} from "react";
 import { LocationType, SellerType } from "../types";
 import { doc } from "firebase/firestore";
-import { app } from "../server";
+import { app, auth } from "../server";
+import { useAuth } from ".";
+import { onAuthStateChanged } from "firebase/auth";
 
-interface ProfileContextValue {
-    profileDetails: Partial<SellerType>;
+export interface ProfileContextValue {
+    profileDetails: Partial<SellerType> | undefined;
     setProfileDetails: (
         prevState:
             | Partial<SellerType>
-            | ((prevState: Partial<SellerType>) => Partial<SellerType>)
+            | undefined
+            | ((
+                  prevState: Partial<SellerType> | undefined
+              ) => Partial<SellerType> | undefined)
     ) => void;
     getProfileDetails: (uid: string) => void;
     updateProfileDetails: () => void;
+    uid: string;
+    loading: boolean;
 }
 
 export const ProfileDetailsContext = createContext<
@@ -29,7 +42,21 @@ export function useProfileContext() {
 }
 
 export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
+    const [uid, setUid] = useState<string>("");
     const [profileDetails, setProfileDetails] = useState<Partial<SellerType>>();
+    const [loading, setLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUid(user.uid);
+            } else {
+                setUid(null);
+            }
+            setLoading(false);
+        });
+        return () => unsubscribe();
+    }, []);
     //     {
     //     sellerId: "1",
     //     businessName: "Tim Jianger Cai",
@@ -50,9 +77,9 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
     // }
 
     function getProfileDetails(uid: string) {
-        const docRef = doc(app, "user_id", uid);
+        // const docRef = doc(app, "user_id", uid);
         console.log("hello");
-        console.log(docRef);
+        // console.log(docRef);
     }
 
     function updateProfileDetails() {}
@@ -62,6 +89,8 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
         setProfileDetails,
         getProfileDetails,
         updateProfileDetails,
+        uid,
+        loading,
     };
 
     return (
