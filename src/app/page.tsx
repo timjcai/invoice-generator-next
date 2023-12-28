@@ -74,8 +74,22 @@ export default function Home() {
         e.preventDefault();
         try {
             const response = await fetch(`/api/details/profile?user=${uid}`);
-            const data = await response.json();
-            console.log(data);
+            const profileData = await response.json();
+            const paymentResponse = await fetch(
+                `/api/details/payment?payment=${profileData.paymentDetails}`
+            );
+            const locationResponse = await fetch(
+                `/api/details/businessLocation?location=${profileData.businessLocation}`
+            );
+            const paymentDetails = await paymentResponse.json();
+            const businessLocation = await locationResponse.json();
+            let profileDetails = {
+                ...profileData,
+                businessLocation: businessLocation,
+                sellerPaymentDetails: paymentDetails,
+            };
+            setProfileDetails(profileDetails);
+            console.log(profileDetails);
         } catch (error) {
             console.error("error fetching data", error);
         }
