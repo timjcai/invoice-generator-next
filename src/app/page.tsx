@@ -70,8 +70,7 @@ export default function Home() {
         return <p>Loading...</p>;
     }
 
-    const getProfileData = async (e) => {
-        e.preventDefault();
+    const getProfileData = async () => {
         try {
             const response = await fetch(`/api/details/profile?user=${uid}`);
             const profileData = await response.json();
@@ -89,16 +88,18 @@ export default function Home() {
                 sellerPaymentDetails: paymentDetails,
             };
             setProfileDetails(profileDetails);
-            console.log(profileDetails);
         } catch (error) {
             console.error("error fetching data", error);
         }
     };
 
+    useEffect(() => {
+        getProfileData();
+    }, []);
+
     return (
         <>
             <div className="flex flex-col items-center justify-center">
-                <button onClick={(e) => getProfileData(e)}>Get Data</button>
                 <div>{uid}</div>
                 <button onClick={() => signOut(auth)}>Logout</button>
                 <div className="flex items-center justify-center flex-col mx-4 md:mx-[100px] lg:w-[1024px]">
