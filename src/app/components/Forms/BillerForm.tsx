@@ -2,6 +2,7 @@
 import { useBillerContext } from "@/app/context";
 import { LocationType, BuyerType } from "@/app/types";
 import React, { FC, useState } from "react";
+import { Selector } from "../common/Selector";
 
 export const BillerForm: FC = () => {
     const { billerDetails, setBillerDetails } = useBillerContext();
@@ -19,6 +20,7 @@ export const BillerForm: FC = () => {
 
     return (
         <div className="w-full">
+            <Selector />
             <form className="flex flex-col">
                 <label
                     htmlFor="businessName"
