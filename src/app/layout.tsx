@@ -3,7 +3,7 @@ import { Inter, Poppins, Roboto_Flex } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "./components/Navigation";
 import LoginPage from "./login/page";
-import { AuthProvider, ProfileProvider } from "./context";
+import { AuthProvider, ProfileProvider, BillerProvider } from "./context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,10 +25,12 @@ export default async function RootLayout({
             <body className={roboto.className}>
                 <AuthProvider>
                     <ProfileProvider>
-                        <>
-                            <Navbar />
-                            {children}
-                        </>
+                        <BillerProvider>
+                            <>
+                                <Navbar />
+                                {children}
+                            </>
+                        </BillerProvider>
                     </ProfileProvider>
                 </AuthProvider>
             </body>

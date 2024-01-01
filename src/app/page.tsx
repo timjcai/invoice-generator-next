@@ -57,44 +57,12 @@ export default function Home() {
         loading,
     } = useProfileContext() as ProfileContextValue;
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const loadedUser = await getUser();
-    //         setLoading(true);
-    //         getProfileDetails(loadedUser.uid);
-    //     };
-    //     fetchData();
-    // }, []);
-
     if (loading) {
         return <p>Loading...</p>;
     }
 
-    const getProfileData = async () => {
-        try {
-            const response = await fetch(`/api/details/profile?user=${uid}`);
-            const profileData = await response.json();
-            const paymentResponse = await fetch(
-                `/api/details/payment?payment=${profileData.paymentDetails}`
-            );
-            const locationResponse = await fetch(
-                `/api/details/businessLocation?location=${profileData.businessLocation}`
-            );
-            const paymentDetails = await paymentResponse.json();
-            const businessLocation = await locationResponse.json();
-            let profileDetails = {
-                ...profileData,
-                businessLocation: businessLocation,
-                sellerPaymentDetails: paymentDetails,
-            };
-            setProfileDetails(profileDetails);
-        } catch (error) {
-            console.error("error fetching data", error);
-        }
-    };
-
     useEffect(() => {
-        getProfileData();
+        getProfileDetails(uid);
     }, []);
 
     return (

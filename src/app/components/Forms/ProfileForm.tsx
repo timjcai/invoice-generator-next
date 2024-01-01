@@ -11,6 +11,7 @@ const ProfileForm: FC = () => {
     ) {
         e.preventDefault();
         // to do: push local state changes to firebase
+        console.log(profileDetails);
         console.log(
             "updating local state - push local state changes to Firebase"
         );

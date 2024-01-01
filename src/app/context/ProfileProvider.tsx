@@ -24,7 +24,7 @@ export interface ProfileContextValue {
               ) => Partial<SellerType> | undefined)
     ) => void;
     getProfileDetails: (uid: string) => void;
-    updateProfileDetails: () => void;
+    updateProfileDetails: (uid: string) => void;
     uid: string;
     loading: boolean;
 }
@@ -76,13 +76,30 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
     //     },
     // }
 
-    function getProfileDetails(uid: string) {
-        // const docRef = doc(app, "user_id", uid);
-        console.log("hello");
-        // console.log(docRef);
+    async function getProfileDetails(uid: string) {
+        try {
+            const response = await fetch(`/api/details/profile?user=${uid}`);
+            const profileData = await response.json();
+            const paymentResponse = await fetch(
+                `/api/details/payment?payment=${profileData.paymentDetails}`
+            );
+            const locationResponse = await fetch(
+                `/api/details/businessLocation?location=${profileData.businessLocation}`
+            );
+            const paymentDetails = await paymentResponse.json();
+            const businessLocation = await locationResponse.json();
+            let profileDetails = {
+                ...profileData,
+                businessLocation: businessLocation,
+                sellerPaymentDetails: paymentDetails,
+            };
+            setProfileDetails(profileDetails);
+        } catch (error) {
+            console.error("error fetching data", error);
+        }
     }
 
-    function updateProfileDetails() {}
+    function updateProfileDetails(uid: string) {}
 
     const value: ProfileContextValue = {
         profileDetails,
