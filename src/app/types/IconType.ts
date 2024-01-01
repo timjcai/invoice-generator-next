@@ -39,3 +39,4 @@ export type NavigationTypes =
     | "Schedule"
     | "Menu"
     | "Invoice Details"
+    | "Merchant"

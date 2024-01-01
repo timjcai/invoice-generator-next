@@ -4,14 +4,17 @@ import { LocationType, SellerType, StateType } from "@/app/types";
 import React, { FC, useState } from "react";
 
 const ProfileForm: FC = () => {
-    const [businessName, setBusinessName] = useState<string>();
-    const [ABN, setABN] = useState<string>();
-    const [streetLine1, setStreetLine1] = useState<string>();
-    const [streetLine2, setStreetLine2] = useState<string>();
-    const [country, setCountry] = useState<string>();
-    const [stateName, setStateName] = useState<string>();
-    const [postcode, setPostcode] = useState<number>();
     const { profileDetails, setProfileDetails } = useProfileContext();
+
+    function updateProfileDetails(
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) {
+        e.preventDefault();
+        // to do: push local state changes to firebase
+        console.log(
+            "updating local state - push local state changes to Firebase"
+        );
+    }
 
     return (
         <div className="w-full">
@@ -179,8 +182,9 @@ const ProfileForm: FC = () => {
                     ></input>
                 </div>
                 <button
+                    type="submit"
                     className="w-full border-2 bg-[#212122] border-[#212122] py-2 text-white font-light rounded-md mt-4 mb-4 disabled:opacity-40"
-                    // onClick={(e) => handleSignIn(e)}
+                    onClick={(e) => updateProfileDetails(e)}
                     // disabled={!userEmail || !userPassword}
                 >
                     Save

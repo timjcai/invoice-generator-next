@@ -12,6 +12,7 @@ import {
     faCog,
     faCube,
     faPlus,
+    faShop,
     faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -32,6 +33,7 @@ const iconMapping: { [key in IconType]: IconDefinition } = {
     Facebook: faFacebook,
     Google: faGoogle,
     Apple: faApple,
+    Merchant: faShop,
 };
 
 export const Icon: FC<IconProps> = ({ label }) => {

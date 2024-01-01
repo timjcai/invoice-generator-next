@@ -4,6 +4,7 @@ import React, { FC, useState } from "react";
 import { Icon } from "../UI";
 import { IconType } from "@/app/types";
 import ProfileForm from "../Forms/ProfileForm";
+import { BillerForm } from "../Forms";
 
 export const AppTabs = () => {
     const [controller, setController] = useState<IconType>("Profile");
@@ -19,8 +20,8 @@ export const AppTabs = () => {
         case "Profile":
             element = <ProfileForm />;
             break;
-        case "Dashboard":
-            element = <div>{controller}</div>;
+        case "Merchant":
+            element = <BillerForm />;
             break;
         case "Settings":
             element = <div>{controller}</div>;
@@ -51,14 +52,14 @@ export const AppTabs = () => {
                             )}
                         </li>
                         <li className="me-2">
-                            {controller === "Dashboard" ? (
+                            {controller === "Merchant" ? (
                                 <TabActive
-                                    buttonLabel={"Dashboard"}
+                                    buttonLabel={"Merchant"}
                                     onClickFn={handleButtonClick}
                                 />
                             ) : (
                                 <TabRegular
-                                    buttonLabel={"Dashboard"}
+                                    buttonLabel={"Merchant"}
                                     onClickFn={handleButtonClick}
                                 />
                             )}
