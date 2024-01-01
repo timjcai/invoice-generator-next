@@ -1,11 +1,22 @@
 "use client";
-import { useBillerContext } from "@/app/context";
+import { useBillerContext, useProfileContext } from "@/app/context";
 import { LocationType, BuyerType } from "@/app/types";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Selector } from "../common/Selector";
 
 export const BillerForm: FC = () => {
-    const { billerDetails, setBillerDetails } = useBillerContext();
+    const {
+        billerDetails,
+        setBillerDetails,
+        allBillers,
+        setAllBillers,
+        getBillerIndex,
+    } = useBillerContext();
+    const { uid } = useProfileContext();
+
+    useEffect(() => {
+        getBillerIndex(uid);
+    }, []);
 
     function updateBillerDetails(
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
