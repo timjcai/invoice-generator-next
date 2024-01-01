@@ -2,6 +2,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { Icon } from "../UI";
 import Link from "next/link";
+import Image from "next/image";
 
 export const Navbar = () => {
     const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
@@ -28,8 +29,20 @@ export const Navbar = () => {
         <>
             {isSmallScreen && <SmallNavbar />}
             {isMediumScreen && (
-                <div className="flex flex-row justify-between py-[12px] w-[calc(100%-32px)] md:w-[calc(100%-200px)] lg:w-[1024px]">
-                    <NavbarLinkButton label={<Link href="/">Logo</Link>} />
+                <div className="flex flex-row justify-between items-center py-[8px] w-[calc(100%-32px)] md:w-[calc(100%-200px)] lg:w-[1024px]">
+                    <NavbarLinkButton
+                        label={
+                            <Link href="/">
+                                <Image
+                                    className="rounded-full"
+                                    src="/bulkinvgen-logo.jpg"
+                                    alt="me"
+                                    width="42"
+                                    height="42"
+                                />
+                            </Link>
+                        }
+                    />
                     <div className="flex flex-row justify-between">
                         <div></div>
                         <NavbarLinkButton
@@ -79,7 +92,7 @@ export const NavbarLinkButton: FC<ButtonProps> = ({ label }) => {
 
 export const PrimaryButton: FC<ButtonProps> = ({ label }) => {
     return (
-        <div className="border-2 bg-[#212122] border-[#212122] py-2 text-white font-light rounded-md px-6 justify-center items-center mx-4 flex">
+        <div className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center mx-3 flex h-[40px]">
             {label}
         </div>
     );
@@ -87,7 +100,7 @@ export const PrimaryButton: FC<ButtonProps> = ({ label }) => {
 
 export const SecondaryButton: FC<ButtonProps> = ({ label }) => {
     return (
-        <div className="border-2 bg-[#FFFFFF] border-[#212122] py-2 text-[#212122] font-light rounded-md px-6 justify-center items-center mx-4 flex">
+        <div className="border-2 bg-[#FFFFFF] border-[#212122] py-1 text-[#212122] font-light rounded-md px-6 justify-center items-center mx-3 flex h-[40px]">
             {label}
         </div>
     );

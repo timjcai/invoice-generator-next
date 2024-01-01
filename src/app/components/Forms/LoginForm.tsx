@@ -36,7 +36,7 @@ export const LoginForm = () => {
             <div className="flex flex-col items-center">
                 <Image
                     className="rounded-full mb-4"
-                    src="/linearlogo.jpeg"
+                    src="/bulkinvgen-logo.jpg"
                     alt="me"
                     width="64"
                     height="64"

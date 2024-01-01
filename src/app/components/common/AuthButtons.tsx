@@ -15,7 +15,7 @@ const AuthButtons: FC<ButtonActions> = ({ googleSignIn }) => {
             </li> */}
             <li>
                 <button
-                    className="border-2 border-[#EDEEEF] px-10 py-2 rounded-md w-[412px]"
+                    className="flex items-center justify-center border-2 border-[#EDEEEF] px-10 py-2 rounded-md w-[412px]"
                     onClick={() => googleSignIn()}
                 >
                     <Icon label="Google" />
