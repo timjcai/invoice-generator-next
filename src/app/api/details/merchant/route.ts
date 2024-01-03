@@ -1,3 +1,4 @@
+import { SelectorOptions } from "@/app/components/common"
 import { app, db } from "@/app/server"
 import { BuyerType } from "@/app/types"
 import { collection, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore"
@@ -8,11 +9,21 @@ export async function GET(request: Request) {
     const id = searchParams.get('user')
     const q = query(collection(db, 'merchant'), where('associatedUser','==', `${id}`))
     const userQuery = await getDocs(q)
-    let payload = [] as BuyerType[];
+
+    // allMerchants
+    let allMerchants = [] as BuyerType[];
     userQuery.docs.forEach((item)=> {
-        payload.push({...item.data(), id: item.id} as BuyerType);
+        allMerchants.push({...item.data(), id: item.id} as BuyerType);
     })
-    // const documentData = userQuery.docs[0].data();
-    // console.log(documentData)
-    return Response.json(payload)
+
+    // allMerchants as options for Selector
+    let options = [] as SelectorOptions[];
+    allMerchants.forEach((merchant)=>{
+        options.push({
+            value: merchant.id!,
+            label: merchant.businessName,
+        })
+    })
+
+    return Response.json({allMerchants: allMerchants, selectorOptions: options})
 }

@@ -18,10 +18,9 @@ export interface BillerContextValue {
     setBillerDetails: Dispatch<SetStateAction<Partial<BuyerType>>> | undefined;
     allBillers: BuyerType[] | undefined;
     setAllBillers: Dispatch<SetStateAction<BuyerType[]>>;
+    selectorOptions: SelectorOptions[] | undefined;
+    setSelectorOptions: Dispatch<SetStateAction<SelectorOptions[]>>;
     getBillerDetails: (uid: string) => void;
-    createSelectorOptions: () => void;
-    billerSelectorOptions: SelectorOptions[];
-    setBillerSelectorOptions: Dispatch<SetStateAction<SelectorOptions[]>>;
     updateBillerDetails: (uid: string) => void;
     getBillerIndex: (uid: string) => void;
     billerId: string;
@@ -40,32 +39,37 @@ export function useBillerContext() {
 export const BillerProvider: FC<ProviderProps> = ({ children }) => {
     const [billerId, setBillerId] = useState<string>("");
     const [billerDetails, setBillerDetails] = useState<Partial<BuyerType>>();
-    const [billerSelectorOptions, setBillerSelectorOptions] = useState<
-        SelectorOptions[]
-    >([]);
     const [allBillers, setAllBillers] = useState<BuyerType[]>([]);
+    const [selectorOptions, setSelectorOptions] = useState<SelectorOptions[]>();
     const [loading, setLoading] = useState<boolean>(true);
 
     async function getBillerIndex(uid: string) {
         try {
             const response = await fetch(`/api/details/merchant?user=${uid}`);
             const billerIndex = await response.json();
-            console.log(billerIndex as BuyerType[]);
-            setAllBillers(billerIndex);
-            let billerArray = [] as SelectorOptions[];
-            console.log(billerIndex);
-            billerIndex.forEach((merchant: BuyerType) => {
-                billerArray.push({
-                    value: merchant.id!,
-                    label: merchant.businessName,
-                });
-            });
-            setBillerSelectorOptions(billerArray);
-            console.log(billerArray);
+            console.log(billerIndex.selectorOptions);
+            setAllBillers(billerIndex.allMerchants);
+            setSelectorOptions(billerIndex.selectorOptions);
+            setLoading(false);
         } catch (error) {
             console.error("error fetching data", error);
         }
     }
+
+    // function createSelectorOptions(
+    //     billerIndex: BuyerType[]
+    // ): SelectorOptions[] {
+    //     let billerArray = [] as SelectorOptions[];
+    //     console.log(billerIndex);
+    //     billerIndex.forEach((merchant: BuyerType) => {
+    //         billerArray.push({
+    //             value: merchant.id!,
+    //             label: merchant.businessName,
+    //         });
+    //     });
+    //     console.log(billerArray);
+    //     return billerArray;
+    // }
 
     async function getBillerDetails(billderId: string) {
         try {
@@ -99,10 +103,10 @@ export const BillerProvider: FC<ProviderProps> = ({ children }) => {
         setBillerDetails,
         allBillers,
         setAllBillers,
+        selectorOptions,
+        setSelectorOptions,
         getBillerDetails,
         getBillerIndex,
-        billerSelectorOptions,
-        setBillerSelectorOptions,
         updateBillerDetails,
         billerId,
         loading,

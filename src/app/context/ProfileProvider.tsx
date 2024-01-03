@@ -57,24 +57,6 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
         });
         return () => unsubscribe();
     }, []);
-    //     {
-    //     sellerId: "1",
-    //     businessName: "Tim Jianger Cai",
-    //     businessLocation: {
-    //         streetLine1: "3 Elliot Avenue",
-    //         streetLine2: "Flat G07",
-    //         country: "Australia",
-    //         suburb: "CARNEGIE",
-    //         state: "VIC",
-    //         postcode: 3163,
-    //     },
-    //     ABN: 37676346082,
-    //     sellerPaymentDetails: {
-    //         BSB: 134134,
-    //         ACC: 13613612,
-    //         BankAccount: "Commonwealth Bank",
-    //     },
-    // }
 
     async function getProfileDetails(uid: string) {
         try {
