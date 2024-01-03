@@ -1,6 +1,7 @@
 import { LocationType, PaymentDetailType } from ".";
 
 export type UserType = {
+    id?: string;
     businessName: string;
     businessLocation: LocationType;
     ABN: number;

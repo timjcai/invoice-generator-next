@@ -1,22 +1,28 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import AsyncCreatableSelect from "react-select/async-creatable";
 import CreatableSelect from "react-select/creatable";
 
-interface SelectorOptions {
+export interface SelectorOptions {
     readonly value: string;
     readonly label: string;
 }
-const testOptions: SelectorOptions[] = [
-    { value: "129tgakdlfjsf0-15i12hdasf", label: "Business One" },
-    { value: "abc123def456ghi789", label: "XYZ Corporation" },
-    { value: "qwerty098765", label: "Alpha Solutions" },
-    { value: "9876lkjh5432zxcv", label: "Innovate Technologies" },
-    { value: "pqrst4567uvw890", label: "Global Innovations Ltd." },
-];
+// const testOptions: SelectorOptions[] = [
+//     { value: "129tgakdlfjsf0-15i12hdasf", label: "Business One" },
+//     { value: "abc123def456ghi789", label: "XYZ Corporation" },
+//     { value: "qwerty098765", label: "Alpha Solutions" },
+//     { value: "9876lkjh5432zxcv", label: "Innovate Technologies" },
+//     { value: "pqrst4567uvw890", label: "Global Innovations Ltd." },
+// ];
 
-export const Selector = () => {
+export interface SelectorProps {
+    initOptions?: SelectorOptions[];
+}
+
+export const Selector: FC<SelectorProps> = ({ initOptions }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [options, setOptions] = useState<SelectorOptions[]>(testOptions);
+    const [options, setOptions] = useState<SelectorOptions[]>(
+        initOptions ? initOptions : []
+    );
     const [value, setValue] = useState<SelectorOptions | null>();
 
     // value = firestore id, we let firestore handle id generation on creation

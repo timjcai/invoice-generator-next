@@ -1,8 +1,13 @@
 "use client";
-import { useBillerContext, useProfileContext } from "@/app/context";
+import {
+    BillerContextValue,
+    ProfileContextValue,
+    useBillerContext,
+    useProfileContext,
+} from "@/app/context";
 import { LocationType, BuyerType } from "@/app/types";
 import React, { FC, useEffect, useState } from "react";
-import { Selector } from "../common/Selector";
+import { Selector, SelectorOptions } from "../common/Selector";
 
 export const BillerForm: FC = () => {
     const {
@@ -11,12 +16,37 @@ export const BillerForm: FC = () => {
         allBillers,
         setAllBillers,
         getBillerIndex,
-    } = useBillerContext();
-    const { uid } = useProfileContext();
+        billerSelectorOptions,
+        setBillerSelectorOptions,
+        createSelectorOptions,
+        loading,
+        setLoading,
+    } = useBillerContext() as BillerContextValue;
+    const { uid } = useProfileContext() as ProfileContextValue;
 
     useEffect(() => {
         getBillerIndex(uid);
+        setLoading(false);
+        // function createSelectorOptions() {
+        //     let billerArray = [] as SelectorOptions[];
+        //     console.log(allBillers!);
+        //     allBillers!.forEach((merchant) => {
+        //         billerArray.push({
+        //             value: merchant.id!,
+        //             label: merchant.businessName,
+        //         });
+        //     });
+        //     setBillerSelectorOptions(billerArray);
+        //     console.log(billerArray);
+        //     setLoading(false);
+        //     console.log("successfully setup selector");
+        // }
+        // return () => createSelectorOptions();
     }, []);
+
+    if (loading) {
+        <div>loading...</div>;
+    }
 
     function updateBillerDetails(
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -31,7 +61,7 @@ export const BillerForm: FC = () => {
 
     return (
         <div className="w-full">
-            <Selector />
+            <Selector initOptions={billerSelectorOptions} />
             <form className="flex flex-col">
                 <label
                     htmlFor="businessName"
