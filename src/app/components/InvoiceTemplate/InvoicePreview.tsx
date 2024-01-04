@@ -14,8 +14,9 @@ import { InvoiceGrid } from "../ReactGrid";
 export type InvoiceType = {
     invoiceNumber: number;
     sellerDetails: Partial<SellerType>;
-    sellerLocation: LocationType;
-    buyerDetails: BuyerType;
+    sellerLocation: Partial<LocationType>;
+    buyerDetails: Partial<BuyerType>;
+    buyerLocation: Partial<LocationType>;
     invoiceDate: Date;
     dueDate: Date;
     itemDescriptions: DescriptionType[];
@@ -28,6 +29,7 @@ export const InvoicePreview: FC<InvoiceType> = ({
     sellerDetails,
     sellerLocation,
     buyerDetails,
+    buyerLocation,
     invoiceDate,
     dueDate,
     itemDescriptions,
@@ -63,7 +65,7 @@ export const InvoicePreview: FC<InvoiceType> = ({
                     </div>
                     <div id="shipTo">
                         <p>Ship to:</p>
-                        <LocationGrid {...buyerDetails.businessLocation} />
+                        <LocationGrid {...buyerLocation} />
                     </div>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
@@ -105,7 +107,7 @@ export const InvoicePreview: FC<InvoiceType> = ({
     );
 };
 
-const LocationGrid: FC<LocationType> = ({
+const LocationGrid: FC<Partial<LocationType>> = ({
     streetLine1,
     streetLine2,
     country,

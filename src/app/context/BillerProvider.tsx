@@ -116,12 +116,6 @@ export const BillerProvider: FC<ProviderProps> = ({ children }) => {
             const locationDetailsData = await locationResponse.json();
             // const paymentDetails = await paymentResponse.json();
             // const businessLocation = await locationResponse.json();
-            // let billerDetails = {
-            //     ...profileData,
-            //     businessLocation: businessLocation,
-            //     sellerPaymentDetails: paymentDetails,
-            // };
-            // console.log(paymentDetailsData);
             setBillerLocation(locationDetailsData);
             setBillerDetails(merchantData);
             // setBillerDetails(billerDetails);
@@ -149,7 +143,6 @@ export const BillerProvider: FC<ProviderProps> = ({ children }) => {
         createBiller,
         getBillerIndex,
         updateBillerDetails,
-        billerId,
         loading,
         setLoading,
     };

@@ -6,8 +6,10 @@ import { BuyerType, SellerType } from "./types";
 import { AppTabs } from "./components/Navigation";
 import {
     AuthContextValue,
+    BillerContextValue,
     ProfileContextValue,
     useAuth,
+    useBillerContext,
     useProfileContext,
 } from "./context";
 import { signOut } from "firebase/auth";
@@ -26,7 +28,7 @@ const Tim: SellerType = {
         postcode: 3163,
     },
     ABN: 37676346082,
-    sellerPaymentDetails: {
+    paymentDetails: {
         BSB: 134134,
         ACC: 13613612,
         BankAccount: "Commonwealth Bank",
@@ -57,6 +59,8 @@ export default function Home() {
         uid,
         loading,
     } = useProfileContext() as ProfileContextValue;
+    const { billerDetails, billerLocation } =
+        useBillerContext() as BillerContextValue;
 
     if (loading) {
         return <p>Loading...</p>;
@@ -90,7 +94,8 @@ export default function Home() {
                         sellerDetails={profileDetails}
                         sellerLocation={sellerLocation}
                         invoiceNumber={1}
-                        buyerDetails={ABNGroup}
+                        buyerDetails={billerDetails}
+                        buyerLocation={billerLocation}
                         invoiceDate={new Date()}
                         dueDate={new Date()}
                         itemDescriptions={[]}
