@@ -24,6 +24,7 @@ export const BillerForm: FC = () => {
 
     useEffect(() => {
         getBillerIndex(uid);
+
         // function createSelectorOptions() {
         //     let billerArray = [] as SelectorOptions[];
         //     console.log(allBillers!);
@@ -41,8 +42,11 @@ export const BillerForm: FC = () => {
         // return () => createSelectorOptions();
     }, []);
 
+    let selector;
     if (loading) {
-        <div>loading...</div>;
+        selector = <div>loading...</div>;
+    } else {
+        selector = <Selector initOptions={selectorOptions} />;
     }
 
     function updateBillerDetails(
@@ -58,7 +62,7 @@ export const BillerForm: FC = () => {
 
     return (
         <div className="w-full">
-            <Selector initOptions={selectorOptions} />
+            {selector}
             <form className="flex flex-col">
                 <label
                     htmlFor="businessName"

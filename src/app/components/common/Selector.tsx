@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import AsyncCreatableSelect from "react-select/async-creatable";
 import CreatableSelect from "react-select/creatable";
 
@@ -20,9 +20,7 @@ export interface SelectorProps {
 
 export const Selector: FC<SelectorProps> = ({ initOptions }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [options, setOptions] = useState<SelectorOptions[]>(
-        initOptions ? initOptions : []
-    );
+    const [options, setOptions] = useState<SelectorOptions[]>(initOptions!);
     const [value, setValue] = useState<SelectorOptions | null>();
 
     // value = firestore id, we let firestore handle id generation on creation
@@ -30,6 +28,8 @@ export const Selector: FC<SelectorProps> = ({ initOptions }) => {
         label: label,
         value: label,
     });
+
+    useEffect(() => {}, [options]);
 
     const handleCreate = (inputValue: string) => {
         setIsLoading(true);

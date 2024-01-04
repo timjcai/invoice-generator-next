@@ -47,7 +47,7 @@ export const BillerProvider: FC<ProviderProps> = ({ children }) => {
         try {
             const response = await fetch(`/api/details/merchant?user=${uid}`);
             const billerIndex = await response.json();
-            console.log(billerIndex.selectorOptions);
+            console.log(billerIndex);
             setAllBillers(billerIndex.allMerchants);
             setSelectorOptions(billerIndex.selectorOptions);
             setLoading(false);
