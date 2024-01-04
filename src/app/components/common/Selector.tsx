@@ -1,5 +1,17 @@
-import { useBillerContext, useProfileContext } from "@/app/context";
-import React, { FC, useEffect, useState } from "react";
+import {
+    BillerContextValue,
+    ProfileContextValue,
+    useBillerContext,
+    useProfileContext,
+} from "@/app/context";
+import React, {
+    Dispatch,
+    FC,
+    SetStateAction,
+    useEffect,
+    useState,
+} from "react";
+import { SingleValue } from "react-select";
 import AsyncCreatableSelect from "react-select/async-creatable";
 import CreatableSelect from "react-select/creatable";
 
@@ -17,20 +29,27 @@ export interface SelectorOptions {
 
 export interface SelectorProps {
     initOptions?: SelectorOptions[];
+    setState?: Dispatch<SetStateAction<any>>;
 }
 
-export const Selector: FC<SelectorProps> = ({ initOptions }) => {
+export const Selector: FC<SelectorProps> = ({ initOptions, setState }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [options, setOptions] = useState<SelectorOptions[]>(initOptions!);
     const [value, setValue] = useState<SelectorOptions | null>();
-    const { billerDetails, createBiller } = useBillerContext();
-    const { uid } = useProfileContext();
+    const { billerDetails, createBiller } =
+        useBillerContext() as BillerContextValue;
+    const { uid } = useProfileContext() as ProfileContextValue;
 
     // value = firestore id, we let firestore handle id generation on creation
     const createOption = (label: string) => ({
         label: label,
         value: label,
     });
+
+    const handleClick = (newValue: SingleValue<SelectorOptions>) => {
+        setState(newValue);
+        setValue(newValue);
+    };
 
     const handleCreate = (inputValue: string) => {
         setIsLoading(true);
@@ -49,7 +68,7 @@ export const Selector: FC<SelectorProps> = ({ initOptions }) => {
             isClearable
             isDisabled={isLoading}
             isLoading={isLoading}
-            onChange={(newValue) => setValue(newValue)}
+            onChange={(newValue) => handleClick(newValue)}
             onCreateOption={handleCreate}
             options={options}
             value={value}

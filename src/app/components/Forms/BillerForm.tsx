@@ -11,6 +11,7 @@ import { Selector, SelectorOptions } from "../common/Selector";
 
 export const BillerForm: FC = () => {
     const {
+        setBillerId,
         billerDetails,
         setBillerDetails,
         billerLocation,
@@ -49,7 +50,9 @@ export const BillerForm: FC = () => {
     if (loading) {
         selector = <div>loading...</div>;
     } else {
-        selector = <Selector initOptions={selectorOptions} />;
+        selector = (
+            <Selector initOptions={selectorOptions} setState={setBillerId} />
+        );
     }
 
     function updateBillerDetails(

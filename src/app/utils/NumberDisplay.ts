@@ -1,8 +1,8 @@
 import { CurrencyType } from "../types";
 
-export function displayABN(abn: number): string {
+export function displayABN(abn: number | undefined | null): string {
     // Convert the number to a string
-    if (abn === null) {
+    if (abn === null || abn === undefined) {
         return ""
     }
     let numberString = abn.toString();

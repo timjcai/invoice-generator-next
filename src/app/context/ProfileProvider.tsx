@@ -1,42 +1,32 @@
 "use client";
 
 import React, {
+    Dispatch,
     FC,
+    SetStateAction,
     createContext,
     useContext,
     useEffect,
     useState,
 } from "react";
-import { LocationType, SellerType } from "../types";
+import { LocationType, PaymentDetailType, SellerType } from "../types";
 import { doc } from "firebase/firestore";
 import { app, auth } from "../server";
 import { useAuth } from ".";
 import { onAuthStateChanged } from "firebase/auth";
 
 export interface ProfileContextValue {
-    profileDetails: Partial<SellerType> | undefined;
-    setProfileDetails: (
-        prevState:
-            | Partial<SellerType>
-            | undefined
-            | ((
-                  prevState: Partial<SellerType> | undefined
-              ) => Partial<SellerType> | undefined)
-    ) => void;
-    locationDetails: Partial<LocationType> | undefined;
-    setLocationDetails: (
-        prevState:
-            | Partial<LocationType>
-            | undefined
-            | ((
-                  prevState: Partial<LocationType> | undefined
-              ) => Partial<LocationType> | undefined)
-    ) => void;
+    profileDetails: Partial<SellerType>;
+    setProfileDetails: Dispatch<SetStateAction<Partial<SellerType>>>;
+    locationDetails: Partial<LocationType>;
+    setLocationDetails: Dispatch<SetStateAction<Partial<LocationType>>>;
+    paymentDetails: Partial<PaymentDetailType>;
+    setPaymentDetails: Dispatch<SetStateAction<Partial<PaymentDetailType>>>;
     getProfileDetails: (uid: string) => void;
     updateProfileDetails: (uid: string) => void;
     uid: string;
     loading: boolean;
-    profileId: ProfileIdProps;
+    profileId: Partial<ProfileIdProps>;
 }
 
 export type ProviderProps = {
@@ -59,10 +49,16 @@ export function useProfileContext() {
 
 export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
     const [uid, setUid] = useState<string>("");
-    const [profileId, setProfileId] = useState<ProfileIdProps>();
-    const [profileDetails, setProfileDetails] = useState<Partial<SellerType>>();
-    const [locationDetails, setLocationDetails] = useState<LocationType>();
-    const [paymentDetails, setPaymentDetails] = useState<LocationType>();
+    const [profileId, setProfileId] = useState<Partial<ProfileIdProps>>({});
+    const [profileDetails, setProfileDetails] = useState<Partial<SellerType>>(
+        {}
+    );
+    const [locationDetails, setLocationDetails] = useState<
+        Partial<LocationType>
+    >({});
+    const [paymentDetails, setPaymentDetails] = useState<
+        Partial<PaymentDetailType>
+    >({});
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
@@ -70,7 +66,7 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
             if (user) {
                 setUid(user.uid);
             } else {
-                setUid(null);
+                setUid("");
             }
             setLoading(false);
         });
@@ -112,6 +108,8 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
         setProfileDetails,
         locationDetails,
         setLocationDetails,
+        paymentDetails,
+        setPaymentDetails,
         getProfileDetails,
         updateProfileDetails,
         uid,

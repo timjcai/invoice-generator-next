@@ -13,8 +13,8 @@ import { InvoiceGrid } from "../ReactGrid";
 
 export type InvoiceType = {
     invoiceNumber: number;
-    sellerDetails: Partial<SellerType> | undefined;
-    sellerLocation: LocationType | undefined;
+    sellerDetails: Partial<SellerType>;
+    sellerLocation: LocationType;
     buyerDetails: BuyerType;
     invoiceDate: Date;
     dueDate: Date;
@@ -47,9 +47,8 @@ export const InvoicePreview: FC<InvoiceType> = ({
                         </p>
                         <p className="text-sm">
                             ABN:
-                            {sellerDetails
-                                ? displayABN(sellerDetails?.ABN)
-                                : null}
+                            {sellerDetails !== undefined &&
+                                displayABN(sellerDetails.ABN)}
                         </p>
                         <LocationGrid {...sellerLocation} />
                     </div>
