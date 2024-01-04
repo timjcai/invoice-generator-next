@@ -1,5 +1,5 @@
 "use client";
-import { useProfileContext } from "@/app/context";
+import { ProfileContextValue, useProfileContext } from "@/app/context";
 import { db } from "@/app/server";
 import { LocationType, SellerType, StateType } from "@/app/types";
 import {
@@ -11,6 +11,7 @@ import {
     where,
 } from "firebase/firestore";
 import React, { FC, useState } from "react";
+import { SkeletonEllipsis } from "../UI";
 
 const ProfileForm: FC = () => {
     const {
@@ -20,7 +21,8 @@ const ProfileForm: FC = () => {
         profileId,
         locationDetails,
         setLocationDetails,
-    } = useProfileContext();
+        loading,
+    } = useProfileContext() as ProfileContextValue;
 
     async function updateProfileDetails(
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -50,20 +52,29 @@ const ProfileForm: FC = () => {
                 >
                     Registered Business Name
                 </label>
-                <input
-                    id="businessName"
-                    type="text"
-                    placeholder="Enter your Business Name"
-                    className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
-                    required={true}
-                    value={profileDetails?.businessName}
-                    onChange={(e) =>
-                        setProfileDetails((prevState: Partial<SellerType>) => ({
-                            ...prevState,
-                            businessName: e.target.value,
-                        }))
-                    }
-                ></input>
+                {profileDetails.businessName ? (
+                    <input
+                        id="businessName"
+                        type="text"
+                        placeholder="Enter your Business Name"
+                        className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                        required={true}
+                        value={profileDetails?.businessName}
+                        onChange={(e) =>
+                            setProfileDetails(
+                                (prevState: Partial<SellerType>) => ({
+                                    ...prevState,
+                                    businessName: e.target.value,
+                                })
+                            )
+                        }
+                    ></input>
+                ) : (
+                    <div className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md bg-[#F5F7F8]">
+                        <SkeletonEllipsis />
+                    </div>
+                )}
+
                 <label htmlFor="ABN" className="text-md font-medium mb-2">
                     ABN
                 </label>

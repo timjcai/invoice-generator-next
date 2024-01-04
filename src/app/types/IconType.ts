@@ -40,3 +40,5 @@ export type NavigationTypes =
     | "Menu"
     | "Invoice Details"
     | "Merchant"
+    | "Notes"
+    | "Payment"

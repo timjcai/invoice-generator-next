@@ -23,10 +23,13 @@ export const AppTabs = () => {
         case "Merchant":
             element = <BillerForm />;
             break;
-        case "Settings":
+        case "Invoice Details":
             element = <div>{controller}</div>;
             break;
-        case "Invoice Details":
+        case "Notes":
+            element = <div>{controller}</div>;
+            break;
+        case "Payment":
             element = <div>{controller}</div>;
             break;
         default:
@@ -65,19 +68,6 @@ export const AppTabs = () => {
                             )}
                         </li>
                         <li className="me-2">
-                            {controller === "Settings" ? (
-                                <TabActive
-                                    buttonLabel={"Settings"}
-                                    onClickFn={handleButtonClick}
-                                />
-                            ) : (
-                                <TabRegular
-                                    buttonLabel={"Settings"}
-                                    onClickFn={handleButtonClick}
-                                />
-                            )}
-                        </li>
-                        <li className="me-2">
                             {controller === "Invoice Details" ? (
                                 <TabActive
                                     buttonLabel={"Invoice Details"}
@@ -86,6 +76,45 @@ export const AppTabs = () => {
                             ) : (
                                 <TabRegular
                                     buttonLabel={"Invoice Details"}
+                                    onClickFn={handleButtonClick}
+                                />
+                            )}
+                        </li>
+                        <li className="me-2">
+                            {controller === "Notes" ? (
+                                <TabActive
+                                    buttonLabel={"Notes"}
+                                    onClickFn={handleButtonClick}
+                                />
+                            ) : (
+                                <TabRegular
+                                    buttonLabel={"Notes"}
+                                    onClickFn={handleButtonClick}
+                                />
+                            )}
+                        </li>
+                        <li className="me-2">
+                            {controller === "Payment" ? (
+                                <TabActive
+                                    buttonLabel={"Payment"}
+                                    onClickFn={handleButtonClick}
+                                />
+                            ) : (
+                                <TabRegular
+                                    buttonLabel={"Payment"}
+                                    onClickFn={handleButtonClick}
+                                />
+                            )}
+                        </li>
+                        <li className="me-2">
+                            {controller === "Settings" ? (
+                                <TabActive
+                                    buttonLabel={"Settings"}
+                                    onClickFn={handleButtonClick}
+                                />
+                            ) : (
+                                <TabRegular
+                                    buttonLabel={"Settings"}
                                     onClickFn={handleButtonClick}
                                 />
                             )}

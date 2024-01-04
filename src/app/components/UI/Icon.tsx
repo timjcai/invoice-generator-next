@@ -10,7 +10,9 @@ import {
     faClipboard,
     faClipboardUser,
     faCog,
+    faCreditCard,
     faCube,
+    faNoteSticky,
     faPlus,
     faShop,
     faXmark,
@@ -34,6 +36,8 @@ const iconMapping: { [key in IconType]: IconDefinition } = {
     Google: faGoogle,
     Apple: faApple,
     Merchant: faShop,
+    Notes: faNoteSticky,
+    Payment: faCreditCard,
 };
 
 export const Icon: FC<IconProps> = ({ label }) => {
