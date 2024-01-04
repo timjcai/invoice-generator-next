@@ -47,7 +47,7 @@ export const Selector: FC<SelectorProps> = ({ initOptions, setState }) => {
     });
 
     const handleClick = (newValue: SingleValue<SelectorOptions>) => {
-        setState(newValue);
+        setState(newValue?.value);
         setValue(newValue);
     };
 

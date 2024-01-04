@@ -11,6 +11,7 @@ import { Selector, SelectorOptions } from "../common/Selector";
 
 export const BillerForm: FC = () => {
     const {
+        billerId,
         setBillerId,
         billerDetails,
         setBillerDetails,
@@ -28,7 +29,7 @@ export const BillerForm: FC = () => {
 
     useEffect(() => {
         getBillerIndex(uid);
-        getBillerDetails("KJqnkPkbCnDCiieNCQcD");
+        getBillerDetails(billerId);
         // function createSelectorOptions() {
         //     let billerArray = [] as SelectorOptions[];
         //     console.log(allBillers!);
@@ -44,7 +45,7 @@ export const BillerForm: FC = () => {
         //     console.log("successfully setup selector");
         // }
         // return () => createSelectorOptions();
-    }, []);
+    }, [billerId]);
 
     let selector;
     if (loading) {

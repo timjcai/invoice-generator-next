@@ -102,15 +102,14 @@ export const BillerProvider: FC<ProviderProps> = ({ children }) => {
 
     async function getBillerDetails(billerId: string) {
         try {
-            console.log(billerId);
             const merchantRef = doc(db, "merchant", `${billerId}`);
             const merchantResponse = await getDoc(merchantRef);
             const merchantData = merchantResponse.data() as BuyerType;
             const merchantId = merchantResponse.id;
-            const paymentResponse = await fetch(
-                `/api/details/payment?payment=${merchantData.paymentDetails}`
-            );
-            const paymentDetailsData = await paymentResponse.json();
+            // const paymentResponse = await fetch(
+            //     `/api/details/payment?payment=${merchantData.paymentDetails}`
+            // );
+            // const paymentDetailsData = await paymentResponse.json();
             const locationResponse = await fetch(
                 `/api/details/businessLocation?location=${merchantData.businessLocation}`
             );
@@ -122,7 +121,7 @@ export const BillerProvider: FC<ProviderProps> = ({ children }) => {
             //     businessLocation: businessLocation,
             //     sellerPaymentDetails: paymentDetails,
             // };
-            console.log(paymentDetailsData);
+            // console.log(paymentDetailsData);
             setBillerLocation(locationDetailsData);
             setBillerDetails(merchantData);
             // setBillerDetails(billerDetails);
