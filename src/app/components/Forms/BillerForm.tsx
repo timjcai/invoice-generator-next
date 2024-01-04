@@ -100,7 +100,7 @@ export const BillerForm: FC = () => {
                     onChange={(e) =>
                         setBillerDetails((prevState: Partial<BuyerType>) => ({
                             ...prevState,
-                            ABN: e.target.value,
+                            ABN: Number(e.target.value),
                         }))
                     }
                 ></input>

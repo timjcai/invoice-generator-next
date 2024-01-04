@@ -16,13 +16,11 @@ import { addDoc, collection, doc, getDoc } from "firebase/firestore";
 
 export interface BillerContextValue {
     billerDetails: Partial<BuyerType> | undefined;
-    setBillerDetails: Dispatch<SetStateAction<Partial<BuyerType>>> | undefined;
+    setBillerDetails: Dispatch<SetStateAction<Partial<BuyerType>>>;
     allBillers: BuyerType[] | undefined;
     setAllBillers: Dispatch<SetStateAction<BuyerType[]>>;
     billerLocation: Partial<LocationType> | undefined;
-    setBillerLocation:
-        | Dispatch<SetStateAction<Partial<LocationType>>>
-        | undefined;
+    setBillerLocation: Dispatch<SetStateAction<Partial<LocationType>>>;
     selectorOptions: SelectorOptions[] | undefined;
     setSelectorOptions: Dispatch<SetStateAction<SelectorOptions[]>>;
     getBillerDetails: (billderId: string) => void;
@@ -99,7 +97,7 @@ export const BillerProvider: FC<ProviderProps> = ({ children }) => {
             console.log(billerId);
             const merchantRef = doc(db, "merchant", `${billerId}`);
             const merchantResponse = await getDoc(merchantRef);
-            const merchantData = merchantResponse.data();
+            const merchantData = merchantResponse.data() as BuyerType;
             const merchantId = merchantResponse.id;
             const paymentResponse = await fetch(
                 `/api/details/payment?payment=${merchantData.paymentDetails}`
