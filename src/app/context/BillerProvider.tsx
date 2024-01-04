@@ -1,8 +1,7 @@
 "use client";
-import { faBedPulse } from "@fortawesome/free-solid-svg-icons/faBedPulse";
 import { ProviderProps } from ".";
 import { SelectorOptions } from "../components/common";
-import { BuyerType } from "../types";
+import { BuyerType, LocationType } from "../types";
 import {
     Dispatch,
     FC,
@@ -13,17 +12,21 @@ import {
     useState,
 } from "react";
 import { db } from "../server";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc } from "firebase/firestore";
 
 export interface BillerContextValue {
     billerDetails: Partial<BuyerType> | undefined;
     setBillerDetails: Dispatch<SetStateAction<Partial<BuyerType>>> | undefined;
     allBillers: BuyerType[] | undefined;
     setAllBillers: Dispatch<SetStateAction<BuyerType[]>>;
+    billerLocation: Partial<LocationType> | undefined;
+    setBillerLocation:
+        | Dispatch<SetStateAction<Partial<LocationType>>>
+        | undefined;
     selectorOptions: SelectorOptions[] | undefined;
     setSelectorOptions: Dispatch<SetStateAction<SelectorOptions[]>>;
-    getBillerDetails: (uid: string) => void;
-    updateBillerDetails: (uid: string) => void;
+    getBillerDetails: (billderId: string) => void;
+    updateBillerDetails: (billderId: string) => void;
     getBillerIndex: (uid: string) => void;
     createBiller: (postData: Partial<BuyerType> | undefined) => void;
     billerId: string;
@@ -42,6 +45,8 @@ export function useBillerContext() {
 export const BillerProvider: FC<ProviderProps> = ({ children }) => {
     const [billerId, setBillerId] = useState<string>("");
     const [billerDetails, setBillerDetails] = useState<Partial<BuyerType>>();
+    const [billerLocation, setBillerLocation] =
+        useState<Partial<LocationType>>();
     const [allBillers, setAllBillers] = useState<BuyerType[]>([]);
     const [selectorOptions, setSelectorOptions] = useState<SelectorOptions[]>();
     const [loading, setLoading] = useState<boolean>(true);
@@ -89,26 +94,32 @@ export const BillerProvider: FC<ProviderProps> = ({ children }) => {
     //     return billerArray;
     // }
 
-    async function getBillerDetails(billderId: string) {
+    async function getBillerDetails(billerId: string) {
         try {
-            const response = await fetch(
-                `/api/details/profile?user=${billderId}`
-            );
-            const profileData = await response.json();
+            console.log(billerId);
+            const merchantRef = doc(db, "merchant", `${billerId}`);
+            const merchantResponse = await getDoc(merchantRef);
+            const merchantData = merchantResponse.data();
+            const merchantId = merchantResponse.id;
             const paymentResponse = await fetch(
-                `/api/details/payment?payment=${profileData.paymentDetails}`
+                `/api/details/payment?payment=${merchantData.paymentDetails}`
             );
+            const paymentDetailsData = await paymentResponse.json();
             const locationResponse = await fetch(
-                `/api/details/businessLocation?location=${profileData.businessLocation}`
+                `/api/details/businessLocation?location=${merchantData.businessLocation}`
             );
-            const paymentDetails = await paymentResponse.json();
-            const businessLocation = await locationResponse.json();
-            let billerDetails = {
-                ...profileData,
-                businessLocation: businessLocation,
-                sellerPaymentDetails: paymentDetails,
-            };
-            setBillerDetails(billerDetails);
+            const locationDetailsData = await locationResponse.json();
+            // const paymentDetails = await paymentResponse.json();
+            // const businessLocation = await locationResponse.json();
+            // let billerDetails = {
+            //     ...profileData,
+            //     businessLocation: businessLocation,
+            //     sellerPaymentDetails: paymentDetails,
+            // };
+            console.log(paymentDetailsData);
+            setBillerLocation(locationDetailsData);
+            setBillerDetails(merchantData);
+            // setBillerDetails(billerDetails);
         } catch (error) {
             console.error("error fetching data", error);
         }
@@ -119,6 +130,8 @@ export const BillerProvider: FC<ProviderProps> = ({ children }) => {
     const value: BillerContextValue = {
         billerDetails,
         setBillerDetails,
+        billerLocation,
+        setBillerLocation,
         allBillers,
         setAllBillers,
         selectorOptions,

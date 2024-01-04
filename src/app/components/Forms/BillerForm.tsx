@@ -5,7 +5,7 @@ import {
     useBillerContext,
     useProfileContext,
 } from "@/app/context";
-import { LocationType, BuyerType } from "@/app/types";
+import { LocationType, BuyerType, StateType } from "@/app/types";
 import React, { FC, useEffect, useState } from "react";
 import { Selector, SelectorOptions } from "../common/Selector";
 
@@ -13,10 +13,13 @@ export const BillerForm: FC = () => {
     const {
         billerDetails,
         setBillerDetails,
+        billerLocation,
+        setBillerLocation,
         allBillers,
         setAllBillers,
         getBillerIndex,
         selectorOptions,
+        getBillerDetails,
         loading,
         setLoading,
     } = useBillerContext() as BillerContextValue;
@@ -24,7 +27,7 @@ export const BillerForm: FC = () => {
 
     useEffect(() => {
         getBillerIndex(uid);
-
+        getBillerDetails("KJqnkPkbCnDCiieNCQcD");
         // function createSelectorOptions() {
         //     let billerArray = [] as SelectorOptions[];
         //     console.log(allBillers!);
@@ -115,15 +118,12 @@ export const BillerForm: FC = () => {
                         placeholder="Enter your Street line 1"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={billerDetails?.businessLocation?.streetLine1}
+                        value={billerLocation?.streetLine1}
                         onChange={(e) =>
-                            setBillerDetails(
-                                (prevState: Partial<BuyerType>) => ({
+                            setBillerLocation(
+                                (prevState: Partial<LocationType>) => ({
                                     ...prevState,
-                                    businessLocation: {
-                                        ...prevState.businessLocation,
-                                        streetLine1: e.target.value,
-                                    },
+                                    streetLine1: e.target.value,
                                 })
                             )
                         }
@@ -140,15 +140,12 @@ export const BillerForm: FC = () => {
                         placeholder="Enter your Street line 2"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={billerDetails?.businessLocation?.streetLine2}
+                        value={billerLocation?.streetLine2}
                         onChange={(e) =>
-                            setBillerDetails(
-                                (prevState: Partial<BuyerType>) => ({
+                            setBillerLocation(
+                                (prevState: Partial<LocationType>) => ({
                                     ...prevState,
-                                    businessLocation: {
-                                        ...prevState.businessLocation,
-                                        streetLine2: e.target.value,
-                                    },
+                                    streetLine2: e.target.value,
                                 })
                             )
                         }
@@ -165,15 +162,12 @@ export const BillerForm: FC = () => {
                         placeholder="Enter your Country"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={billerDetails?.businessLocation?.country}
+                        value={billerLocation?.country}
                         onChange={(e) =>
-                            setBillerDetails(
-                                (prevState: Partial<BuyerType>) => ({
+                            setBillerLocation(
+                                (prevState: Partial<LocationType>) => ({
                                     ...prevState,
-                                    businessLocation: {
-                                        ...prevState.businessLocation,
-                                        country: e.target.value,
-                                    },
+                                    country: e.target.value,
                                 })
                             )
                         }
@@ -187,15 +181,12 @@ export const BillerForm: FC = () => {
                         placeholder="Enter your State"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={billerDetails?.businessLocation?.state}
+                        value={billerLocation?.state}
                         onChange={(e) =>
-                            setBillerDetails(
-                                (prevState: Partial<BuyerType>) => ({
+                            setBillerLocation(
+                                (prevState: Partial<LocationType>) => ({
                                     ...prevState,
-                                    businessLocation: {
-                                        ...prevState.businessLocation,
-                                        state: e.target.value,
-                                    },
+                                    state: e.target.value as StateType,
                                 })
                             )
                         }
@@ -212,15 +203,12 @@ export const BillerForm: FC = () => {
                         placeholder="Enter your Postcode"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={billerDetails?.businessLocation?.postcode}
+                        value={billerLocation?.postcode}
                         onChange={(e) =>
-                            setBillerDetails(
-                                (prevState: Partial<BuyerType>) => ({
+                            setBillerLocation(
+                                (prevState: Partial<LocationType>) => ({
                                     ...prevState,
-                                    businessLocation: {
-                                        ...prevState.businessLocation,
-                                        postcode: Number(e.target.value),
-                                    },
+                                    postcode: Number(e.target.value),
                                 })
                             )
                         }
