@@ -1,7 +1,7 @@
 import { SelectorOptions } from "@/app/components/common"
 import { app, db } from "@/app/server"
 import { BuyerType } from "@/app/types"
-import { collection, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore"
+import { addDoc, collection, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore"
 import { useSearchParams } from "next/navigation"
 
 export async function GET(request: Request) {

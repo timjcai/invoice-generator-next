@@ -8,8 +8,5 @@ export async function GET(request: Request) {
     const documentRef = doc(db, 'businessLocation', `${id}`)
     const businessLocationQuery = await getDoc(documentRef)
     const documentData = businessLocationQuery.data();
-    console.log(documentData)
-
-
     return Response.json(documentData)
 }

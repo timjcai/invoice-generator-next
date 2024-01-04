@@ -28,7 +28,6 @@ export const LoginForm = () => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
             });
-        console.log("successfully signed in");
     }
 
     return (

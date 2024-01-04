@@ -1,3 +1,4 @@
+import { useBillerContext, useProfileContext } from "@/app/context";
 import React, { FC, useEffect, useState } from "react";
 import AsyncCreatableSelect from "react-select/async-creatable";
 import CreatableSelect from "react-select/creatable";
@@ -22,14 +23,14 @@ export const Selector: FC<SelectorProps> = ({ initOptions }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [options, setOptions] = useState<SelectorOptions[]>(initOptions!);
     const [value, setValue] = useState<SelectorOptions | null>();
+    const { billerDetails, createBiller } = useBillerContext();
+    const { uid } = useProfileContext();
 
     // value = firestore id, we let firestore handle id generation on creation
     const createOption = (label: string) => ({
         label: label,
         value: label,
     });
-
-    useEffect(() => {}, [options]);
 
     const handleCreate = (inputValue: string) => {
         setIsLoading(true);
@@ -39,6 +40,8 @@ export const Selector: FC<SelectorProps> = ({ initOptions }) => {
             setOptions((prev) => [...prev, newOption]);
             setValue(newOption);
         }, 1000);
+        const payload = billerDetails;
+        createBiller(payload, uid);
     };
 
     return (

@@ -12,6 +12,8 @@ import {
     useEffect,
     useState,
 } from "react";
+import { db } from "../server";
+import { addDoc, collection } from "firebase/firestore";
 
 export interface BillerContextValue {
     billerDetails: Partial<BuyerType> | undefined;
@@ -23,6 +25,7 @@ export interface BillerContextValue {
     getBillerDetails: (uid: string) => void;
     updateBillerDetails: (uid: string) => void;
     getBillerIndex: (uid: string) => void;
+    createBiller: (postData: Partial<BuyerType> | undefined) => void;
     billerId: string;
     loading: boolean;
     setLoading: Dispatch<SetStateAction<boolean>>;
@@ -47,12 +50,27 @@ export const BillerProvider: FC<ProviderProps> = ({ children }) => {
         try {
             const response = await fetch(`/api/details/merchant?user=${uid}`);
             const billerIndex = await response.json();
-            console.log(billerIndex);
             setAllBillers(billerIndex.allMerchants);
             setSelectorOptions(billerIndex.selectorOptions);
             setLoading(false);
         } catch (error) {
             console.error("error fetching data", error);
+        }
+    }
+
+    async function createBiller(
+        postData: Partial<BuyerType> | undefined,
+        uid: string
+    ) {
+        console.log(postData);
+        try {
+            const docRef = await addDoc(collection(db, "merchant"), {
+                ...postData,
+                associatedUser: uid,
+            });
+            console.log(`${docRef.id}`);
+        } catch (error) {
+            console.error("error in creating biller", error);
         }
     }
 
@@ -106,6 +124,7 @@ export const BillerProvider: FC<ProviderProps> = ({ children }) => {
         selectorOptions,
         setSelectorOptions,
         getBillerDetails,
+        createBiller,
         getBillerIndex,
         updateBillerDetails,
         billerId,
