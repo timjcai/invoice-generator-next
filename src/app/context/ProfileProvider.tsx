@@ -23,19 +23,35 @@ export interface ProfileContextValue {
                   prevState: Partial<SellerType> | undefined
               ) => Partial<SellerType> | undefined)
     ) => void;
+    locationDetails: Partial<LocationType> | undefined;
+    setLocationDetails: (
+        prevState:
+            | Partial<LocationType>
+            | undefined
+            | ((
+                  prevState: Partial<LocationType> | undefined
+              ) => Partial<LocationType> | undefined)
+    ) => void;
     getProfileDetails: (uid: string) => void;
     updateProfileDetails: (uid: string) => void;
     uid: string;
     loading: boolean;
+    profileId: ProfileIdProps;
 }
-
-export const ProfileDetailsContext = createContext<
-    ProfileContextValue | undefined
->(undefined);
 
 export type ProviderProps = {
     children: React.JSX.Element;
 };
+
+export type ProfileIdProps = {
+    profileId: string;
+    businessLocationId: string;
+    paymentDetailsId: string;
+};
+
+export const ProfileDetailsContext = createContext<
+    ProfileContextValue | undefined
+>(undefined);
 
 export function useProfileContext() {
     return useContext(ProfileDetailsContext);
@@ -43,7 +59,10 @@ export function useProfileContext() {
 
 export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
     const [uid, setUid] = useState<string>("");
+    const [profileId, setProfileId] = useState<ProfileIdProps>();
     const [profileDetails, setProfileDetails] = useState<Partial<SellerType>>();
+    const [locationDetails, setLocationDetails] = useState<LocationType>();
+    const [paymentDetails, setPaymentDetails] = useState<LocationType>();
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
@@ -68,14 +87,19 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
             const locationResponse = await fetch(
                 `/api/details/businessLocation?location=${profileData.businessLocation}`
             );
-            const paymentDetails = await paymentResponse.json();
-            const businessLocation = await locationResponse.json();
-            let profileDetails = {
-                ...profileData,
-                businessLocation: businessLocation,
-                sellerPaymentDetails: paymentDetails,
-            };
-            setProfileDetails(profileDetails);
+            const paymentDetailsData = await paymentResponse.json();
+            const businessLocationData = await locationResponse.json();
+            const { profileid, ...profileOG } = profileData;
+            const { locationid, ...businessLocationOG } = businessLocationData;
+            const { paymentid, ...paymentDetailsOG } = paymentDetailsData;
+            setProfileDetails({ ...profileOG });
+            setLocationDetails({ ...businessLocationOG });
+            setPaymentDetails({ ...paymentDetailsOG });
+            setProfileId({
+                profileId: profileid,
+                businessLocationId: locationid,
+                paymentDetailsId: paymentid,
+            });
         } catch (error) {
             console.error("error fetching data", error);
         }
@@ -86,10 +110,13 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
     const value: ProfileContextValue = {
         profileDetails,
         setProfileDetails,
+        locationDetails,
+        setLocationDetails,
         getProfileDetails,
         updateProfileDetails,
         uid,
         loading,
+        profileId,
     };
 
     return (

@@ -8,8 +8,6 @@ export async function GET(request: Request) {
     const q = query(collection(db, 'profile'), where('user_id','==', `${id}`))
     const userQuery = await getDocs(q)
     const documentData = userQuery.docs[0].data();
-    console.log(documentData)
-
-
-    return Response.json(documentData)
+    const profileId = userQuery.docs[0].id
+    return Response.json({...documentData, profileid: profileId})
 }

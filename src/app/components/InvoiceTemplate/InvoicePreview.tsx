@@ -14,6 +14,7 @@ import { InvoiceGrid } from "../ReactGrid";
 export type InvoiceType = {
     invoiceNumber: number;
     sellerDetails: Partial<SellerType> | undefined;
+    sellerLocation: LocationType | undefined;
     buyerDetails: BuyerType;
     invoiceDate: Date;
     dueDate: Date;
@@ -25,6 +26,7 @@ export type InvoiceType = {
 export const InvoicePreview: FC<InvoiceType> = ({
     invoiceNumber,
     sellerDetails,
+    sellerLocation,
     buyerDetails,
     invoiceDate,
     dueDate,
@@ -49,7 +51,7 @@ export const InvoicePreview: FC<InvoiceType> = ({
                                 ? displayABN(sellerDetails?.ABN)
                                 : null}
                         </p>
-                        <LocationGrid {...sellerDetails?.businessLocation} />
+                        <LocationGrid {...sellerLocation} />
                     </div>
                 </div>
             </div>

@@ -8,5 +8,6 @@ export async function GET(request: Request) {
     const documentRef = doc(db, 'paymentDetails', `${id}`)
     const paymentDetailQuery = await getDoc(documentRef)
     const documentData = paymentDetailQuery.data();
-    return Response.json(documentData)
+    const paymentDetailsId = paymentDetailQuery.id
+    return Response.json({...documentData, paymentid: paymentDetailsId})
 }

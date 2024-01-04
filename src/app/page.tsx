@@ -51,6 +51,7 @@ export default function Home() {
     const { currentUser, getUser } = useAuth() as AuthContextValue;
     const {
         profileDetails,
+        locationDetails: sellerLocation,
         setProfileDetails,
         getProfileDetails,
         uid,
@@ -87,6 +88,7 @@ export default function Home() {
                     <AppTabs></AppTabs>
                     <InvoicePreview
                         sellerDetails={profileDetails}
+                        sellerLocation={sellerLocation}
                         invoiceNumber={1}
                         buyerDetails={ABNGroup}
                         invoiceDate={new Date()}

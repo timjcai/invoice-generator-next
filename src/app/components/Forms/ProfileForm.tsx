@@ -1,20 +1,44 @@
 "use client";
 import { useProfileContext } from "@/app/context";
+import { db } from "@/app/server";
 import { LocationType, SellerType, StateType } from "@/app/types";
+import {
+    collection,
+    doc,
+    getDocs,
+    query,
+    updateDoc,
+    where,
+} from "firebase/firestore";
 import React, { FC, useState } from "react";
 
 const ProfileForm: FC = () => {
-    const { profileDetails, setProfileDetails } = useProfileContext();
+    const {
+        profileDetails,
+        setProfileDetails,
+        uid,
+        profileId,
+        locationDetails,
+        setLocationDetails,
+    } = useProfileContext();
 
-    function updateProfileDetails(
+    async function updateProfileDetails(
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) {
         e.preventDefault();
-        // to do: push local state changes to firebase
+        console.log(profileId);
         console.log(profileDetails);
-        console.log(
-            "updating local state - push local state changes to Firebase"
+        console.log(locationDetails);
+        // to do: push local state changes to firebase
+        const profileRef = doc(db, "profile", profileId.profileId);
+        const locationRef = doc(
+            db,
+            "businessLocation",
+            profileId.businessLocationId
         );
+        await updateDoc(profileRef, profileDetails);
+        await updateDoc(locationRef, locationDetails);
+        console.log("completed update");
     }
 
     return (
@@ -53,7 +77,7 @@ const ProfileForm: FC = () => {
                     onChange={(e) =>
                         setProfileDetails((prevState: Partial<SellerType>) => ({
                             ...prevState,
-                            ABN: e.target.value,
+                            ABN: Number(e.target.value),
                         }))
                     }
                 ></input>
@@ -71,15 +95,12 @@ const ProfileForm: FC = () => {
                         placeholder="Enter your Street line 1"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={profileDetails?.businessLocation?.streetLine1}
+                        value={locationDetails?.streetLine1}
                         onChange={(e) =>
-                            setProfileDetails(
-                                (prevState: Partial<SellerType>) => ({
+                            setLocationDetails(
+                                (prevState: Partial<LocationType>) => ({
                                     ...prevState,
-                                    businessLocation: {
-                                        ...prevState.businessLocation,
-                                        streetLine1: e.target.value,
-                                    },
+                                    streetLine1: e.target.value,
                                 })
                             )
                         }
@@ -96,15 +117,12 @@ const ProfileForm: FC = () => {
                         placeholder="Enter your Street line 2"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={profileDetails?.businessLocation?.streetLine2}
+                        value={locationDetails?.streetLine2}
                         onChange={(e) =>
-                            setProfileDetails(
-                                (prevState: Partial<SellerType>) => ({
+                            setLocationDetails(
+                                (prevState: Partial<LocationType>) => ({
                                     ...prevState,
-                                    businessLocation: {
-                                        ...prevState.businessLocation,
-                                        streetLine2: e.target.value,
-                                    },
+                                    streetLine2: e.target.value,
                                 })
                             )
                         }
@@ -121,15 +139,12 @@ const ProfileForm: FC = () => {
                         placeholder="Enter your Country"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={profileDetails?.businessLocation?.country}
+                        value={locationDetails?.country}
                         onChange={(e) =>
-                            setProfileDetails(
-                                (prevState: Partial<SellerType>) => ({
+                            setLocationDetails(
+                                (prevState: Partial<LocationType>) => ({
                                     ...prevState,
-                                    businessLocation: {
-                                        ...prevState.businessLocation,
-                                        country: e.target.value,
-                                    },
+                                    country: e.target.value,
                                 })
                             )
                         }
@@ -143,15 +158,12 @@ const ProfileForm: FC = () => {
                         placeholder="Enter your State"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={profileDetails?.businessLocation?.state}
+                        value={locationDetails?.state}
                         onChange={(e) =>
-                            setProfileDetails(
-                                (prevState: Partial<SellerType>) => ({
+                            setLocationDetails(
+                                (prevState: Partial<LocationType>) => ({
                                     ...prevState,
-                                    businessLocation: {
-                                        ...prevState.businessLocation,
-                                        state: e.target.value,
-                                    },
+                                    state: e.target.value,
                                 })
                             )
                         }
@@ -168,15 +180,12 @@ const ProfileForm: FC = () => {
                         placeholder="Enter your Postcode"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={profileDetails?.businessLocation?.postcode}
+                        value={locationDetails?.postcode}
                         onChange={(e) =>
-                            setProfileDetails(
-                                (prevState: Partial<SellerType>) => ({
+                            setLocationDetails(
+                                (prevState: Partial<LocationType>) => ({
                                     ...prevState,
-                                    businessLocation: {
-                                        ...prevState.businessLocation,
-                                        postcode: Number(e.target.value),
-                                    },
+                                    postcode: Number(e.target.value),
                                 })
                             )
                         }
