@@ -3,7 +3,7 @@ export type PaymentDetailType = BankTransferType | BPayType
 export type BankTransferType = {
     BSB: number;
     ACC: number;
-    BankAccount: string;
+    bankAccount: string;
 }
 
 export type BPayType = "hello"

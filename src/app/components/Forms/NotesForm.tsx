@@ -1,37 +1,90 @@
+import {
+    PaymentNotesContextValue,
+    usePaymentNotesContext,
+} from "@/app/context";
+import { BankTransferType } from "@/app/types";
 import React, { FC } from "react";
 
 export const NotesForm: FC = () => {
+    const {
+        paymentDetails,
+        setPaymentDetails,
+        notes,
+        setNotes,
+        paymentNotes,
+        setPaymentNotes,
+    } = usePaymentNotesContext() as PaymentNotesContextValue;
+
     function saveNoteDetails(
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) {
         e.preventDefault();
+        console.log({
+            paymentDetails: paymentDetails,
+            notes: notes,
+            paymentNotes: paymentNotes,
+        });
     }
+
     return (
         <div className="w-full">
             <form className="flex flex-col">
-                <label htmlFor="bankName" className="text-md font-medium mb-2">
-                    Bank Name
+                <label
+                    htmlFor="bankAccount"
+                    className="text-md font-medium mb-2"
+                >
+                    Bank Account Name
                 </label>
                 <input
-                    id="bankName"
+                    id="bankAccount"
+                    type="text"
                     className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
-                    placeholder="Enter your Bank Name"
+                    placeholder="Enter your Bank Account Name"
+                    value={paymentDetails?.bankAccount}
+                    onChange={(e) =>
+                        setPaymentDetails(
+                            (prevState: Partial<BankTransferType>) => ({
+                                ...prevState,
+                                bankAccount: e.target.value,
+                            })
+                        )
+                    }
                 />
                 <label htmlFor="BSB" className="text-md font-medium mb-2">
                     BSB
                 </label>
                 <input
                     id="BSB"
+                    type="number"
                     className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                     placeholder="Enter your BSB"
+                    value={paymentDetails?.BSB}
+                    onChange={(e) =>
+                        setPaymentDetails(
+                            (prevState: Partial<BankTransferType>) => ({
+                                ...prevState,
+                                BSB: Number(e.target.value),
+                            })
+                        )
+                    }
                 />
                 <label htmlFor="ACCNumber" className="text-md font-medium mb-2">
                     Account Number
                 </label>
                 <input
                     id="ACCNumber"
+                    type="number"
                     className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                     placeholder="Enter your Account Number"
+                    value={paymentDetails?.ACC}
+                    onChange={(e) =>
+                        setPaymentDetails(
+                            (prevState: Partial<BankTransferType>) => ({
+                                ...prevState,
+                                ACC: Number(e.target.value),
+                            })
+                        )
+                    }
                 />
                 <label htmlFor="notes" className="text-md font-medium mb-2">
                     Notes
@@ -40,6 +93,8 @@ export const NotesForm: FC = () => {
                     id="notes"
                     className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                     placeholder="Enter your notes for Invoicee"
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
                 />
                 <label
                     htmlFor="paymentNotes"
@@ -51,6 +106,8 @@ export const NotesForm: FC = () => {
                     id="paymentNotes"
                     className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                     placeholder="Enter any additional payment instructions for Invoicee"
+                    value={paymentNotes}
+                    onChange={(e) => setPaymentNotes(e.target.value)}
                 />
                 <button
                     type="submit"

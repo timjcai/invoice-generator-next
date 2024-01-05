@@ -1,3 +1,5 @@
+import { PaymentDetailType } from ".";
+
 export type InvoiceDetailType = {
     invoiceNumber: number;
     workDate: Date;
@@ -10,5 +12,7 @@ export type LineItemsType = {
 }
 
 export type PaymentNotesType = {
-
+    paymentDetails: PaymentDetailType;
+    notes: string;
+    paymentNotes: string;
 }
