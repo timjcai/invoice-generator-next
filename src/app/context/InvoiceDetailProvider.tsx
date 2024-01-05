@@ -1,10 +1,21 @@
 "use client";
-import React, { FC, createContext, useContext } from "react";
+import React, {
+    Dispatch,
+    FC,
+    SetStateAction,
+    createContext,
+    useContext,
+    useState,
+} from "react";
 import { ProviderProps } from ".";
+import { InvoiceDetailType } from "../types";
 
 // InvoiceContextValue Type
 
-export interface InvoiceContextValue {}
+export interface InvoiceContextValue {
+    invoiceDetails: Partial<InvoiceDetailType>;
+    setInvoiceDetails: Dispatch<SetStateAction<Partial<InvoiceDetailType>>>;
+}
 // CreateContext
 
 export const InvoiceDetailContext = createContext<
@@ -21,7 +32,10 @@ export function useInvoiceDetailContext() {
 // CRUD
 
 export const InvoiceDetailProvider: FC<ProviderProps> = ({ children }) => {
-    const value: InvoiceContextValue = {};
+    const [invoiceDetails, setInvoiceDetails] = useState<
+        Partial<InvoiceDetailType>
+    >({});
+    const value: InvoiceContextValue = { invoiceDetails, setInvoiceDetails };
 
     return (
         <InvoiceDetailContext.Provider value={value}>

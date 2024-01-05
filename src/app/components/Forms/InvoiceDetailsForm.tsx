@@ -1,10 +1,17 @@
+import { InvoiceContextValue, useInvoiceDetailContext } from "@/app/context";
+import { InvoiceDetailType } from "@/app/types";
+import { formatDate } from "@/app/utils";
 import React, { FC } from "react";
 
 export const InvoiceDetailsForm: FC = () => {
+    const { invoiceDetails, setInvoiceDetails } =
+        useInvoiceDetailContext() as InvoiceContextValue;
+
     function saveInvoicedetails(
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) {
         e.preventDefault();
+        console.log(invoiceDetails);
     }
 
     return (
@@ -21,6 +28,15 @@ export const InvoiceDetailsForm: FC = () => {
                     type="number"
                     placeholder="Enter your Invoice Number"
                     className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                    value={invoiceDetails?.invoiceNumber}
+                    onChange={(e) =>
+                        setInvoiceDetails(
+                            (prevState: Partial<InvoiceDetailType>) => ({
+                                ...prevState,
+                                invoiceNumber: Number(e.target.value),
+                            })
+                        )
+                    }
                 ></input>
                 <label htmlFor="workDate" className="text-md font-medium mb-2">
                     Work Date
@@ -30,6 +46,15 @@ export const InvoiceDetailsForm: FC = () => {
                     type="date"
                     placeholder="Enter your Work date"
                     className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                    value={formatDate(new Date(invoiceDetails.workDate!))}
+                    onChange={(e) =>
+                        setInvoiceDetails(
+                            (prevState: Partial<InvoiceDetailType>) => ({
+                                ...prevState,
+                                workDate: new Date(e.target.value),
+                            })
+                        )
+                    }
                 ></input>
                 <label htmlFor="dueDate" className="text-md font-medium mb-2">
                     Due Date
@@ -39,6 +64,16 @@ export const InvoiceDetailsForm: FC = () => {
                     type="date"
                     placeholder="Enter your Due Date"
                     className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                    min={formatDate(new Date(invoiceDetails.workDate!))}
+                    value={formatDate(new Date(invoiceDetails.dueDate!))}
+                    onChange={(e) =>
+                        setInvoiceDetails(
+                            (prevState: Partial<InvoiceDetailType>) => ({
+                                ...prevState,
+                                dueDate: new Date(e.target.value),
+                            })
+                        )
+                    }
                 ></input>
                 <label htmlFor="PONumber" className="text-md font-medium mb-2">
                     PO Number
@@ -48,6 +83,15 @@ export const InvoiceDetailsForm: FC = () => {
                     type="text"
                     placeholder="Enter your Purchase Order Number"
                     className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                    value={invoiceDetails.PONumber}
+                    onChange={(e) =>
+                        setInvoiceDetails(
+                            (prevState: Partial<InvoiceDetailType>) => ({
+                                ...prevState,
+                                PONumber: e.target.value,
+                            })
+                        )
+                    }
                 ></input>
                 <button
                     type="submit"
