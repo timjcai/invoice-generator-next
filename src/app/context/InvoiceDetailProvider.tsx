@@ -34,7 +34,7 @@ export function useInvoiceDetailContext() {
 export const InvoiceDetailProvider: FC<ProviderProps> = ({ children }) => {
     const [invoiceDetails, setInvoiceDetails] = useState<
         Partial<InvoiceDetailType>
-    >({});
+    >({ workDate: new Date() });
     const value: InvoiceContextValue = { invoiceDetails, setInvoiceDetails };
 
     return (
