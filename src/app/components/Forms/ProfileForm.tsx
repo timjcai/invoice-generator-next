@@ -159,24 +159,24 @@ const ProfileForm: FC = () => {
                         </div>
                     )}
                     <label
-                        htmlFor="country"
+                        htmlFor="suburb"
                         className="text-md font-medium mb-2"
                     >
-                        Country
+                        Suburb
                     </label>
-                    {locationDetails.streetLine1 ? (
+                    {locationDetails.suburb ? (
                         <input
-                            id="streeline1"
+                            id="suburb"
                             type="text"
-                            placeholder="Enter your Street line 1"
+                            placeholder="Enter your Suburb"
                             className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                             required={true}
-                            value={locationDetails?.streetLine1}
+                            value={locationDetails?.suburb}
                             onChange={(e) =>
                                 setLocationDetails(
                                     (prevState: Partial<LocationType>) => ({
                                         ...prevState,
-                                        streetLine1: e.target.value,
+                                        suburb: e.target.value,
                                     })
                                 )
                             }
@@ -187,10 +187,10 @@ const ProfileForm: FC = () => {
                         </div>
                     )}
                     <label
-                        htmlFor="streeline2"
+                        htmlFor="country"
                         className="text-md font-medium mb-2"
                     >
-                        Street Line 2
+                        Country
                     </label>
                     {locationDetails.country ? (
                         <input
@@ -214,7 +214,6 @@ const ProfileForm: FC = () => {
                             <SkeletonBar />
                         </div>
                     )}
-
                     <label htmlFor="state" className="text-md font-medium mb-2">
                         State
                     </label>
