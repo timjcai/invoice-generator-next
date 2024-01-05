@@ -91,13 +91,6 @@ export default function Home() {
                     </div>
                     <AppTabs></AppTabs>
                     <InvoicePreview
-                        sellerDetails={profileDetails}
-                        sellerLocation={sellerLocation}
-                        invoiceNumber={1}
-                        buyerDetails={billerDetails}
-                        buyerLocation={billerLocation}
-                        invoiceDate={new Date()}
-                        dueDate={new Date()}
                         itemDescriptions={[]}
                         termsAndConditions={"these are my terms and conditions"}
                         notes={"job number: 1234"}

@@ -13,38 +13,30 @@ import { InvoiceGrid } from "../ReactGrid";
 import {
     BillerContextValue,
     InvoiceContextValue,
+    ProfileContextValue,
     useBillerContext,
     useInvoiceDetailContext,
+    useProfileContext,
 } from "@/app/context";
 
 export type InvoiceType = {
-    invoiceNumber: number;
-    sellerDetails: Partial<SellerType>;
-    sellerLocation: Partial<LocationType>;
-    buyerDetails: Partial<BuyerType>;
-    buyerLocation: Partial<LocationType>;
-    invoiceDate: Date;
-    dueDate: Date;
     itemDescriptions: DescriptionType[];
     termsAndConditions?: string;
     notes?: string;
 };
 
 export const InvoicePreview: FC<InvoiceType> = ({
-    invoiceNumber,
-    sellerDetails,
-    sellerLocation,
-    buyerDetails,
-    buyerLocation,
-    invoiceDate,
-    dueDate,
     itemDescriptions,
     termsAndConditions,
     notes,
 }) => {
     const [totalBalance, setTotalBalance] = useState<number>(10.1);
-    const {} = useBillerContext() as BillerContextValue;
+    const { billerDetails, billerLocation } =
+        useBillerContext() as BillerContextValue;
+    const { profileDetails, locationDetails: sellerLocation } =
+        useProfileContext() as ProfileContextValue;
     const { invoiceDetails } = useInvoiceDetailContext() as InvoiceContextValue;
+
     return (
         <div className="w-[840px] bg-[rgba(154, 152, 152, 0.53)] backdrop-filter backdrop-blur-lg rounded-xl border-2 border-[#ccc] p-12 shadow-black">
             <div className="flex flex-row justify-between mb-8 border-b-black border-b-2 pb-4">
@@ -55,12 +47,12 @@ export const InvoicePreview: FC<InvoiceType> = ({
                     </h1>
                     <div id="sellerDetails">
                         <p className="font-medium text-md">
-                            {sellerDetails?.businessName}
+                            {profileDetails?.businessName}
                         </p>
                         <p className="text-sm">
                             ABN:
-                            {sellerDetails !== undefined &&
-                                displayABN(sellerDetails.ABN)}
+                            {profileDetails !== undefined &&
+                                displayABN(profileDetails.ABN)}
                         </p>
                         <LocationGrid {...sellerLocation} />
                     </div>
@@ -70,12 +62,12 @@ export const InvoicePreview: FC<InvoiceType> = ({
                 <div id="buyerDetails" className="flex flex-row gap-4">
                     <div id="billTo">
                         <p>Bill to:</p>
-                        <p>{buyerDetails.businessName}</p>
-                        <div>ABN: {buyerDetails.ABN}</div>
+                        <p>{billerDetails.businessName}</p>
+                        <div>ABN: {billerDetails.ABN}</div>
                     </div>
                     <div id="shipTo">
                         <p>Ship to:</p>
-                        <LocationGrid {...buyerLocation} />
+                        <LocationGrid {...billerLocation} />
                     </div>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
@@ -103,7 +95,9 @@ export const InvoicePreview: FC<InvoiceType> = ({
                 <div>
                     <div className="grid grid-cols-2 gap-2">
                         <p className="flex justify-end">Subtotal</p>
-                        <p className="w-36">{invoiceNumber}</p>
+                        <p className="w-36">
+                            {displayCurrency(totalBalance, "USD")}
+                        </p>
                         <p className="flex justify-end">Tax</p>
                         <p>RATE</p>
                         <p className="flex justify-end">Amount Paid</p>
