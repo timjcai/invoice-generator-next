@@ -12,6 +12,7 @@ import {
     faCog,
     faCreditCard,
     faCube,
+    faListUl,
     faNoteSticky,
     faPlus,
     faShop,
@@ -36,8 +37,8 @@ const iconMapping: { [key in IconType]: IconDefinition } = {
     Google: faGoogle,
     Apple: faApple,
     Merchant: faShop,
-    Notes: faNoteSticky,
-    Payment: faCreditCard,
+    "Payment & Notes": faCreditCard,
+    "Line Items": faListUl,
 };
 
 export const Icon: FC<IconProps> = ({ label }) => {

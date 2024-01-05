@@ -4,7 +4,12 @@ import React, { FC, useState } from "react";
 import { Icon } from "../UI";
 import { IconType } from "@/app/types";
 import ProfileForm from "../Forms/ProfileForm";
-import { BillerForm } from "../Forms";
+import {
+    BillerForm,
+    InvoiceDetailsForm,
+    NotesForm,
+    LineItemForm,
+} from "../Forms";
 
 export const AppTabs = () => {
     const [controller, setController] = useState<IconType>("Profile");
@@ -24,16 +29,16 @@ export const AppTabs = () => {
             element = <BillerForm />;
             break;
         case "Invoice Details":
-            element = <div>{controller}</div>;
+            element = <InvoiceDetailsForm />;
             break;
-        case "Notes":
-            element = <div>{controller}</div>;
+        case "Payment & Notes":
+            element = <NotesForm />;
             break;
-        case "Payment":
-            element = <div>{controller}</div>;
+        case "Line Items":
+            element = <LineItemForm />;
             break;
         default:
-            element = <div>loading...</div>;
+            element = <ProfileForm />;
     }
 
     return (
@@ -81,40 +86,27 @@ export const AppTabs = () => {
                             )}
                         </li>
                         <li className="me-2">
-                            {controller === "Notes" ? (
+                            {controller === "Payment & Notes" ? (
                                 <TabActive
-                                    buttonLabel={"Notes"}
+                                    buttonLabel={"Payment & Notes"}
                                     onClickFn={handleButtonClick}
                                 />
                             ) : (
                                 <TabRegular
-                                    buttonLabel={"Notes"}
+                                    buttonLabel={"Payment & Notes"}
                                     onClickFn={handleButtonClick}
                                 />
                             )}
                         </li>
                         <li className="me-2">
-                            {controller === "Payment" ? (
+                            {controller === "Line Items" ? (
                                 <TabActive
-                                    buttonLabel={"Payment"}
+                                    buttonLabel={"Line Items"}
                                     onClickFn={handleButtonClick}
                                 />
                             ) : (
                                 <TabRegular
-                                    buttonLabel={"Payment"}
-                                    onClickFn={handleButtonClick}
-                                />
-                            )}
-                        </li>
-                        <li className="me-2">
-                            {controller === "Settings" ? (
-                                <TabActive
-                                    buttonLabel={"Settings"}
-                                    onClickFn={handleButtonClick}
-                                />
-                            ) : (
-                                <TabRegular
-                                    buttonLabel={"Settings"}
+                                    buttonLabel={"Line Items"}
                                     onClickFn={handleButtonClick}
                                 />
                             )}

@@ -8,6 +8,7 @@ import {
 import { LocationType, BuyerType, StateType } from "@/app/types";
 import React, { FC, useEffect, useState } from "react";
 import { Selector, SelectorOptions } from "../common/Selector";
+import { SkeletonBar } from "../UI";
 
 export const BillerForm: FC = () => {
     const {
@@ -49,10 +50,19 @@ export const BillerForm: FC = () => {
 
     let selector;
     if (loading) {
-        selector = <div>loading...</div>;
+        selector = (
+            <div className="mb-4">
+                <SkeletonBar />
+            </div>
+        );
     } else {
         selector = (
-            <Selector initOptions={selectorOptions} setState={setBillerId} />
+            <div className="mb-4">
+                <Selector
+                    initOptions={selectorOptions}
+                    setState={setBillerId}
+                />
+            </div>
         );
     }
 
