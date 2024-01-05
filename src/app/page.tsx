@@ -15,37 +15,38 @@ import {
 import { signOut } from "firebase/auth";
 import { auth } from "./server";
 import { get } from "http";
+import { generateInvoice } from "./utils/InvoiceGenerator";
 
-const Tim: SellerType = {
-    sellerId: "1",
-    businessName: "Tim Jianger Cai",
-    businessLocation: {
-        streetLine1: "3 Elliot Avenue",
-        streetLine2: "Flat G07",
-        country: "Australia",
-        suburb: "CARNEGIE",
-        state: "VIC",
-        postcode: 3163,
-    },
-    ABN: 37676346082,
-    paymentDetails: {
-        BSB: 134134,
-        ACC: 13613612,
-        BankAccount: "Commonwealth Bank",
-    },
-};
+// const Tim: SellerType = {
+//     sellerId: "1",
+//     businessName: "Tim Jianger Cai",
+//     businessLocation: {
+//         streetLine1: "3 Elliot Avenue",
+//         streetLine2: "Flat G07",
+//         country: "Australia",
+//         suburb: "CARNEGIE",
+//         state: "VIC",
+//         postcode: 3163,
+//     },
+//     ABN: 37676346082,
+//     paymentDetails: {
+//         BSB: 134134,
+//         ACC: 13613612,
+//         bankAccount: "Commonwealth Bank",
+//     },
+// };
 
-const ABNGroup: BuyerType = {
-    businessName: "ABN Group",
-    businessLocation: {
-        streetLine1: "82 Lorimer Street",
-        country: "Australia",
-        suburb: "DOCKLANDS",
-        state: "VIC",
-        postcode: 3008,
-    },
-    ABN: 82130382188,
-};
+// const ABNGroup: BuyerType = {
+//     businessName: "ABN Group",
+//     businessLocation: {
+//         streetLine1: "82 Lorimer Street",
+//         country: "Australia",
+//         suburb: "DOCKLANDS",
+//         state: "VIC",
+//         postcode: 3008,
+//     },
+//     ABN: 82130382188,
+// };
 
 //  add signout functionality
 
@@ -85,8 +86,14 @@ export default function Home() {
                             download and reupload your excel spreadsheet or CSV
                             file.
                         </p>
-                        <button className="border-2 border-black px-4 py-2 w-36">
+                        <button className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center mx-3 flex h-[40px] mb-2">
                             Sign Up
+                        </button>
+                        <button
+                            className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center mx-3 flex h-[40px] mb-2"
+                            onClick={(e) => generateInvoice()}
+                        >
+                            Generate Invoice
                         </button>
                     </div>
                     <AppTabs></AppTabs>
