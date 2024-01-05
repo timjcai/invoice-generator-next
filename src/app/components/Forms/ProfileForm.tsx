@@ -11,7 +11,7 @@ import {
     where,
 } from "firebase/firestore";
 import React, { FC, useState } from "react";
-import { SkeletonEllipsis } from "../UI";
+import { SkeletonBar, SkeletonEllipsis } from "../UI";
 
 const ProfileForm: FC = () => {
     const {
@@ -70,28 +70,36 @@ const ProfileForm: FC = () => {
                         }
                     ></input>
                 ) : (
-                    <div className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md bg-[#F5F7F8]">
-                        <SkeletonEllipsis />
+                    <div className="mb-4">
+                        <SkeletonBar />
                     </div>
                 )}
 
                 <label htmlFor="ABN" className="text-md font-medium mb-2">
                     ABN
                 </label>
-                <input
-                    id="ABN"
-                    type="text"
-                    placeholder="Enter your ABN"
-                    className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
-                    required={true}
-                    value={profileDetails?.ABN}
-                    onChange={(e) =>
-                        setProfileDetails((prevState: Partial<SellerType>) => ({
-                            ...prevState,
-                            ABN: Number(e.target.value),
-                        }))
-                    }
-                ></input>
+                {profileDetails.ABN ? (
+                    <input
+                        id="ABN"
+                        type="text"
+                        placeholder="Enter your ABN"
+                        className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                        required={true}
+                        value={profileDetails?.ABN}
+                        onChange={(e) =>
+                            setProfileDetails(
+                                (prevState: Partial<SellerType>) => ({
+                                    ...prevState,
+                                    ABN: Number(e.target.value),
+                                })
+                            )
+                        }
+                    ></input>
+                ) : (
+                    <div className="mb-4">
+                        <SkeletonBar />
+                    </div>
+                )}
                 <p className="text-md font-medium mb-2">Business Location</p>
                 <div className="flex grid grid-cols-6">
                     <label
@@ -100,107 +108,167 @@ const ProfileForm: FC = () => {
                     >
                         Street Line 1
                     </label>
-                    <input
-                        id="streeline1"
-                        type="text"
-                        placeholder="Enter your Street line 1"
-                        className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
-                        required={true}
-                        value={locationDetails?.streetLine1}
-                        onChange={(e) =>
-                            setLocationDetails(
-                                (prevState: Partial<LocationType>) => ({
-                                    ...prevState,
-                                    streetLine1: e.target.value,
-                                })
-                            )
-                        }
-                    ></input>
+                    {locationDetails.streetLine1 ? (
+                        <input
+                            id="streeline1"
+                            type="text"
+                            placeholder="Enter your Street line 1"
+                            className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                            required={true}
+                            value={locationDetails?.streetLine1}
+                            onChange={(e) =>
+                                setLocationDetails(
+                                    (prevState: Partial<LocationType>) => ({
+                                        ...prevState,
+                                        streetLine1: e.target.value,
+                                    })
+                                )
+                            }
+                        ></input>
+                    ) : (
+                        <div className="col-span-5 mb-4">
+                            <SkeletonBar />
+                        </div>
+                    )}
                     <label
                         htmlFor="streeline2"
                         className="text-md font-medium mb-2"
                     >
                         Street Line 2
                     </label>
-                    <input
-                        id="streeline2"
-                        type="text"
-                        placeholder="Enter your Street line 2"
-                        className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
-                        required={true}
-                        value={locationDetails?.streetLine2}
-                        onChange={(e) =>
-                            setLocationDetails(
-                                (prevState: Partial<LocationType>) => ({
-                                    ...prevState,
-                                    streetLine2: e.target.value,
-                                })
-                            )
-                        }
-                    ></input>
+                    {locationDetails.streetLine2 ? (
+                        <input
+                            id="streeline2"
+                            type="text"
+                            placeholder="Enter your Street line 2"
+                            className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                            required={true}
+                            value={locationDetails?.streetLine2}
+                            onChange={(e) =>
+                                setLocationDetails(
+                                    (prevState: Partial<LocationType>) => ({
+                                        ...prevState,
+                                        streetLine2: e.target.value,
+                                    })
+                                )
+                            }
+                        ></input>
+                    ) : (
+                        <div className="col-span-5 mb-4">
+                            <SkeletonBar />
+                        </div>
+                    )}
                     <label
                         htmlFor="country"
                         className="text-md font-medium mb-2"
                     >
                         Country
                     </label>
-                    <input
-                        id="country"
-                        type="text"
-                        placeholder="Enter your Country"
-                        className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
-                        required={true}
-                        value={locationDetails?.country}
-                        onChange={(e) =>
-                            setLocationDetails(
-                                (prevState: Partial<LocationType>) => ({
-                                    ...prevState,
-                                    country: e.target.value,
-                                })
-                            )
-                        }
-                    ></input>
+                    {locationDetails.streetLine1 ? (
+                        <input
+                            id="streeline1"
+                            type="text"
+                            placeholder="Enter your Street line 1"
+                            className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                            required={true}
+                            value={locationDetails?.streetLine1}
+                            onChange={(e) =>
+                                setLocationDetails(
+                                    (prevState: Partial<LocationType>) => ({
+                                        ...prevState,
+                                        streetLine1: e.target.value,
+                                    })
+                                )
+                            }
+                        ></input>
+                    ) : (
+                        <div className="col-span-5 mb-4">
+                            <SkeletonBar />
+                        </div>
+                    )}
+                    <label
+                        htmlFor="streeline2"
+                        className="text-md font-medium mb-2"
+                    >
+                        Street Line 2
+                    </label>
+                    {locationDetails.country ? (
+                        <input
+                            id="country"
+                            type="text"
+                            placeholder="Enter your Country"
+                            className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                            required={true}
+                            value={locationDetails?.country}
+                            onChange={(e) =>
+                                setLocationDetails(
+                                    (prevState: Partial<LocationType>) => ({
+                                        ...prevState,
+                                        country: e.target.value,
+                                    })
+                                )
+                            }
+                        ></input>
+                    ) : (
+                        <div className="col-span-5 mb-4">
+                            <SkeletonBar />
+                        </div>
+                    )}
+
                     <label htmlFor="state" className="text-md font-medium mb-2">
                         State
                     </label>
-                    <input
-                        id="state"
-                        type="text"
-                        placeholder="Enter your State"
-                        className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
-                        required={true}
-                        value={locationDetails?.state}
-                        onChange={(e) =>
-                            setLocationDetails(
-                                (prevState: Partial<LocationType>) => ({
-                                    ...prevState,
-                                    state: e.target.value,
-                                })
-                            )
-                        }
-                    ></input>
+                    {locationDetails.state ? (
+                        <input
+                            id="state"
+                            type="text"
+                            placeholder="Enter your State"
+                            className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                            required={true}
+                            value={locationDetails?.state}
+                            onChange={(e) =>
+                                setLocationDetails(
+                                    (prevState: Partial<LocationType>) => ({
+                                        ...prevState,
+                                        state: e.target.value as StateType,
+                                    })
+                                )
+                            }
+                        ></input>
+                    ) : (
+                        <div className="col-span-5 mb-4">
+                            <SkeletonBar />
+                        </div>
+                    )}
+
                     <label
                         htmlFor="postcode"
                         className="text-md font-medium mb-2"
                     >
                         Postcode
                     </label>
-                    <input
-                        id="postcode"
-                        type="number"
-                        placeholder="Enter your Postcode"
-                        className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
-                        required={true}
-                        value={locationDetails?.postcode}
-                        onChange={(e) =>
-                            setLocationDetails(
-                                (prevState: Partial<LocationType>) => ({
-                                    ...prevState,
-                                    postcode: Number(e.target.value),
-                                })
-                            )
-                        }
-                    ></input>
+                    {locationDetails.postcode ? (
+                        <input
+                            id="postcode"
+                            type="number"
+                            placeholder="Enter your Postcode"
+                            className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                            required={true}
+                            value={locationDetails?.postcode}
+                            onChange={(e) =>
+                                setLocationDetails(
+                                    (prevState: Partial<LocationType>) => ({
+                                        ...prevState,
+                                        postcode: Number(e.target.value),
+                                    })
+                                )
+                            }
+                        ></input>
+                    ) : (
+                        <div className="col-span-5 mb-4">
+                            <SkeletonBar />
+                        </div>
+                    )}
                 </div>
                 <button
                     type="submit"
