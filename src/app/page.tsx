@@ -67,6 +67,27 @@ export default function Home() {
         return <p>Loading...</p>;
     }
 
+    // async function generateInvoiceHandler() {
+    //     // // placeholder - POST request to '/api/generate-invoice'
+    //     // try {
+    //     //     const response = await fetch("/api/generate-invoice", {
+    //     //         method: "POST",
+    //     //         headers: {
+    //     //             "Content-Type": "application/json",
+    //     //         },
+    //     //         body: JSON.stringify({ message: "hello" }),
+    //     //     });
+    //     //     if (response.ok) {
+    //     //         const data = await response.json();
+    //     //         console.log(data);
+    //     //     } else {
+    //     //         console.error("failed to handle post request");
+    //     //     }
+    //     // } catch (error) {
+    //     //     console.error("Error:", error);
+    //     // }
+    // }
+
     useEffect(() => {
         getProfileDetails(uid);
     }, []);
@@ -91,7 +112,9 @@ export default function Home() {
                         </button>
                         <button
                             className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center mx-3 flex h-[40px] mb-2"
-                            onClick={(e) => generateInvoice()}
+                            onClick={(e) =>
+                                generateInvoice({ message: "hello" })
+                            }
                         >
                             Generate Invoice
                         </button>
