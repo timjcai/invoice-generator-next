@@ -55,7 +55,7 @@ export const InvoicePreview: FC<InvoiceType> = ({
                         <p className="text-sm">
                             ABN:
                             {profileDetails !== undefined &&
-                                displayABN(profileDetails.ABN)}
+                                ` ${displayABN(profileDetails.ABN)}`}
                         </p>
                         <LocationGrid {...sellerLocation} />
                     </div>
@@ -63,7 +63,7 @@ export const InvoicePreview: FC<InvoiceType> = ({
             </div>
             <div className="flex flex-row justify-between gap-8 mb-8">
                 <div id="buyerDetails" className="flex flex-row gap-4">
-                    <div id="billTo">
+                    <div id="billTo" className="text-sm">
                         <p>Bill to:</p>
                         <p>{billerDetails.businessName}</p>
                         <div>ABN: {billerDetails.ABN}</div>
@@ -85,7 +85,6 @@ export const InvoicePreview: FC<InvoiceType> = ({
                 </div>
             </div>
             <div className="mb-4 border-t-black border-t-2 pt-4">
-                <h1>Title</h1>
                 <InvoiceGrid />
             </div>
             <div className="flex flex-row justify-between border-t-black border-t-2 pt-4">
@@ -131,8 +130,10 @@ const LocationGrid: FC<Partial<LocationType>> = ({
 }) => {
     return (
         <div className="text-sm">
-            <p>{streetLine1},</p>
-            {streetLine2 && <p>{streetLine2},</p>}
+            <p>
+                {streetLine1 && `${streetLine1},`}{" "}
+                {streetLine2 && `${streetLine2},`}
+            </p>
             <p>
                 {suburb} {state} {postcode}
             </p>

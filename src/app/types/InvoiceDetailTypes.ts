@@ -1,4 +1,4 @@
-import { PaymentDetailType } from ".";
+import { BuyerType, PaymentDetailType, SellerType } from ".";
 
 export type InvoiceDetailType = {
     invoiceNumber: number;
@@ -15,4 +15,12 @@ export type PaymentNotesType = {
     paymentDetails: PaymentDetailType;
     notes: string;
     paymentNotes: string;
+}
+
+export type GeneratorType = {
+    profileDetails?: Partial<SellerType>,
+    billerDetails?: Partial<BuyerType>,
+    invoiceDetails?: Partial<InvoiceDetailType>,
+    paymentNotes?: Partial<PaymentNotesType>,
+    // lineItems: LineItemsType,
 }

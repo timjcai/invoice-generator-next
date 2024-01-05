@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import CSVPage from "./components/ReactGrid/CSVPage";
 import { InvoicePreview } from "./components/InvoiceTemplate";
-import { BuyerType, SellerType } from "./types";
+import { BuyerType, LocationType, SellerType } from "./types";
 import { AppTabs } from "./components/Navigation";
 import {
     AuthContextValue,
@@ -113,7 +113,18 @@ export default function Home() {
                         <button
                             className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center mx-3 flex h-[40px] mb-2"
                             onClick={(e) =>
-                                generateInvoice({ message: "hello" })
+                                generateInvoice({
+                                    profileDetails: {
+                                        ...profileDetails,
+                                        businessLocation:
+                                            sellerLocation as LocationType,
+                                    },
+                                    billerDetails: {
+                                        ...billerDetails,
+                                        businessLocation:
+                                            billerLocation as LocationType,
+                                    },
+                                })
                             }
                         >
                             Generate Invoice
