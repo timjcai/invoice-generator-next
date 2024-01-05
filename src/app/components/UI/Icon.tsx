@@ -43,7 +43,5 @@ const iconMapping: { [key in IconType]: IconDefinition } = {
 
 export const Icon: FC<IconProps> = ({ label }) => {
     const icon = iconMapping[label];
-    return (
-        <FontAwesomeIcon className="h-6 flex self-center mx-2" icon={icon} />
-    );
+    return <FontAwesomeIcon className="flex self-center mx-2" icon={icon} />;
 };

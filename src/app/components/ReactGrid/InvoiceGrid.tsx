@@ -61,7 +61,7 @@ export const InvoiceGrid = () => {
                 onCellsChanged={handleChanges}
             />
             <button
-                className="border-black border-[0.5px] p-2 rounded-[4px] mt-2"
+                className="flex flex-row border-black border-[0.5px] py-1 pe-2 rounded-[4px] mt-2 text-sm"
                 onClick={() => addRow()}
             >
                 <Icon label={"add"} />

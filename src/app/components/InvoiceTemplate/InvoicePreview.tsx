@@ -13,9 +13,11 @@ import { InvoiceGrid } from "../ReactGrid";
 import {
     BillerContextValue,
     InvoiceContextValue,
+    PaymentNotesContextValue,
     ProfileContextValue,
     useBillerContext,
     useInvoiceDetailContext,
+    usePaymentNotesContext,
     useProfileContext,
 } from "@/app/context";
 
@@ -28,7 +30,6 @@ export type InvoiceType = {
 export const InvoicePreview: FC<InvoiceType> = ({
     itemDescriptions,
     termsAndConditions,
-    notes,
 }) => {
     const [totalBalance, setTotalBalance] = useState<number>(10.1);
     const { billerDetails, billerLocation } =
@@ -36,6 +37,8 @@ export const InvoicePreview: FC<InvoiceType> = ({
     const { profileDetails, locationDetails: sellerLocation } =
         useProfileContext() as ProfileContextValue;
     const { invoiceDetails } = useInvoiceDetailContext() as InvoiceContextValue;
+    const { paymentDetails, notes, paymentNotes } =
+        usePaymentNotesContext() as PaymentNotesContextValue;
 
     return (
         <div className="w-[840px] bg-[rgba(154, 152, 152, 0.53)] backdrop-filter backdrop-blur-lg rounded-xl border-2 border-[#ccc] p-12 shadow-black">
@@ -88,9 +91,16 @@ export const InvoicePreview: FC<InvoiceType> = ({
             <div className="flex flex-row justify-between border-t-black border-t-2 pt-4">
                 <div className="w-96">
                     <h1>Notes:</h1>
-                    <textarea className="w-full border-black border-[0.5px]"></textarea>
+                    <div className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md">
+                        {notes}
+                    </div>
                     <h1>Payment Terms:</h1>
-                    <textarea className="w-full border-black border-[0.5px]"></textarea>
+                    <div className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md">
+                        <div>{paymentDetails.bankAccount}</div>
+                        <div>{paymentDetails.BSB}</div>
+                        <div>{paymentDetails.ACC}</div>
+                        <div>{paymentNotes}</div>
+                    </div>
                 </div>
                 <div>
                     <div className="grid grid-cols-2 gap-2">
