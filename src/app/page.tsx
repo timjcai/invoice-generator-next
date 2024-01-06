@@ -7,9 +7,12 @@ import { AppTabs } from "./components/Navigation";
 import {
     AuthContextValue,
     BillerContextValue,
+    InvoiceContextValue,
+    InvoiceDetailContext,
     ProfileContextValue,
     useAuth,
     useBillerContext,
+    useInvoiceDetailContext,
     useProfileContext,
 } from "./context";
 import { signOut } from "firebase/auth";
@@ -62,6 +65,7 @@ export default function Home() {
     } = useProfileContext() as ProfileContextValue;
     const { billerDetails, billerLocation } =
         useBillerContext() as BillerContextValue;
+    const { invoiceDetails } = useInvoiceDetailContext() as InvoiceContextValue;
 
     if (loading) {
         return <p>Loading...</p>;
@@ -124,6 +128,7 @@ export default function Home() {
                                         businessLocation:
                                             billerLocation as LocationType,
                                     },
+                                    invoiceDetails: invoiceDetails,
                                 })
                             }
                         >
