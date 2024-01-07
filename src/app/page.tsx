@@ -9,10 +9,12 @@ import {
     BillerContextValue,
     InvoiceContextValue,
     InvoiceDetailContext,
+    PaymentNotesContextValue,
     ProfileContextValue,
     useAuth,
     useBillerContext,
     useInvoiceDetailContext,
+    usePaymentNotesContext,
     useProfileContext,
 } from "./context";
 import { signOut } from "firebase/auth";
@@ -66,6 +68,8 @@ export default function Home() {
     const { billerDetails, billerLocation } =
         useBillerContext() as BillerContextValue;
     const { invoiceDetails } = useInvoiceDetailContext() as InvoiceContextValue;
+    const { paymentDetails, notes, paymentNotes } =
+        usePaymentNotesContext() as PaymentNotesContextValue;
 
     if (loading) {
         return <p>Loading...</p>;
@@ -129,6 +133,11 @@ export default function Home() {
                                             billerLocation as LocationType,
                                     },
                                     invoiceDetails: invoiceDetails,
+                                    paymentAndNotes: {
+                                        paymentDetails: paymentDetails,
+                                        notes: notes,
+                                        paymentNotes: paymentNotes,
+                                    },
                                 })
                             }
                         >
