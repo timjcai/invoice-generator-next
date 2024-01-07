@@ -1,9 +1,20 @@
 "use client";
-import React, { FC, useContext, createContext } from "react";
+import React, {
+    FC,
+    useContext,
+    createContext,
+    useState,
+    Dispatch,
+    SetStateAction,
+} from "react";
 import { ProviderProps } from ".";
+import { LineItemsType } from "../types";
 
 // InvoiceContextValue Type
-export interface LineItemsContextValue {}
+export interface LineItemsContextValue {
+    lineItems: Partial<LineItemsType>[];
+    setLineItems: Dispatch<SetStateAction<Partial<LineItemsType>[]>>;
+}
 
 // CreateContext
 export const LineItemsContext = createContext<
@@ -20,7 +31,13 @@ export function useLineItemsContext() {
 // CRUD
 
 export const LineItemsProvider: FC<ProviderProps> = ({ children }) => {
-    const value: LineItemsContextValue = {};
+    const [lineItems, setLineItems] = useState<Partial<LineItemsType>[]>([]);
+
+    const value: LineItemsContextValue = {
+        lineItems,
+        setLineItems,
+    };
+
     return (
         <LineItemsContext.Provider value={value}>
             {children}

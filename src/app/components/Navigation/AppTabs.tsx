@@ -12,7 +12,7 @@ import {
 } from "../Forms";
 
 export const AppTabs = () => {
-    const [controller, setController] = useState<IconType>("Profile");
+    const [controller, setController] = useState<IconType>("Line Items");
     let element;
 
     const handleButtonClick = (
@@ -38,7 +38,7 @@ export const AppTabs = () => {
             element = <LineItemForm />;
             break;
         default:
-            element = <ProfileForm />;
+            element = <LineItemForm />;
     }
 
     return (
@@ -73,19 +73,6 @@ export const AppTabs = () => {
                             )}
                         </li>
                         <li className="me-2">
-                            {controller === "Invoice Details" ? (
-                                <TabActive
-                                    buttonLabel={"Invoice Details"}
-                                    onClickFn={handleButtonClick}
-                                />
-                            ) : (
-                                <TabRegular
-                                    buttonLabel={"Invoice Details"}
-                                    onClickFn={handleButtonClick}
-                                />
-                            )}
-                        </li>
-                        <li className="me-2">
                             {controller === "Payment & Notes" ? (
                                 <TabActive
                                     buttonLabel={"Payment & Notes"}
@@ -94,6 +81,19 @@ export const AppTabs = () => {
                             ) : (
                                 <TabRegular
                                     buttonLabel={"Payment & Notes"}
+                                    onClickFn={handleButtonClick}
+                                />
+                            )}
+                        </li>
+                        <li className="me-2">
+                            {controller === "Invoice Details" ? (
+                                <TabActive
+                                    buttonLabel={"Invoice Details"}
+                                    onClickFn={handleButtonClick}
+                                />
+                            ) : (
+                                <TabRegular
+                                    buttonLabel={"Invoice Details"}
                                     onClickFn={handleButtonClick}
                                 />
                             )}

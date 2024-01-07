@@ -9,6 +9,7 @@ import React, {
 } from "react";
 import { ProviderProps } from ".";
 import { InvoiceDetailType } from "../types";
+import { oneMonthLater } from "../utils";
 
 // InvoiceContextValue Type
 
@@ -34,7 +35,7 @@ export function useInvoiceDetailContext() {
 export const InvoiceDetailProvider: FC<ProviderProps> = ({ children }) => {
     const [invoiceDetails, setInvoiceDetails] = useState<
         Partial<InvoiceDetailType>
-    >({ workDate: new Date(), dueDate: new Date() });
+    >({ workDate: new Date(), dueDate: oneMonthLater() });
     const value: InvoiceContextValue = { invoiceDetails, setInvoiceDetails };
 
     return (

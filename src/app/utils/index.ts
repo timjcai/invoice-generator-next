@@ -1,3 +1,5 @@
 export * from './Currency'
 export * from './MoneyDisplay'
 export * from './NumberDisplay'
+export * from './InvoiceGenerator'
+export * from './InvoiceUtils'
