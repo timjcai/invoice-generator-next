@@ -5,24 +5,61 @@ import { displayCurrency } from "@/app/utils";
 export const LineItemForm: FC = () => {
     const [counter, setCounter] = useState<number>(0);
     const [currentLine, setCurrentLine] = useState<Partial<LineItemType>>({
+        description: "",
         quantity: 1,
+        rate: "0",
     });
-    const [allItems, setAllItems] = useState<LineItemType[]>([]);
+    const [allItems, setAllItems] = useState<Partial<LineItemType>[]>([]);
+
     // load function - to determine how many lineitems there are
 
     // push currentLine into all Items
-
+    function submitAndSave(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        setAllItems((prevState) => [...prevState, currentLine]);
+        clearCurrentLine();
+    }
     // remove INDEX line from lineItems
 
     // remove last line from lineItems
 
     // submit allLineItems - save into Cloud
 
+    // handle number changes
+    function handleNumberUpdate(e) {
+        const { value } = e.target;
+        const numberRegex = /^-?\d+(\.\d+)?$|[\b]/;
+        if (numberRegex.test(value)) {
+            console.log("valid number");
+            setCurrentLine((prevState) => ({
+                ...prevState,
+                rate: e.target.value,
+            }));
+        } else {
+            console.log("invalid input - not a number");
+        }
+    }
+    //
+
+    function clearCurrentLine() {
+        setCurrentLine({
+            description: "",
+            quantity: 1,
+            rate: 0,
+        });
+    }
+
     // create new line
 
     return (
         <div className="w-full">
-            <form className="flex flex-col">
+            <form className="flex flex-col" onSubmit={(e) => submitAndSave(e)}>
+                <button
+                    type="submit"
+                    className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center mx-3 flex h-[40px] mb-2"
+                >
+                    Add Line
+                </button>
                 <table>
                     <thead>
                         <tr className="grid grid-cols-6 border-2 border-black rounded-md bg-black text-white">
@@ -43,7 +80,7 @@ export const LineItemForm: FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {allItems.map((row: LineItemType) => {
+                        {allItems.map((row: Partial<LineItemType>) => {
                             return (
                                 <tr className="grid grid-cols-6">
                                     <td className="col-span-3 ps-2">
@@ -54,13 +91,13 @@ export const LineItemForm: FC = () => {
                                     </td>
                                     <td className="ps-2">
                                         <p>
-                                            {displayCurrency(row.rate, "AUD")}
+                                            {displayCurrency(row.rate!, "AUD")}
                                         </p>
                                     </td>
                                     <td className="ps-2">
                                         <p>
                                             {displayCurrency(
-                                                row.quantity * row.rate,
+                                                row.quantity! * row.rate!,
                                                 "AUD"
                                             )}
                                         </p>
@@ -74,7 +111,7 @@ export const LineItemForm: FC = () => {
                                     className=" w-full border-1 border-[#EDEEEF] rounded-md"
                                     type="text"
                                     id="lineDescription"
-                                    value={currentLine?.description}
+                                    value={currentLine.description}
                                     onChange={(e) =>
                                         setCurrentLine((prevState) => ({
                                             ...prevState,
@@ -85,15 +122,16 @@ export const LineItemForm: FC = () => {
                             </td>
                             <td className="">
                                 <input
+                                    autoComplete="off"
                                     className=" w-full border-1 border-[#EDEEEF] rounded-md"
                                     type="number"
                                     id="lineQuantity"
-                                    value={currentLine?.quantity}
+                                    value={currentLine.quantity}
                                     min={0}
                                     onChange={(e) =>
                                         setCurrentLine((prevState) => ({
                                             ...prevState,
-                                            quantity: Number(e.target.value),
+                                            quantity: e.target.value,
                                         }))
                                     }
                                 />
@@ -104,16 +142,15 @@ export const LineItemForm: FC = () => {
                                         $
                                     </div>
                                     <input
+                                        autoComplete="off"
                                         className="ps-[32px] w-full border-1 border-[#EDEEEF] rounded-md"
                                         type="number"
-                                        step="0.01"
                                         id="lineRate"
-                                        min={0}
-                                        value={currentLine?.rate}
+                                        value={currentLine.rate}
                                         onChange={(e) =>
                                             setCurrentLine((prevState) => ({
                                                 ...prevState,
-                                                rate: Number(e.target.value),
+                                                rate: e.target.value,
                                             }))
                                         }
                                     />
@@ -130,8 +167,8 @@ export const LineItemForm: FC = () => {
                                         step="0.01"
                                         id="lineAmount"
                                         value={
-                                            currentLine?.quantity! *
-                                            currentLine?.rate!
+                                            currentLine.quantity! *
+                                            currentLine.rate!
                                                 ? currentLine?.quantity! *
                                                   currentLine?.rate!
                                                 : 0

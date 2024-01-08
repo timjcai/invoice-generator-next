@@ -4,8 +4,8 @@ import { Person } from ".";
 
 export interface LineItemType {
     description: string;
-    quantity: number;
-    rate: number;
+    quantity: number | string;
+    rate: number | string;
 }
 
 export const getInvoice = (): LineItemType[] => [
