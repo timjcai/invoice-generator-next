@@ -7,7 +7,7 @@ import React, {
     Dispatch,
     SetStateAction,
 } from "react";
-import { ProviderProps } from ".";
+import { ProfileContextValue, ProviderProps, useProfileContext } from ".";
 import {
     BankTransferType,
     PaymentDetailType,
@@ -18,8 +18,6 @@ import { db } from "../server";
 
 // InvoiceContextValue Type
 export interface PaymentNotesContextValue {
-    paymentDetails: Partial<BankTransferType>;
-    setPaymentDetails: Dispatch<SetStateAction<Partial<BankTransferType>>>;
     paymentDetailId: string;
     setPaymentDetailId: Dispatch<SetStateAction<string>>;
     notes: Partial<string>;
@@ -44,9 +42,6 @@ export function usePaymentNotesContext() {
 // CRUD
 
 export const PaymentNotesProvider: FC<ProviderProps> = ({ children }) => {
-    const [paymentDetails, setPaymentDetails] = useState<
-        Partial<BankTransferType>
-    >({});
     const [paymentDetailId, setPaymentDetailId] = useState<string>("");
     const [notes, setNotes] = useState<string>("");
     const [paymentNotes, setPaymentNotes] = useState<string>("");
@@ -65,8 +60,6 @@ export const PaymentNotesProvider: FC<ProviderProps> = ({ children }) => {
     }
 
     const value: PaymentNotesContextValue = {
-        paymentDetails,
-        setPaymentDetails,
         paymentDetailId,
         setPaymentDetailId,
         notes,

@@ -17,7 +17,7 @@ import {
 } from "../types";
 import { doc } from "firebase/firestore";
 import { app, auth } from "../server";
-import { useAuth } from ".";
+import { PaymentNotesContextValue, useAuth, usePaymentNotesContext } from ".";
 import { onAuthStateChanged } from "firebase/auth";
 
 export interface ProfileContextValue {

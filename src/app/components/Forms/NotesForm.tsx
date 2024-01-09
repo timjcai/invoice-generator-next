@@ -14,24 +14,23 @@ export const NotesForm: FC = () => {
     const { paymentDetails, setPaymentDetails } =
         useProfileContext() as ProfileContextValue;
 
-    console.log();
-    // function saveNoteDetails(
-    //     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    // ) {
-    //     e.preventDefault();
-    //     console.log({
-    //         paymentDetails: paymentDetails,
-    //         notes: notes,
-    //         paymentNotes: paymentNotes,
-    //     });
-    // }
+    function saveNoteDetails(
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) {
+        e.preventDefault();
+        console.log({
+            paymentDetails: paymentDetails,
+            notes: notes,
+            paymentNotes: paymentNotes,
+        });
+    }
 
-    // function getPaymentDetails(
-    //     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    // ) {
-    //     e.preventDefault();
-    //     getPaymentNotes(uid);
-    // }
+    function getPaymentDetails(
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) {
+        e.preventDefault();
+        getPaymentNotes(uid);
+    }
 
     return (
         <div className="w-full">

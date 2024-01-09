@@ -7,7 +7,7 @@ import {
     LocationType,
     SellerType,
 } from "@/app/types";
-import { displayABN, displayCurrency } from "@/app/utils";
+import { displayABN, displayBankNumber, displayCurrency } from "@/app/utils";
 import { ImageDropzone } from "../Dropzone";
 import { InvoiceGrid } from "../ReactGrid";
 import {
@@ -34,10 +34,13 @@ export const InvoicePreview: FC<InvoiceType> = ({
     const [totalBalance, setTotalBalance] = useState<number>(10.1);
     const { billerDetails, billerLocation } =
         useBillerContext() as BillerContextValue;
-    const { profileDetails, locationDetails: sellerLocation } =
-        useProfileContext() as ProfileContextValue;
+    const {
+        profileDetails,
+        locationDetails: sellerLocation,
+        paymentDetails,
+    } = useProfileContext() as ProfileContextValue;
     const { invoiceDetails } = useInvoiceDetailContext() as InvoiceContextValue;
-    const { paymentDetails, notes, paymentNotes } =
+    const { notes, paymentNotes } =
         usePaymentNotesContext() as PaymentNotesContextValue;
 
     return (
@@ -96,8 +99,16 @@ export const InvoicePreview: FC<InvoiceType> = ({
                     <h1>Payment Terms:</h1>
                     <div className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md">
                         <div>{paymentDetails.bankAccount}</div>
-                        <div>{paymentDetails.BSB}</div>
-                        <div>{paymentDetails.ACC}</div>
+                        <div>
+                            {paymentDetails.BSB
+                                ? displayBankNumber(paymentDetails.BSB!)
+                                : null}
+                        </div>
+                        <div>
+                            {paymentDetails.ACC
+                                ? displayBankNumber(paymentDetails.ACC!)
+                                : null}
+                        </div>
                         <div>{paymentNotes}</div>
                     </div>
                 </div>
