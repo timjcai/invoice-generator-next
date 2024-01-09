@@ -19,11 +19,12 @@ import {
     getRows,
 } from ".";
 import { Icon } from "../UI";
+import { LineItemsType } from "@/app/types";
 
 const applyChangesToLineItems = (
     changes: CellChange<TextCell>[],
-    prevPeople: LineItemType[]
-): LineItemType[] => {
+    prevPeople: Partial<LineItemsType>[]
+): Partial<LineItemsType>[] => {
     changes.forEach((change) => {
         const itemIndex = change.rowId;
         const fieldName = change.columnId;
@@ -33,7 +34,7 @@ const applyChangesToLineItems = (
 };
 
 export const InvoiceGrid = () => {
-    const [lineItems, setLineItems] = React.useState<LineItemType[]>(
+    const [lineItems, setLineItems] = React.useState<Partial<LineItemsType>[]>(
         getInvoice()
     );
 

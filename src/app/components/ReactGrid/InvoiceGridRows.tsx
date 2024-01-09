@@ -1,14 +1,15 @@
 "use client";
 import { Column, Row } from "@silevis/reactgrid";
 import { Person } from ".";
+import { LineItemsType } from "@/app/types";
 
-export interface LineItemType {
-    description: string;
-    quantity: number | string;
-    rate: number | string;
-}
+// export interface LineItemType {
+//     description: string;
+//     quantity: number | string;
+//     rate: number | string;
+// }
 
-export const getInvoice = (): LineItemType[] => [
+export const getInvoice = (): Partial<LineItemsType>[] => [
     { description: "example", quantity: 1, rate: 100 },
     { description: "", quantity: 0, rate: 0 },
 ];
@@ -30,15 +31,15 @@ export const invoiceHeaderRow: Row = {
     ],
 };
 
-export const getInvoiceRows = (invoice: LineItemType[]): Row[] => [
+export const getInvoiceRows = (invoice: Partial<LineItemsType>[]): Row[] => [
     invoiceHeaderRow,
     ...invoice.map<Row>((invoice, idx) => ({
         rowId: idx,
         cells: [
-            { type: "text", text: invoice.description },
-            { type: "number", value: invoice.quantity },
-            { type: "number", value: invoice.rate },
-            { type: "number", value: invoice.quantity * invoice.rate },
+            { type: "text", text: invoice.description! },
+            { type: "number", value: invoice.quantity! },
+            { type: "number", value: invoice.rate! },
+            { type: "number", value: invoice.quantity! * invoice.rate! },
         ],
     })),
 ];

@@ -9,6 +9,7 @@ import {
     BillerProvider,
     InvoiceDetailProvider,
     PaymentNotesProvider,
+    LineItemsProvider,
 } from "./context";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -34,10 +35,12 @@ export default async function RootLayout({
                         <BillerProvider>
                             <InvoiceDetailProvider>
                                 <PaymentNotesProvider>
-                                    <>
-                                        <Navbar />
-                                        {children}
-                                    </>
+                                    <LineItemsProvider>
+                                        <>
+                                            <Navbar />
+                                            {children}
+                                        </>
+                                    </LineItemsProvider>
                                 </PaymentNotesProvider>
                             </InvoiceDetailProvider>
                         </BillerProvider>

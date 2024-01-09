@@ -1,16 +1,19 @@
 import React, { FC, useState } from "react";
-import { LineItemType } from "../ReactGrid";
 import { displayCurrency } from "@/app/utils";
+import { LineItemsType } from "@/app/types";
+import { LineItemsContextValue, useLineItemsContext } from "@/app/context";
 
 export const LineItemForm: FC = () => {
-    const [counter, setCounter] = useState<number>(0);
-    const [currentLine, setCurrentLine] = useState<Partial<LineItemType>>({
-        description: "",
-        quantity: 1,
-        rate: "0",
-    });
-    const [allItems, setAllItems] = useState<Partial<LineItemType>[]>([]);
+    // const [counter, setCounter] = useState<number>(0);
+    // const [currentLine, setCurrentLine] = useState<Partial<LineItemsType>>({
+    //     description: "",
+    //     quantity: 1,
+    //     rate: 0,
+    // });
+    // const [allItems, setAllItems] = useState<Partial<LineItemsType>[]>([]);
 
+    const { currentLine, setCurrentLine, allItems, setAllItems } =
+        useLineItemsContext() as LineItemsContextValue;
     // load function - to determine how many lineitems there are
 
     // push currentLine into all Items
@@ -80,7 +83,7 @@ export const LineItemForm: FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {allItems.map((row: Partial<LineItemType>) => {
+                        {allItems.map((row: Partial<LineItemsType>) => {
                             return (
                                 <tr className="grid grid-cols-6">
                                     <td className="col-span-3 ps-2">
@@ -167,10 +170,10 @@ export const LineItemForm: FC = () => {
                                         step="0.01"
                                         id="lineAmount"
                                         value={
-                                            currentLine.quantity! *
-                                            currentLine.rate!
-                                                ? currentLine?.quantity! *
-                                                  currentLine?.rate!
+                                            (currentLine.quantity! as number) *
+                                            (currentLine.rate! as number)
+                                                ? (currentLine?.quantity! as number) *
+                                                  (currentLine?.rate! as number)
                                                 : 0
                                         }
                                         disabled

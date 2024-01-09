@@ -12,8 +12,12 @@ import { LineItemsType } from "../types";
 
 // InvoiceContextValue Type
 export interface LineItemsContextValue {
-    lineItems: Partial<LineItemsType>[];
-    setLineItems: Dispatch<SetStateAction<Partial<LineItemsType>[]>>;
+    counter: number;
+    setCounter: Dispatch<SetStateAction<number>>;
+    currentLine: Partial<LineItemsType>;
+    setCurrentLine: Dispatch<SetStateAction<Partial<LineItemsType>>>;
+    allItems: Partial<LineItemsType>[];
+    setAllItems: Dispatch<SetStateAction<Partial<LineItemsType>[]>>;
 }
 
 // CreateContext
@@ -31,11 +35,21 @@ export function useLineItemsContext() {
 // CRUD
 
 export const LineItemsProvider: FC<ProviderProps> = ({ children }) => {
-    const [lineItems, setLineItems] = useState<Partial<LineItemsType>[]>([]);
+    const [counter, setCounter] = useState<number>(0);
+    const [currentLine, setCurrentLine] = useState<Partial<LineItemsType>>({
+        description: "",
+        quantity: 1,
+        rate: 0,
+    });
+    const [allItems, setAllItems] = useState<Partial<LineItemsType>[]>([]);
 
     const value: LineItemsContextValue = {
-        lineItems,
-        setLineItems,
+        counter,
+        setCounter,
+        currentLine,
+        setCurrentLine,
+        allItems,
+        setAllItems,
     };
 
     return (
