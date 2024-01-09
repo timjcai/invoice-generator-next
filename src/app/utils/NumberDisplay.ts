@@ -28,7 +28,7 @@ export function displayCurrency(money: number, currencyCode: CurrencyType): stri
         maximumFractionDigits: 2,
     }).format(money);
 
-    return `${formattedCurrency} ${currencyCode}`;
+    return `${formattedCurrency}`;
 }
 
 export function formatDate(currentDate: Date) {

@@ -9,8 +9,8 @@ export type InvoiceDetailType = {
 
 export type LineItemsType = {
     description: string;
-    quantity: number | string;
-    rate: number | string;
+    quantity: number;
+    rate: number;
     total?: number;
 }
 

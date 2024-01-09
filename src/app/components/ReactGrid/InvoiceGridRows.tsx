@@ -2,6 +2,7 @@
 import { Column, Row } from "@silevis/reactgrid";
 import { Person } from ".";
 import { LineItemsType } from "@/app/types";
+import { displayCurrency } from "@/app/utils";
 
 // export interface LineItemType {
 //     description: string;
@@ -9,10 +10,10 @@ import { LineItemsType } from "@/app/types";
 //     rate: number | string;
 // }
 
-export const getInvoice = (): Partial<LineItemsType>[] => [
-    { description: "example", quantity: 1, rate: 100 },
-    { description: "", quantity: 0, rate: 0 },
-];
+// export const getInvoice = (): Partial<LineItemsType>[] => [
+//     { description: "example", quantity: 1, rate: 100 },
+//     { description: "", quantity: 0, rate: 0 },
+// ];
 
 export const getInvoiceColumns = (): Column[] => [
     { columnId: "description", width: 400 },
@@ -38,8 +39,11 @@ export const getInvoiceRows = (invoice: Partial<LineItemsType>[]): Row[] => [
         cells: [
             { type: "text", text: invoice.description! },
             { type: "number", value: invoice.quantity! },
-            { type: "number", value: invoice.rate! },
-            { type: "number", value: invoice.quantity! * invoice.rate! },
+            { type: "text", text: displayCurrency(invoice.rate!, "AUD") },
+            {
+                type: "text",
+                text: displayCurrency(invoice.quantity! * invoice.rate!, "AUD"),
+            },
         ],
     })),
 ];

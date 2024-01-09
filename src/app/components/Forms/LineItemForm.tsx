@@ -20,6 +20,7 @@ export const LineItemForm: FC = () => {
     function submitAndSave(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setAllItems((prevState) => [...prevState, currentLine]);
+        console.log(allItems);
         clearCurrentLine();
     }
     // remove INDEX line from lineItems
@@ -134,7 +135,7 @@ export const LineItemForm: FC = () => {
                                     onChange={(e) =>
                                         setCurrentLine((prevState) => ({
                                             ...prevState,
-                                            quantity: e.target.value,
+                                            quantity: Number(e.target.value),
                                         }))
                                     }
                                 />
@@ -153,7 +154,7 @@ export const LineItemForm: FC = () => {
                                         onChange={(e) =>
                                             setCurrentLine((prevState) => ({
                                                 ...prevState,
-                                                rate: e.target.value,
+                                                rate: Number(e.target.value),
                                             }))
                                         }
                                     />
