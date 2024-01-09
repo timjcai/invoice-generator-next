@@ -13,15 +13,20 @@ import {
     PaymentDetailType,
     PaymentNotesType,
 } from "../types";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../server";
 
 // InvoiceContextValue Type
 export interface PaymentNotesContextValue {
     paymentDetails: Partial<BankTransferType>;
     setPaymentDetails: Dispatch<SetStateAction<Partial<BankTransferType>>>;
+    paymentDetailId: string;
+    setPaymentDetailId: Dispatch<SetStateAction<string>>;
     notes: Partial<string>;
     setNotes: Dispatch<SetStateAction<Partial<string>>>;
     paymentNotes: Partial<string>;
     setPaymentNotes: Dispatch<SetStateAction<Partial<string>>>;
+    getPaymentNotes: (uid: string) => void;
 }
 
 // CreateContext
@@ -42,16 +47,33 @@ export const PaymentNotesProvider: FC<ProviderProps> = ({ children }) => {
     const [paymentDetails, setPaymentDetails] = useState<
         Partial<BankTransferType>
     >({});
+    const [paymentDetailId, setPaymentDetailId] = useState<string>("");
     const [notes, setNotes] = useState<string>("");
     const [paymentNotes, setPaymentNotes] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(true);
+
+    async function getPaymentNotes(uid: string) {
+        try {
+            const documentRef = doc(db, "paymentDetails", `${uid}`);
+            const paymentDetailQuery = await getDoc(documentRef);
+            const documentData = paymentDetailQuery.data();
+            console.log(documentData);
+            setPaymentDetailId(paymentDetailQuery.id);
+        } catch (error) {
+            console.error("error fetching data", error);
+        }
+    }
 
     const value: PaymentNotesContextValue = {
         paymentDetails,
         setPaymentDetails,
+        paymentDetailId,
+        setPaymentDetailId,
         notes,
         setNotes,
         paymentNotes,
         setPaymentNotes,
+        getPaymentNotes,
     };
     return (
         <PaymentNotesContext.Provider value={value}>

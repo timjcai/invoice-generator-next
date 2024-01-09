@@ -39,3 +39,16 @@ export function formatDate(currentDate: Date) {
     const formattedDate = `${year}-${month}-${day}`;
     return formattedDate
 } 
+
+export function displayBankNumber(BankNumber: number): string {
+    if (BankNumber != undefined) {
+        const BankNumberArray = BankNumber.toString().split('')
+        const midpoint = Math.ceil(BankNumberArray.length/2)
+    
+        const firstHalf = BankNumberArray.slice(0,midpoint).join('')
+        const secondHalf = BankNumberArray.slice(midpoint).join('');
+        return `${firstHalf} ${secondHalf}`
+    } else {
+        return ''
+    }
+}

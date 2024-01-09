@@ -1,34 +1,48 @@
 import {
     PaymentNotesContextValue,
+    ProfileContextValue,
     usePaymentNotesContext,
+    useProfileContext,
 } from "@/app/context";
 import { BankTransferType } from "@/app/types";
+import { displayBankNumber } from "@/app/utils";
 import React, { FC } from "react";
 
 export const NotesForm: FC = () => {
-    const {
-        paymentDetails,
-        setPaymentDetails,
-        notes,
-        setNotes,
-        paymentNotes,
-        setPaymentNotes,
-    } = usePaymentNotesContext() as PaymentNotesContextValue;
+    const { notes, setNotes, paymentNotes, setPaymentNotes, getPaymentNotes } =
+        usePaymentNotesContext() as PaymentNotesContextValue;
+    const { paymentDetails, setPaymentDetails } =
+        useProfileContext() as ProfileContextValue;
 
-    function saveNoteDetails(
-        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    ) {
-        e.preventDefault();
-        console.log({
-            paymentDetails: paymentDetails,
-            notes: notes,
-            paymentNotes: paymentNotes,
-        });
-    }
+    console.log();
+    // function saveNoteDetails(
+    //     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    // ) {
+    //     e.preventDefault();
+    //     console.log({
+    //         paymentDetails: paymentDetails,
+    //         notes: notes,
+    //         paymentNotes: paymentNotes,
+    //     });
+    // }
+
+    // function getPaymentDetails(
+    //     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    // ) {
+    //     e.preventDefault();
+    //     getPaymentNotes(uid);
+    // }
 
     return (
         <div className="w-full">
             <form className="flex flex-col">
+                <button
+                // onClick={(e) => {
+                //     getPaymentDetails(e);
+                // }}
+                >
+                    get payment details
+                </button>
                 <label
                     htmlFor="bankAccount"
                     className="text-md font-medium mb-2"
@@ -58,7 +72,7 @@ export const NotesForm: FC = () => {
                     type="number"
                     className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                     placeholder="Enter your BSB"
-                    value={paymentDetails?.BSB}
+                    value={paymentDetails.BSB!}
                     onChange={(e) =>
                         setPaymentDetails(
                             (prevState: Partial<BankTransferType>) => ({

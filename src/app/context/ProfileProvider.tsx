@@ -9,7 +9,12 @@ import React, {
     useEffect,
     useState,
 } from "react";
-import { LocationType, PaymentDetailType, SellerType } from "../types";
+import {
+    BankTransferType,
+    LocationType,
+    PaymentDetailType,
+    SellerType,
+} from "../types";
 import { doc } from "firebase/firestore";
 import { app, auth } from "../server";
 import { useAuth } from ".";
@@ -20,8 +25,8 @@ export interface ProfileContextValue {
     setProfileDetails: Dispatch<SetStateAction<Partial<SellerType>>>;
     locationDetails: Partial<LocationType>;
     setLocationDetails: Dispatch<SetStateAction<Partial<LocationType>>>;
-    paymentDetails: Partial<PaymentDetailType>;
-    setPaymentDetails: Dispatch<SetStateAction<Partial<PaymentDetailType>>>;
+    paymentDetails: Partial<BankTransferType>;
+    setPaymentDetails: Dispatch<SetStateAction<Partial<BankTransferType>>>;
     getProfileDetails: (uid: string) => void;
     updateProfileDetails: (uid: string) => void;
     uid: string;
@@ -57,7 +62,7 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
         Partial<LocationType>
     >({});
     const [paymentDetails, setPaymentDetails] = useState<
-        Partial<PaymentDetailType>
+        Partial<BankTransferType>
     >({});
     const [loading, setLoading] = useState<boolean>(true);
 
