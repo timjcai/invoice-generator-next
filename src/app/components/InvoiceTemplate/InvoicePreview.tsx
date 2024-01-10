@@ -13,10 +13,12 @@ import { InvoiceGrid } from "../ReactGrid";
 import {
     BillerContextValue,
     InvoiceContextValue,
+    LineItemsContextValue,
     PaymentNotesContextValue,
     ProfileContextValue,
     useBillerContext,
     useInvoiceDetailContext,
+    useLineItemsContext,
     usePaymentNotesContext,
     useProfileContext,
 } from "@/app/context";
@@ -42,6 +44,9 @@ export const InvoicePreview: FC<InvoiceType> = ({
     const { invoiceDetails } = useInvoiceDetailContext() as InvoiceContextValue;
     const { notes, paymentNotes } =
         usePaymentNotesContext() as PaymentNotesContextValue;
+
+    const { calculateTotal, total } =
+        useLineItemsContext() as LineItemsContextValue;
 
     return (
         <div className="w-[840px] bg-[rgba(154, 152, 152, 0.53)] backdrop-filter backdrop-blur-lg rounded-xl border-2 border-[#ccc] p-12 shadow-black">
@@ -100,11 +105,13 @@ export const InvoicePreview: FC<InvoiceType> = ({
                     <div className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md">
                         <div>{paymentDetails.bankAccount}</div>
                         <div>
+                            BSB:{" "}
                             {paymentDetails.BSB
                                 ? displayBankNumber(paymentDetails.BSB!)
                                 : null}
                         </div>
                         <div>
+                            Account Number:{" "}
                             {paymentDetails.ACC
                                 ? displayBankNumber(paymentDetails.ACC!)
                                 : null}
@@ -115,9 +122,7 @@ export const InvoicePreview: FC<InvoiceType> = ({
                 <div>
                     <div className="grid grid-cols-2 gap-2">
                         <p className="flex justify-end">Subtotal</p>
-                        <p className="w-36">
-                            {displayCurrency(totalBalance, "USD")}
-                        </p>
+                        <p className="w-36">{displayCurrency(total, "AUD")}</p>
                         <p className="flex justify-end">Tax</p>
                         <p>RATE</p>
                         <p className="flex justify-end">Amount Paid</p>

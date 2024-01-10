@@ -6,6 +6,7 @@ import React, {
     useState,
     Dispatch,
     SetStateAction,
+    useEffect,
 } from "react";
 import { ProviderProps } from ".";
 import { LineItemsType } from "../types";
@@ -18,6 +19,9 @@ export interface LineItemsContextValue {
     setCurrentLine: Dispatch<SetStateAction<Partial<LineItemsType>>>;
     allItems: Partial<LineItemsType>[];
     setAllItems: Dispatch<SetStateAction<Partial<LineItemsType>[]>>;
+    total: number;
+    setTotal: Dispatch<SetStateAction<number>>;
+    calculateTotal: () => number;
 }
 
 // CreateContext
@@ -42,6 +46,23 @@ export const LineItemsProvider: FC<ProviderProps> = ({ children }) => {
         rate: 0,
     });
     const [allItems, setAllItems] = useState<Partial<LineItemsType>[]>([]);
+    const [total, setTotal] = useState<number>(0);
+
+    useEffect(() => {
+        setTotal(calculateTotal());
+    }, [allItems]);
+
+    function calculateTotal(): number {
+        let amounts: number[] = [];
+        allItems.forEach((line) => {
+            amounts.push(line.rate! * line.quantity!);
+        });
+        const sum = amounts.reduce(
+            (accumulator, currentValue) => accumulator + currentValue,
+            0
+        );
+        return sum;
+    }
 
     const value: LineItemsContextValue = {
         counter,
@@ -50,6 +71,9 @@ export const LineItemsProvider: FC<ProviderProps> = ({ children }) => {
         setCurrentLine,
         allItems,
         setAllItems,
+        total,
+        setTotal,
+        calculateTotal,
     };
 
     return (

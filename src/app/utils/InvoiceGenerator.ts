@@ -1,5 +1,5 @@
 import { saveAs } from "file-saver";
-import { AlignmentType, Document, Packer, Paragraph, Table, TableCell, TableRow, TextRun, convertMillimetersToTwip } from "docx"
+import { Document, Packer, Paragraph, Table, TableCell, TableRow, TextRun, convertMillimetersToTwip } from "docx"
 import { GeneratorType } from "../types";
 import { displayABN } from ".";
 
