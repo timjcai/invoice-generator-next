@@ -19,9 +19,13 @@ export interface LineItemsContextValue {
     setCurrentLine: Dispatch<SetStateAction<Partial<LineItemsType>>>;
     allItems: Partial<LineItemsType>[];
     setAllItems: Dispatch<SetStateAction<Partial<LineItemsType>[]>>;
+    subtotal: number;
+    setSubtotal: Dispatch<SetStateAction<number>>;
+    taxrate: number;
+    setTaxrate: Dispatch<SetStateAction<number>>;
     total: number;
     setTotal: Dispatch<SetStateAction<number>>;
-    calculateTotal: () => number;
+    calculateSubtotal: () => number;
 }
 
 // CreateContext
@@ -46,13 +50,19 @@ export const LineItemsProvider: FC<ProviderProps> = ({ children }) => {
         rate: 0,
     });
     const [allItems, setAllItems] = useState<Partial<LineItemsType>[]>([]);
+    const [subtotal, setSubtotal] = useState<number>(0);
+    const [taxrate, setTaxrate] = useState<number>(0.1);
     const [total, setTotal] = useState<number>(0);
 
     useEffect(() => {
-        setTotal(calculateTotal());
+        setSubtotal(calculateSubtotal());
     }, [allItems]);
 
-    function calculateTotal(): number {
+    useEffect(() => {
+        setTotal(calculateTotal());
+    }, [subtotal]);
+
+    function calculateSubtotal(): number {
         let amounts: number[] = [];
         allItems.forEach((line) => {
             amounts.push(line.rate! * line.quantity!);
@@ -64,6 +74,10 @@ export const LineItemsProvider: FC<ProviderProps> = ({ children }) => {
         return sum;
     }
 
+    function calculateTotal(): number {
+        return subtotal * (1 + taxrate);
+    }
+
     const value: LineItemsContextValue = {
         counter,
         setCounter,
@@ -71,9 +85,13 @@ export const LineItemsProvider: FC<ProviderProps> = ({ children }) => {
         setCurrentLine,
         allItems,
         setAllItems,
+        subtotal,
+        setSubtotal,
         total,
         setTotal,
-        calculateTotal,
+        taxrate,
+        setTaxrate,
+        calculateSubtotal,
     };
 
     return (

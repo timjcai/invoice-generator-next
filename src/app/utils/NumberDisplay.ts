@@ -52,3 +52,8 @@ export function displayBankNumber(BankNumber: number): string {
         return ''
     }
 }
+
+export function displayPercentage(decimal: number): string {
+    return (`${decimal*100} %`)
+
+}

@@ -7,7 +7,12 @@ import {
     LocationType,
     SellerType,
 } from "@/app/types";
-import { displayABN, displayBankNumber, displayCurrency } from "@/app/utils";
+import {
+    displayABN,
+    displayBankNumber,
+    displayCurrency,
+    displayPercentage,
+} from "@/app/utils";
 import { ImageDropzone } from "../Dropzone";
 import { InvoiceGrid } from "../ReactGrid";
 import {
@@ -34,6 +39,7 @@ export const InvoicePreview: FC<InvoiceType> = ({
     termsAndConditions,
 }) => {
     const [totalBalance, setTotalBalance] = useState<number>(10.1);
+    const [amountPaid, setAmountPaid] = useState<number>(0);
     const { billerDetails, billerLocation } =
         useBillerContext() as BillerContextValue;
     const {
@@ -45,7 +51,7 @@ export const InvoicePreview: FC<InvoiceType> = ({
     const { notes, paymentNotes } =
         usePaymentNotesContext() as PaymentNotesContextValue;
 
-    const { calculateTotal, total } =
+    const { total, subtotal, taxrate } =
         useLineItemsContext() as LineItemsContextValue;
 
     return (
@@ -122,13 +128,17 @@ export const InvoicePreview: FC<InvoiceType> = ({
                 <div>
                     <div className="grid grid-cols-2 gap-2">
                         <p className="flex justify-end">Subtotal</p>
-                        <p className="w-36">{displayCurrency(total, "AUD")}</p>
+                        <p className="w-36">
+                            {displayCurrency(subtotal, "AUD")}
+                        </p>
                         <p className="flex justify-end">Tax</p>
-                        <p>RATE</p>
+                        <p>{displayPercentage(taxrate)}</p>
+                        <p className="flex justify-end">Total</p>
+                        <p className="w-36">{displayCurrency(total, "AUD")}</p>
                         <p className="flex justify-end">Amount Paid</p>
-                        <p>{displayCurrency(0, "USD")}</p>
+                        <p>{displayCurrency(amountPaid, "USD")}</p>
                         <p className="flex justify-end">Balance Due</p>
-                        <p>{displayCurrency(totalBalance, "USD")}</p>
+                        <p>{displayCurrency(total - amountPaid, "USD")}</p>
                     </div>
                 </div>
             </div>
