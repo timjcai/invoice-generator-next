@@ -20,10 +20,19 @@ export type PaymentNotesType = {
     paymentNotes: string;
 }
 
+export type TotalType = {
+    subtotal: number;
+    taxrate: number;
+    total: number;
+    amountPaid: number;
+    balanceDue: number;
+}
+
 export type GeneratorType = {
     profileDetails?: Partial<SellerType>,
     billerDetails?: Partial<BuyerType>,
     invoiceDetails?: Partial<InvoiceDetailType>,
     paymentAndNotes?: Partial<PaymentNotesType>,
-    // lineItems: LineItemsType,
+    lineItems?: LineItemsType[],
+    totals?: TotalType,
 }

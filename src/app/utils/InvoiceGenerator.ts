@@ -1,10 +1,157 @@
 import { saveAs } from "file-saver";
 import { Document, Packer, Paragraph, Table, TableCell, TableRow, TextRun, convertMillimetersToTwip } from "docx"
 import { GeneratorType } from "../types";
-import { displayABN } from ".";
+import { displayABN, displayCurrency } from ".";
 
 export async function generateInvoice(data: Partial<GeneratorType>) {
     console.log(data)
+
+    const lineItemRows = (): TableRow[] => {
+        const tableRows: TableRow[] = [
+            new TableRow({
+                tableHeader: true,
+                children: [
+                    new TableCell({
+                        columnSpan: 3,
+                        borders: {
+                            top: {style: 'single', size: 5, color: '#000000'}, 
+                            bottom: {style: 'single', size: 5, color: '#000000'}, 
+                            left: {style: 'single', size: 5, color: '#000000'}, 
+                            right: {style: 'single', size: 5, color: '#000000'},
+                        },
+                        children: [
+                            new Paragraph({
+                                children: [
+                                    new TextRun({text: 'Description', break: 1, font: 'Damascus', bold: true}),
+                                ]
+                            })
+                        ]
+                    }),
+                    new TableCell({
+                        columnSpan: 1,
+                        borders: {
+                            top: {style: 'single', size: 5, color: '#000000'}, 
+                            bottom: {style: 'single', size: 5, color: '#000000'}, 
+                            left: {style: 'single', size: 5, color: '#000000'}, 
+                            right: {style: 'single', size: 5, color: '#000000'},
+                        },
+                        children: [
+                            new Paragraph({
+                                children: [
+                                    new TextRun({text: 'Quantity', break: 1, font: 'Damascus', bold: true}),
+                                ]
+                            })
+                        ]
+                    }),
+                    new TableCell({
+                        columnSpan: 1,
+                        borders: {
+                            top: {style: 'single', size: 5, color: '#000000'}, 
+                            bottom: {style: 'single', size: 5, color: '#000000'}, 
+                            left: {style: 'single', size: 5, color: '#000000'}, 
+                            right: {style: 'single', size: 5, color: '#000000'},
+                        },
+                        children: [
+                            new Paragraph({
+                                children: [
+                                    new TextRun({text: 'Rate', break: 1, font: 'Damascus', bold: true}),
+                                ]
+                            })
+                        ]
+                    }),
+                    new TableCell({
+                        columnSpan: 1,
+                        borders: {
+                            top: {style: 'single', size: 5, color: '#000000'}, 
+                            bottom: {style: 'single', size: 5, color: '#000000'}, 
+                            left: {style: 'single', size: 5, color: '#000000'}, 
+                            right: {style: 'single', size: 5, color: '#000000'},
+                        },
+                        children: [
+                            new Paragraph({
+                                children: [
+                                    new TextRun({text: 'Total', break: 1, font: 'Damascus', bold: true}),
+                                ]
+                            })
+                        ]
+                    }),
+                ],
+            }),
+        ];
+        data.lineItems!.forEach((lineItem)=>{
+            tableRows.push(new TableRow({
+                tableHeader: true,
+                children: [
+                    new TableCell({
+                        columnSpan: 3,
+                        borders: {
+                            top: {style: 'single', size: 5, color: '#000000'}, 
+                            bottom: {style: 'single', size: 5, color: '#000000'}, 
+                            left: {style: 'single', size: 5, color: '#000000'}, 
+                            right: {style: 'single', size: 5, color: '#000000'},
+                        },
+                        children: [
+                            new Paragraph({
+                                children: [
+                                    new TextRun({text: `${lineItem.description}`, break: 1, font: 'Damascus'}),
+                                ]
+                            })
+                        ]
+                    }),
+                    new TableCell({
+                        columnSpan: 1,
+                        borders: {
+                            top: {style: 'single', size: 5, color: '#000000'}, 
+                            bottom: {style: 'single', size: 5, color: '#000000'}, 
+                            left: {style: 'single', size: 5, color: '#000000'}, 
+                            right: {style: 'single', size: 5, color: '#000000'},
+                        },
+                        children: [
+                            new Paragraph({
+                                children: [
+                                    new TextRun({text: `${lineItem.quantity}`, break: 1, font: 'Damascus'}),
+                                ]
+                            })
+                        ]
+                    }),
+                    new TableCell({
+                        columnSpan: 1,
+                        borders: {
+                            top: {style: 'single', size: 5, color: '#000000'}, 
+                            bottom: {style: 'single', size: 5, color: '#000000'}, 
+                            left: {style: 'single', size: 5, color: '#000000'}, 
+                            right: {style: 'single', size: 5, color: '#000000'},
+                        },
+                        children: [
+                            new Paragraph({
+                                children: [
+                                    new TextRun({text: `${displayCurrency(lineItem.rate,"AUD")}`, break: 1, font: 'Damascus'}),
+                                ]
+                            })
+                        ]
+                    }),
+                    new TableCell({
+                        columnSpan: 1,
+                        borders: {
+                            top: {style: 'single', size: 5, color: '#000000'}, 
+                            bottom: {style: 'single', size: 5, color: '#000000'}, 
+                            left: {style: 'single', size: 5, color: '#000000'}, 
+                            right: {style: 'single', size: 5, color: '#000000'},
+                        },
+                        children: [
+                            new Paragraph({
+                                children: [
+                                    new TextRun({text: `${displayCurrency(lineItem.rate * lineItem.quantity, "AUD")}`, break: 1, font: 'Damascus'}),
+                                ]
+                            })
+                        ]
+                    }),
+                ],
+            }))
+        })
+        return tableRows
+    }
+
     const doc = new Document({
         sections: [{
             children: [
@@ -78,7 +225,7 @@ export async function generateInvoice(data: Partial<GeneratorType>) {
                                     children: [
                                         new Paragraph({
                                             children: [
-                                                new TextRun({text: `Bill To:`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `Bill To:`, break: 1, font: 'Damascus', bold: true}),
                                                 new TextRun({text: `${data.billerDetails != undefined ? data.billerDetails?.businessName : ""}`, break: 1, font: 'Damascus'}),
                                                 new TextRun({text: `ABN: ${data.billerDetails != undefined ? data.billerDetails?.ABN  : ""}`, break: 1, font: 'Damascus'}),
                                             ],
@@ -95,7 +242,7 @@ export async function generateInvoice(data: Partial<GeneratorType>) {
                                     children: [
                                         new Paragraph({
                                             children: [
-                                                new TextRun({text: `Ship To:`, font: 'Damascus', break: 1}),
+                                                new TextRun({text: `Ship To:`, font: 'Damascus', break: 1, bold: true}),
                                                 new TextRun({text: `${data.billerDetails?.businessLocation?.streetLine1 != undefined ? data.billerDetails?.businessLocation?.streetLine1 : ""} ${data.billerDetails?.businessLocation?.streetLine2 != undefined ? data.billerDetails?.businessLocation?.streetLine2 : ""}`, break: 1, font: 'Damascus'}),
                                                 new TextRun({text: `${data.billerDetails?.businessLocation?.suburb != undefined ? data.billerDetails?.businessLocation?.suburb : ""} ${data.billerDetails?.businessLocation?.state != undefined ? data.billerDetails?.businessLocation?.state: ""} ${data.billerDetails?.businessLocation?.postcode!= undefined ? data.billerDetails?.businessLocation?.postcode : ""}`, break: 1, font: 'Damascus'}),
                                                 new TextRun({text: `${data.billerDetails?.businessLocation?.country != undefined ? data.billerDetails?.businessLocation?.country : ""}`, break: 1, font: 'Damascus'}),
@@ -155,213 +302,7 @@ export async function generateInvoice(data: Partial<GeneratorType>) {
                             color: "#FFFFFF",
                         }
                     },
-                    rows: [
-                        new TableRow({
-                            tableHeader: true,
-                            children: [
-                                new TableCell({
-                                    columnSpan: 3,
-                                    borders: {
-                                        top: {style: 'single', size: 5, color: '#000000'}, 
-                                        bottom: {style: 'single', size: 5, color: '#000000'}, 
-                                        left: {style: 'single', size: 5, color: '#000000'}, 
-                                        right: {style: 'single', size: 5, color: '#000000'},
-                                    },
-                                    children: [
-                                        new Paragraph({
-                                            children: [
-                                                new TextRun({text: 'Description', break: 1, font: 'Damascus', bold: true}),
-                                            ]
-                                        })
-                                    ]
-                                }),
-                                new TableCell({
-                                    columnSpan: 1,
-                                    borders: {
-                                        top: {style: 'single', size: 5, color: '#000000'}, 
-                                        bottom: {style: 'single', size: 5, color: '#000000'}, 
-                                        left: {style: 'single', size: 5, color: '#000000'}, 
-                                        right: {style: 'single', size: 5, color: '#000000'},
-                                    },
-                                    children: [
-                                        new Paragraph({
-                                            children: [
-                                                new TextRun({text: 'Quantity', break: 1, font: 'Damascus', bold: true}),
-                                            ]
-                                        })
-                                    ]
-                                }),
-                                new TableCell({
-                                    columnSpan: 1,
-                                    borders: {
-                                        top: {style: 'single', size: 5, color: '#000000'}, 
-                                        bottom: {style: 'single', size: 5, color: '#000000'}, 
-                                        left: {style: 'single', size: 5, color: '#000000'}, 
-                                        right: {style: 'single', size: 5, color: '#000000'},
-                                    },
-                                    children: [
-                                        new Paragraph({
-                                            children: [
-                                                new TextRun({text: 'Rate', break: 1, font: 'Damascus', bold: true}),
-                                            ]
-                                        })
-                                    ]
-                                }),
-                                new TableCell({
-                                    columnSpan: 1,
-                                    borders: {
-                                        top: {style: 'single', size: 5, color: '#000000'}, 
-                                        bottom: {style: 'single', size: 5, color: '#000000'}, 
-                                        left: {style: 'single', size: 5, color: '#000000'}, 
-                                        right: {style: 'single', size: 5, color: '#000000'},
-                                    },
-                                    children: [
-                                        new Paragraph({
-                                            children: [
-                                                new TextRun({text: 'Total', break: 1, font: 'Damascus', bold: true}),
-                                            ]
-                                        })
-                                    ]
-                                }),
-                            ],
-                        }),
-                        new TableRow({
-                            children: [
-                                new TableCell({
-                                    columnSpan: 3,
-                                    borders: {
-                                        left: {
-                                            style: 'none',
-                                            color: "#ffffff",
-                                        },
-                                    },
-                                    children: [
-                                        new Paragraph({
-                                            children: [
-                                                new TextRun({text: `Description details`, font: 'Damascus'}),
-                                            ],
-                                        }),
-                                    ],
-                                }),
-                                new TableCell({
-                                    columnSpan: 1,
-                                    borders: {
-                                        left: {
-                                            style: 'none',
-                                            color: "#ffffff",
-                                        },
-                                    },
-                                    children: [
-                                        new Paragraph({
-                                            children: [
-                                                new TextRun({text: `Quantity`, font: 'Damascus'}),
-                                            ],
-                                        }),
-                                    ],
-                                }),
-                                new TableCell({
-                                    columnSpan: 1,
-                                    borders: {
-                                        left: {
-                                            style: 'none',
-                                            color: "#ffffff",
-                                        },
-                                    },
-                                    children: [
-                                        new Paragraph({
-                                            children: [
-                                                new TextRun({text: `Rate`, font: 'Damascus'}),
-                                            ],
-                                        }),
-                                    ],
-                                }),
-                                new TableCell({
-                                    columnSpan: 1,
-                                    borders: {
-                                        left: {
-                                            style: 'none',
-                                            color: "#ffffff",
-                                        },
-                                    },
-                                    children: [
-                                        new Paragraph({
-                                            children: [
-                                                new TextRun({text: `Total`, font: 'Damascus'}),
-                                            ],
-                                        }),
-                                    ],
-                                }),
-                            ], 
-                        }),
-                        new TableRow({
-                            children: [
-                                new TableCell({
-                                    columnSpan: 3,
-                                    borders: {
-                                        left: {
-                                            style: 'none',
-                                            color: "#ffffff",
-                                        },
-                                    },
-                                    children: [
-                                        new Paragraph({
-                                            children: [
-                                                new TextRun({text: `Description details`, font: 'Damascus'}),
-                                            ],
-                                        }),
-                                    ],
-                                }),
-                                new TableCell({
-                                    columnSpan: 1,
-                                    borders: {
-                                        left: {
-                                            style: 'none',
-                                            color: "#ffffff",
-                                        },
-                                    },
-                                    children: [
-                                        new Paragraph({
-                                            children: [
-                                                new TextRun({text: `Quantity`, font: 'Damascus'}),
-                                            ],
-                                        }),
-                                    ],
-                                }),
-                                new TableCell({
-                                    columnSpan: 1,
-                                    borders: {
-                                        left: {
-                                            style: 'none',
-                                            color: "#ffffff",
-                                        },
-                                    },
-                                    children: [
-                                        new Paragraph({
-                                            children: [
-                                                new TextRun({text: `Rate`, font: 'Damascus'}),
-                                            ],
-                                        }),
-                                    ],
-                                }),
-                                new TableCell({
-                                    columnSpan: 1,
-                                    borders: {
-                                        left: {
-                                            style: 'none',
-                                            color: "#ffffff",
-                                        },
-                                    },
-                                    children: [
-                                        new Paragraph({
-                                            children: [
-                                                new TextRun({text: `Total`, font: 'Damascus'}),
-                                            ],
-                                        }),
-                                    ],
-                                }),
-                            ], 
-                        }),
-                    ],
+                    rows: lineItemRows()
                 }),
                 new Table({
                     columnWidths: [3500, 3500,2000,2000],
@@ -401,10 +342,10 @@ export async function generateInvoice(data: Partial<GeneratorType>) {
                                         new Paragraph({
                                             children: [
                                                 new TextRun({text: `Notes:`, break: 1, font: 'Damascus', bold: true}),
-                                                new TextRun({text: `${data.paymentAndNotes?.notes ? data.paymentAndNotes?.notes : ""}`, break: 2, font: 'Damascus'}),
-                                                new TextRun({text: `Payment Terms:`, break: 1, font: 'Damascus'}),
-                                                new TextRun({text: `${data.paymentAndNotes?.paymentNotes ? data.paymentAndNotes?.paymentNotes : ""}`, break: 2, font: 'Damascus'}),
-                                                new TextRun({text: `Bank Account: ${data.paymentAndNotes?.paymentDetails?.bankAccount ? data.paymentAndNotes?.paymentDetails?.bankAccount : ""}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `${data.paymentAndNotes?.notes ? data.paymentAndNotes?.notes : ""}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `Payment Terms:`, break: 2, font: 'Damascus'}),
+                                                new TextRun({text: `${data.paymentAndNotes?.paymentNotes ? data.paymentAndNotes?.paymentNotes : ""}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `Bank Account: ${data.paymentAndNotes?.paymentDetails?.bankAccount ? data.paymentAndNotes?.paymentDetails?.bankAccount : ""}`, break: 2, font: 'Damascus'}),
                                                 new TextRun({text: `BSB: ${data.paymentAndNotes?.paymentDetails?.BSB ? data.paymentAndNotes?.paymentDetails?.BSB : ""}`, break: 1, font: 'Damascus'}),
                                                 new TextRun({text: `Account Number: ${data.paymentAndNotes?.paymentDetails?.ACC ? data.paymentAndNotes?.paymentDetails?.ACC : ""}`, break: 1, font: 'Damascus'})
                                             ],

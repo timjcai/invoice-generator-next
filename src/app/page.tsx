@@ -2,18 +2,20 @@
 import React, { useEffect, useState } from "react";
 import CSVPage from "./components/ReactGrid/CSVPage";
 import { InvoicePreview } from "./components/InvoiceTemplate";
-import { BuyerType, LocationType, SellerType } from "./types";
+import { BuyerType, LineItemsType, LocationType, SellerType } from "./types";
 import { AppTabs } from "./components/Navigation";
 import {
     AuthContextValue,
     BillerContextValue,
     InvoiceContextValue,
     InvoiceDetailContext,
+    LineItemsContextValue,
     PaymentNotesContextValue,
     ProfileContextValue,
     useAuth,
     useBillerContext,
     useInvoiceDetailContext,
+    useLineItemsContext,
     usePaymentNotesContext,
     useProfileContext,
 } from "./context";
@@ -62,14 +64,16 @@ export default function Home() {
         locationDetails: sellerLocation,
         setProfileDetails,
         getProfileDetails,
+        paymentDetails,
         uid,
         loading,
     } = useProfileContext() as ProfileContextValue;
     const { billerDetails, billerLocation } =
         useBillerContext() as BillerContextValue;
     const { invoiceDetails } = useInvoiceDetailContext() as InvoiceContextValue;
-    const { paymentDetails, notes, paymentNotes } =
+    const { notes, paymentNotes } =
         usePaymentNotesContext() as PaymentNotesContextValue;
+    const { allItems } = useLineItemsContext() as LineItemsContextValue;
 
     if (loading) {
         return <p>Loading...</p>;
@@ -138,6 +142,8 @@ export default function Home() {
                                         notes: notes,
                                         paymentNotes: paymentNotes,
                                     },
+                                    lineItems: allItems as LineItemsType[],
+                                    // totals: {},
                                 })
                             }
                         >
