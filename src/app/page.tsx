@@ -73,7 +73,8 @@ export default function Home() {
     const { invoiceDetails } = useInvoiceDetailContext() as InvoiceContextValue;
     const { notes, paymentNotes } =
         usePaymentNotesContext() as PaymentNotesContextValue;
-    const { allItems } = useLineItemsContext() as LineItemsContextValue;
+    const { total, subtotal, taxrate, allItems } =
+        useLineItemsContext() as LineItemsContextValue;
 
     if (loading) {
         return <p>Loading...</p>;
@@ -143,7 +144,12 @@ export default function Home() {
                                         paymentNotes: paymentNotes,
                                     },
                                     lineItems: allItems as LineItemsType[],
-                                    // totals: {},
+                                    totals: {
+                                        subtotal: subtotal,
+                                        taxrate: taxrate,
+                                        total: total,
+                                        amountPaid: 0,
+                                    },
                                 })
                             }
                         >

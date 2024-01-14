@@ -1,7 +1,7 @@
 import { saveAs } from "file-saver";
 import { Document, Packer, Paragraph, Table, TableCell, TableRow, TextRun, convertMillimetersToTwip } from "docx"
 import { GeneratorType } from "../types";
-import { displayABN, displayCurrency } from ".";
+import { displayABN, displayCurrency, displayPercentage } from ".";
 
 export async function generateInvoice(data: Partial<GeneratorType>) {
     console.log(data)
@@ -188,7 +188,7 @@ export async function generateInvoice(data: Partial<GeneratorType>) {
                                             color: "#ffffff",
                                         },
                                     },
-                                    children: [new Paragraph('logo')]
+                                    children: [new Paragraph('')]
                                 }),
                                 new TableCell({
                                     columnSpan: 2,
@@ -201,13 +201,16 @@ export async function generateInvoice(data: Partial<GeneratorType>) {
                                     children: [
                                         new Paragraph({
                                             children: [
-                                                new TextRun({text: `Invoice Number: ${data.invoiceDetails ? data.invoiceDetails?.invoiceNumber : ""}`, size: 32, font: 'Damascus'}),
-                                                new TextRun({text: `${data.profileDetails?.businessName}`, break: 1, bold: true, font: 'Damascus'}),
-                                                new TextRun({text: `ABN: ${displayABN(data.profileDetails?.ABN)}`, break: 1, font: 'Damascus'}),
-                                                new TextRun({text: `${data.profileDetails?.businessLocation?.streetLine1}, ${data.profileDetails?.businessLocation?.streetLine2 ? `${data.profileDetails?.businessLocation?.streetLine2},` : ""}`, break: 1, font: 'Damascus'}),
-                                                new TextRun({text: `${data.profileDetails?.businessLocation?.suburb} ${data.profileDetails?.businessLocation?.state} ${data.profileDetails?.businessLocation?.postcode}`, break: 1, font: 'Damascus'}),
-                                                new TextRun({text: `${data.profileDetails?.businessLocation?.country}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `Invoice Number: ${data.invoiceDetails?.invoiceNumber ? data.invoiceDetails?.invoiceNumber : ""}`, size: 32, font: 'Damascus'}),
+                                                new TextRun({text: `${data.profileDetails?.businessName ? data.profileDetails?.businessName : ""}`, break: 1, bold: true, font: 'Damascus'}),
+                                                new TextRun({text: `ABN: ${data.profileDetails?.ABN ? displayABN(data.profileDetails?.ABN) : ""}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `${data.profileDetails?.businessLocation?.streetLine1 ? data.profileDetails?.businessLocation?.streetLine1 : ""}, ${data.profileDetails?.businessLocation?.streetLine2 ? `${data.profileDetails?.businessLocation?.streetLine2},` : ""}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `${data.profileDetails?.businessLocation?.suburb ? data.profileDetails?.businessLocation?.suburb : ""} ${data.profileDetails?.businessLocation?.state ? data.profileDetails?.businessLocation?.state : ""} ${data.profileDetails?.businessLocation?.postcode ? data.profileDetails?.businessLocation?.postcode : ""}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `${data.profileDetails?.businessLocation?.country ? data.profileDetails?.businessLocation?.country : ""}`, break: 1, font: 'Damascus'}),
                                             ],
+                                            spacing: {
+                                                after: 500
+                                            }
                                         })
                                 ]
                                 }),
@@ -226,8 +229,8 @@ export async function generateInvoice(data: Partial<GeneratorType>) {
                                         new Paragraph({
                                             children: [
                                                 new TextRun({text: `Bill To:`, break: 1, font: 'Damascus', bold: true}),
-                                                new TextRun({text: `${data.billerDetails != undefined ? data.billerDetails?.businessName : ""}`, break: 1, font: 'Damascus'}),
-                                                new TextRun({text: `ABN: ${data.billerDetails != undefined ? data.billerDetails?.ABN  : ""}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `${data.billerDetails?.businessName ? data.billerDetails?.businessName : ""}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `ABN: ${data.billerDetails?.ABN ? data.billerDetails?.ABN  : ""}`, break: 1, font: 'Damascus'}),
                                             ],
                                         }),
                                     ],
@@ -243,9 +246,9 @@ export async function generateInvoice(data: Partial<GeneratorType>) {
                                         new Paragraph({
                                             children: [
                                                 new TextRun({text: `Ship To:`, font: 'Damascus', break: 1, bold: true}),
-                                                new TextRun({text: `${data.billerDetails?.businessLocation?.streetLine1 != undefined ? data.billerDetails?.businessLocation?.streetLine1 : ""} ${data.billerDetails?.businessLocation?.streetLine2 != undefined ? data.billerDetails?.businessLocation?.streetLine2 : ""}`, break: 1, font: 'Damascus'}),
-                                                new TextRun({text: `${data.billerDetails?.businessLocation?.suburb != undefined ? data.billerDetails?.businessLocation?.suburb : ""} ${data.billerDetails?.businessLocation?.state != undefined ? data.billerDetails?.businessLocation?.state: ""} ${data.billerDetails?.businessLocation?.postcode!= undefined ? data.billerDetails?.businessLocation?.postcode : ""}`, break: 1, font: 'Damascus'}),
-                                                new TextRun({text: `${data.billerDetails?.businessLocation?.country != undefined ? data.billerDetails?.businessLocation?.country : ""}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `${data.billerDetails?.businessLocation?.streetLine1 ? data.billerDetails?.businessLocation?.streetLine1 : ""} ${data.billerDetails?.businessLocation?.streetLine2 != undefined ? data.billerDetails?.businessLocation?.streetLine2 : ""}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `${data.billerDetails?.businessLocation?.suburb ? data.billerDetails?.businessLocation?.suburb : ""} ${data.billerDetails?.businessLocation?.state != undefined ? data.billerDetails?.businessLocation?.state: ""} ${data.billerDetails?.businessLocation?.postcode!= undefined ? data.billerDetails?.businessLocation?.postcode : ""}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `${data.billerDetails?.businessLocation?.country ? data.billerDetails?.businessLocation?.country : ""}`, break: 1, font: 'Damascus'}),
                                             ],
                                         }),
                                     ],
@@ -364,10 +367,11 @@ export async function generateInvoice(data: Partial<GeneratorType>) {
                                         new Paragraph({
                                             alignment: 'right',
                                             children: [
-                                                new TextRun({text: `Subtotal: ${data.invoiceDetails ? data.invoiceDetails?.invoiceNumber : ""}`, break: 1, font: 'Damascus'}),
-                                                new TextRun({text: `Tax: percentage - total: ${data.invoiceDetails ? data.invoiceDetails?.invoiceNumber : ""}`, break: 1, font: 'Damascus'}),
-                                                new TextRun({text: `Amount Paid: ${data.invoiceDetails ? data.invoiceDetails?.invoiceNumber : ""}`, break: 1, font: 'Damascus'}),
-                                                new TextRun({text: `Balance Due: ${data.invoiceDetails ? data.invoiceDetails?.invoiceNumber : ""}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `Subtotal: ${data.totals?.subtotal ? displayCurrency(data.totals?.subtotal, 'AUD'): ""}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `Tax: ${data.totals?.taxrate ? displayPercentage(data.totals?.taxrate) : ""}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `Total: ${data.totals?.total ? displayCurrency(data.totals?.total,'AUD') : ""}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `Amount Paid: ${data.totals?.amountPaid ? displayCurrency(data.totals?.amountPaid, 'AUD') : ""}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `Balance Due: ${data.totals ? displayCurrency(data.totals?.total - data.totals?.amountPaid!, 'AUD') : ""}`, break: 1, font: 'Damascus'}),
                                             ],
                                         })
                                 ]

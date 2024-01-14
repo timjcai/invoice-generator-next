@@ -24,8 +24,8 @@ export type TotalType = {
     subtotal: number;
     taxrate: number;
     total: number;
-    amountPaid: number;
-    balanceDue: number;
+    amountPaid?: number;
+    balanceDue?: number;
 }
 
 export type GeneratorType = {
