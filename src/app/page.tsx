@@ -23,6 +23,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "./server";
 import { get } from "http";
 import { generateInvoice } from "./utils/InvoiceGenerator";
+import LandingPage from "./components/common/LandingPage";
 
 // const Tim: SellerType = {
 //     sellerId: "1",
@@ -76,10 +77,6 @@ export default function Home() {
     const { total, subtotal, taxrate, allItems } =
         useLineItemsContext() as LineItemsContextValue;
 
-    if (loading) {
-        return <p>Loading...</p>;
-    }
-
     // async function generateInvoiceHandler() {
     //     // // placeholder - POST request to '/api/generate-invoice'
     //     // try {
@@ -100,29 +97,15 @@ export default function Home() {
     //     //     console.error("Error:", error);
     //     // }
     // }
+    let page;
 
-    useEffect(() => {
-        getProfileDetails(uid);
-    }, []);
-
-    return (
-        <>
-            <div className="flex flex-col items-center justify-center">
+    if (uid) {
+        page = (
+            <>
                 <div>{uid}</div>
                 <button onClick={() => signOut(auth)}>Logout</button>
                 <div className="flex items-center justify-center flex-col mx-4 md:mx-[100px] lg:w-[1024px]">
                     <div className="flex flex-col py-[32px]">
-                        <h1>Free Invoice Generator</h1>
-                        <p>
-                            Build minimally designed invoices in bulk! Create
-                            invoices within the browser through our in-line
-                            excel-like spreadsheet fast, without having to
-                            download and reupload your excel spreadsheet or CSV
-                            file.
-                        </p>
-                        <button className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center mx-3 flex h-[40px] mb-2">
-                            Sign Up
-                        </button>
                         <button
                             className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center mx-3 flex h-[40px] mb-2"
                             onClick={(e) =>
@@ -163,6 +146,20 @@ export default function Home() {
                         notes={"job number: 1234"}
                     />
                 </div>
+            </>
+        );
+    } else {
+        page = <LandingPage />;
+    }
+
+    useEffect(() => {
+        getProfileDetails(uid);
+    }, []);
+
+    return (
+        <>
+            <div className="flex flex-col items-center justify-center bg-white h-screen w-screen opacity-5">
+                {page}
             </div>
         </>
     );
