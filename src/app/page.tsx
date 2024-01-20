@@ -21,7 +21,6 @@ import {
 } from "./context";
 import { signOut } from "firebase/auth";
 import { auth } from "./server";
-import { get } from "http";
 import { generateInvoice } from "./utils/InvoiceGenerator";
 import { LandingPage } from "./components/common";
 
@@ -97,72 +96,16 @@ export default function Home() {
     //     //     console.error("Error:", error);
     //     // }
     // }
-    let page;
-
-    if (uid) {
-        page = (
-            <>
-                <div>{uid}</div>
-                <button onClick={() => signOut(auth)}>Logout</button>
-                <div className="flex items-center justify-center flex-col mx-4 md:mx-[100px] lg:w-[1024px]">
-                    <div className="flex flex-col py-[32px]">
-                        {/* <button
-                            className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center mx-3 flex h-[40px] mb-2"
-                            onClick={(e) =>
-                                generateInvoice({
-                                    profileDetails: {
-                                        ...profileDetails,
-                                        businessLocation:
-                                            sellerLocation as LocationType,
-                                    },
-                                    billerDetails: {
-                                        ...billerDetails,
-                                        businessLocation:
-                                            billerLocation as LocationType,
-                                    },
-                                    invoiceDetails: invoiceDetails,
-                                    paymentAndNotes: {
-                                        paymentDetails: paymentDetails,
-                                        notes: notes,
-                                        paymentNotes: paymentNotes,
-                                    },
-                                    lineItems: allItems as LineItemsType[],
-                                    totals: {
-                                        subtotal: subtotal,
-                                        taxrate: taxrate,
-                                        total: total,
-                                        amountPaid: 0,
-                                    },
-                                })
-                            }
-                        >
-                            Generate Invoice
-                        </button> */}
-                    </div>
-                    <AppTabs></AppTabs>
-                    <InvoicePreview
-                        itemDescriptions={[]}
-                        termsAndConditions={"these are my terms and conditions"}
-                        notes={"job number: 1234"}
-                    />
-                </div>
-            </>
-        );
-    } else {
-        page = <LandingPage />;
-    }
 
     useEffect(() => {
         getProfileDetails(uid);
     }, []);
 
     return (
-        <>
-            <div className="flex flex-col items-center h-screen w-screen">
-                <Navbar />
-                {page}
-            </div>
-        </>
+        <div className="flex flex-col items-center h-screen w-screen">
+            <Navbar />
+            <LandingPage />
+        </div>
     );
 }
 

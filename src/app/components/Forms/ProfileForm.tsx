@@ -28,9 +28,6 @@ const ProfileForm: FC = () => {
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) {
         e.preventDefault();
-        console.log(profileId);
-        console.log(profileDetails);
-        console.log(locationDetails);
         // to do: push local state changes to firebase
         const profileRef = doc(db, "profile", profileId.profileId);
         const locationRef = doc(

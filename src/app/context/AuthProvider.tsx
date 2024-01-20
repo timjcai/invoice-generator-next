@@ -20,9 +20,10 @@ import {
     UserCredential,
 } from "firebase/auth";
 import { ProviderProps } from ".";
+import { useRouter } from "next/navigation";
 
 export interface AuthContextValue {
-    currentUser: User | null | undefined;
+    currentUser: User | null;
     signUp: (payload: LoginPayload) => Promise<UserCredential>;
     signOut: () => Promise<void>;
     googleSignIn: () => void;
@@ -40,8 +41,9 @@ export function useAuth() {
 }
 
 export const AuthProvider: FC<ProviderProps> = ({ children }) => {
-    const [currentUser, setCurrentUser] = useState();
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
+    const router = useRouter();
 
     function signUp({ email, password }: LoginPayload) {
         return createUserWithEmailAndPassword(auth, email, password);
@@ -51,9 +53,10 @@ export const AuthProvider: FC<ProviderProps> = ({ children }) => {
         return auth.signOut();
     }
 
-    function googleSignIn() {
+    async function googleSignIn() {
         const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider);
+        await signInWithPopup(auth, provider);
+        router.push("/dashboard");
     }
 
     function login({ email, password }: LoginPayload) {

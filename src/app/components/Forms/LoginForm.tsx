@@ -6,15 +6,13 @@ import { Icon } from "../UI";
 import Link from "next/link";
 import { LoginPayload } from "@/app/types";
 import AuthButtons from "../common/AuthButtons";
-import { useAuth } from "@/app/context";
+import { AuthContextValue, useAuth } from "@/app/context";
 import { auth } from "@/app/server";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 export const LoginForm = () => {
     const [userEmail, setUserEmail] = useState<string>("");
     const [userPassword, setUserPassword] = useState<string>("");
-    const authentication = useAuth();
-    const { googleSignIn } = authentication;
 
     function handleSignIn(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault();
@@ -44,7 +42,7 @@ export const LoginForm = () => {
                 <p className="text-[#404347] mb-8">
                     Please enter your details to sign in
                 </p>
-                <AuthButtons googleSignIn={googleSignIn} />
+                <AuthButtons />
             </div>
             <div>
                 <div className="flex items-center before:content-[''] before:block before:w-full before:h-0.5 before:bg-[#EDEEEF] before:mr-2 after:content-[''] after:block after:w-full after:h-0.5 after:bg-[#EDEEEF] after:ml-2 text-sm mt-6 mb-6">
