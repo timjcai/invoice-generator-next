@@ -36,10 +36,7 @@ export default async function RootLayout({
                             <InvoiceDetailProvider>
                                 <PaymentNotesProvider>
                                     <LineItemsProvider>
-                                        <>
-                                            <Navbar />
-                                            {children}
-                                        </>
+                                        <>{children}</>
                                     </LineItemsProvider>
                                 </PaymentNotesProvider>
                             </InvoiceDetailProvider>

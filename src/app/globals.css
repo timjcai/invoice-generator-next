@@ -21,6 +21,8 @@ body {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  background-color: #ffffff;
+  background-image: url('/background.svg')
 }
 
 input::-webkit-outer-spin-button,

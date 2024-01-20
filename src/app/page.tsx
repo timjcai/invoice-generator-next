@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import CSVPage from "./components/ReactGrid/CSVPage";
 import { InvoicePreview } from "./components/InvoiceTemplate";
 import { BuyerType, LineItemsType, LocationType, SellerType } from "./types";
-import { AppTabs } from "./components/Navigation";
+import { AppTabs, Navbar } from "./components/Navigation";
 import {
     AuthContextValue,
     BillerContextValue,
@@ -106,7 +106,7 @@ export default function Home() {
                 <button onClick={() => signOut(auth)}>Logout</button>
                 <div className="flex items-center justify-center flex-col mx-4 md:mx-[100px] lg:w-[1024px]">
                     <div className="flex flex-col py-[32px]">
-                        <button
+                        {/* <button
                             className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center mx-3 flex h-[40px] mb-2"
                             onClick={(e) =>
                                 generateInvoice({
@@ -137,7 +137,7 @@ export default function Home() {
                             }
                         >
                             Generate Invoice
-                        </button>
+                        </button> */}
                     </div>
                     <AppTabs></AppTabs>
                     <InvoicePreview
@@ -158,7 +158,8 @@ export default function Home() {
 
     return (
         <>
-            <div className="flex flex-col items-center justify-center bg-white h-screen w-screen opacity-5">
+            <div className="flex flex-col items-center h-screen w-screen">
+                <Navbar />
                 {page}
             </div>
         </>

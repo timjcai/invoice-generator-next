@@ -15,7 +15,7 @@ export const Navbar = () => {
         <>
             {/* {isSmallScreen && <SmallNavbar />}
             {isMediumScreen && ( */}
-            <div className="absolute flex flex-row justify-between items-center py-[8px] w-[calc(100%-32px)] md:w-[calc(100%-200px)] lg:w-[1024px] z-10">
+            <div className="flex flex-row justify-between items-center py-[8px] w-[calc(100%-32px)] md:w-[calc(100%-200px)] lg:w-[1024px] z-10 mt-[40px] top-[10px] bg-white rounded-xl">
                 <NavbarLinkButton
                     label={
                         <Link href="/">
