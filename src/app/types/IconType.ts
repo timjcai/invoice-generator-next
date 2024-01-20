@@ -1,4 +1,4 @@
-export type IconType = | PlatformTypes | ActionTypes | NavigationTypes
+export type IconType = | PlatformTypes | ActionTypes | NavigationTypes | LandingPageIcons
 
 export type PlatformTypes =
     | "Facebook"
@@ -43,3 +43,9 @@ export type NavigationTypes =
     | "Payment & Notes"
     | "Payment"
     | "Line Items"
+
+export type LandingPageIcons = 
+    | "designers"
+    | "marketers"
+    | "trades"
+    | "techcontractors"

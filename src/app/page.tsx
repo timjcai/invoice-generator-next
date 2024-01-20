@@ -23,7 +23,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "./server";
 import { get } from "http";
 import { generateInvoice } from "./utils/InvoiceGenerator";
-import LandingPage from "./components/common/LandingPage";
+import { LandingPage } from "./components/common";
 
 // const Tim: SellerType = {
 //     sellerId: "1",

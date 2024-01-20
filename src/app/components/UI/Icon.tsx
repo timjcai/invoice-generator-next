@@ -9,11 +9,16 @@ import {
     faCircleUser,
     faClipboard,
     faClipboardUser,
+    faCode,
     faCog,
     faCreditCard,
     faCube,
+    faFilterCircleDollar,
+    faHammer,
     faListUl,
     faNoteSticky,
+    faPalette,
+    faPenNib,
     faPlus,
     faShop,
     faXmark,
@@ -39,6 +44,10 @@ const iconMapping: { [key in IconType]: IconDefinition } = {
     Merchant: faShop,
     "Payment & Notes": faCreditCard,
     "Line Items": faListUl,
+    designers: faPenNib,
+    marketers: faFilterCircleDollar,
+    trades: faHammer,
+    techcontractors: faCode,
 };
 
 export const Icon: FC<IconProps> = ({ label }) => {
