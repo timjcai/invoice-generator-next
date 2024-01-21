@@ -22,21 +22,20 @@ const ProfileForm: FC = () => {
         locationDetails,
         setLocationDetails,
         loading,
+        updateProfileDetails,
     } = useProfileContext() as ProfileContextValue;
 
-    async function updateProfileDetails(
+    async function profileSaveButtonAction(
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) {
         e.preventDefault();
         // to do: push local state changes to firebase
-        const profileRef = doc(db, "profile", profileId.profileId);
-        const locationRef = doc(
-            db,
-            "businessLocation",
-            profileId.businessLocationId
+        updateProfileDetails(
+            profileId.profileId!,
+            profileId.businessLocationId!,
+            profileDetails,
+            locationDetails
         );
-        await updateDoc(profileRef, profileDetails);
-        await updateDoc(locationRef, locationDetails);
         console.log("completed update");
     }
 
@@ -269,7 +268,7 @@ const ProfileForm: FC = () => {
                 <button
                     type="submit"
                     className="w-full border-2 bg-[#212122] border-[#212122] py-2 text-white font-light rounded-md mt-4 mb-4 disabled:opacity-40"
-                    onClick={(e) => updateProfileDetails(e)}
+                    onClick={(e) => profileSaveButtonAction(e)}
                     // disabled={!userEmail || !userPassword}
                 >
                     Save

@@ -19,12 +19,15 @@ import {
     getDoc,
     getDocs,
     query,
+    updateDoc,
     where,
 } from "firebase/firestore";
 
 export interface BillerContextValue {
     billerId: string;
     setBillerId: Dispatch<SetStateAction<string>>;
+    billerLocationId: string;
+    setBillerLocationId: Dispatch<SetStateAction<string>>;
     billerDetails: Partial<BuyerType>;
     setBillerDetails: Dispatch<SetStateAction<Partial<BuyerType>>>;
     billerLocation: Partial<LocationType>;
@@ -38,7 +41,7 @@ export interface BillerContextValue {
     selectorOptions: SelectorOptions[];
     setSelectorOptions: Dispatch<SetStateAction<SelectorOptions[]>>;
     getBillerDetails: (billderId: string) => void;
-    updateBillerDetails: (billderId: string) => void;
+    updateBillerDetails: () => void;
     getBillerIndex: (uid: string) => void;
     createBiller: (postData: Partial<BuyerType>, uid: string) => void;
     loading: boolean;
@@ -56,6 +59,7 @@ export function useBillerContext() {
 export const BillerProvider: FC<ProviderProps> = ({ children }) => {
     const [billerId, setBillerId] = useState<string>("");
     const [billerDetails, setBillerDetails] = useState<Partial<BuyerType>>({});
+    const [billerLocationId, setBillerLocationId] = useState<string>("");
     const [billerLocation, setBillerLocation] = useState<Partial<LocationType>>(
         {}
     );
@@ -156,17 +160,26 @@ export const BillerProvider: FC<ProviderProps> = ({ children }) => {
             // const businessLocation = await locationResponse.json();
             setBillerLocation(locationData);
             setBillerDetails(merchantData);
+            setBillerLocationId(locationId);
             // setBillerDetails(billerDetails);
         } catch (error) {
             console.error("error fetching data", error);
         }
     }
 
-    async function updateBillerDetails(billderId: string) {}
+    async function updateBillerDetails() {
+        const merchantRef = doc(db, "merchant", billerId);
+        console.log(merchantRef);
+        const locationRef = doc(db, "businessLocation", billerLocationId);
+        await updateDoc(merchantRef, billerDetails);
+        await updateDoc(locationRef, billerLocation);
+    }
 
     const value: BillerContextValue = {
         billerDetails,
         setBillerDetails,
+        billerLocationId,
+        setBillerLocationId,
         billerId,
         setBillerId,
         billerLocation,

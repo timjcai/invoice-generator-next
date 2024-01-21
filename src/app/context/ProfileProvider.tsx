@@ -21,6 +21,7 @@ import {
     getDoc,
     getDocs,
     query,
+    updateDoc,
     where,
 } from "firebase/firestore";
 import { app, auth, db } from "../server";
@@ -35,7 +36,12 @@ export interface ProfileContextValue {
     paymentDetails: Partial<BankTransferType>;
     setPaymentDetails: Dispatch<SetStateAction<Partial<BankTransferType>>>;
     getProfileDetails: (uid: string) => void;
-    updateProfileDetails: (uid: string) => void;
+    updateProfileDetails: (
+        uid: string,
+        locationId: string,
+        profileData: Partial<SellerType>,
+        locationData: Partial<LocationType>
+    ) => void;
     uid: string;
     loading: boolean;
     profileId: Partial<ProfileIdProps>;
@@ -129,7 +135,18 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
         }
     }
 
-    function updateProfileDetails(uid: string) {}
+    async function updateProfileDetails(
+        uid: string,
+        locationId: string,
+        profileData: Partial<SellerType>,
+        locationData: Partial<LocationType>
+    ) {
+        const profileRef = doc(db, "profile", uid);
+        console.log(profileRef);
+        const locationRef = doc(db, "businessLocation", locationId);
+        await updateDoc(profileRef, profileData);
+        await updateDoc(locationRef, locationData);
+    }
 
     const value: ProfileContextValue = {
         profileDetails,

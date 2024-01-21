@@ -25,6 +25,7 @@ export const BillerForm: FC = () => {
         getBillerDetails,
         loading,
         setLoading,
+        updateBillerDetails,
     } = useBillerContext() as BillerContextValue;
     const { uid } = useProfileContext() as ProfileContextValue;
 
@@ -46,7 +47,7 @@ export const BillerForm: FC = () => {
         //     console.log("successfully setup selector");
         // }
         // return () => createSelectorOptions();
-    }, [uid, billerId, selectorOptions]);
+    }, [uid, billerId, loading]);
 
     let selector;
     if (loading) {
@@ -66,11 +67,12 @@ export const BillerForm: FC = () => {
         );
     }
 
-    function updateBillerDetails(
+    function billerSaveButtonAction(
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) {
         e.preventDefault();
         // to do: push local state changes to firebase
+        updateBillerDetails();
         console.log(billerDetails);
         console.log(
             "updating local state - push local state changes to Firebase"
@@ -231,7 +233,7 @@ export const BillerForm: FC = () => {
                 <button
                     type="submit"
                     className="w-full border-2 bg-[#212122] border-[#212122] py-2 text-white font-light rounded-md mt-4 mb-4 disabled:opacity-40"
-                    onClick={(e) => updateBillerDetails(e)}
+                    onClick={(e) => billerSaveButtonAction(e)}
                     // disabled={!userEmail || !userPassword}
                 >
                     Save
