@@ -15,8 +15,15 @@ import {
     PaymentDetailType,
     SellerType,
 } from "../types";
-import { doc } from "firebase/firestore";
-import { app, auth } from "../server";
+import {
+    collection,
+    doc,
+    getDoc,
+    getDocs,
+    query,
+    where,
+} from "firebase/firestore";
+import { app, auth, db } from "../server";
 import { PaymentNotesContextValue, useAuth, usePaymentNotesContext } from ".";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -80,26 +87,42 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
 
     async function getProfileDetails(uid: string) {
         try {
-            const response = await fetch(`/api/details/profile?user=${uid}`);
-            const profileData = await response.json();
-            const paymentResponse = await fetch(
-                `/api/details/payment?payment=${profileData.paymentDetails}`
+            // profile details
+            const q = query(
+                collection(db, "profile"),
+                where("user_id", "==", `${uid}`)
             );
-            const locationResponse = await fetch(
-                `/api/details/businessLocation?location=${profileData.businessLocation}`
+            const userQuery = await getDocs(q);
+            const profileData = userQuery.docs[0].data();
+            const profileId = userQuery.docs[0].id;
+
+            // businessLocation
+            const locationRef = doc(
+                db,
+                "businessLocation",
+                `${profileData.businessLocation}`
             );
-            const paymentDetailsData = await paymentResponse.json();
-            const businessLocationData = await locationResponse.json();
-            const { profileid, ...profileOG } = profileData;
-            const { locationid, ...businessLocationOG } = businessLocationData;
-            const { paymentid, ...paymentDetailsOG } = paymentDetailsData;
-            setProfileDetails({ ...profileOG });
-            setLocationDetails({ ...businessLocationOG });
-            setPaymentDetails({ ...paymentDetailsOG });
+            const businessLocationQuery = await getDoc(locationRef);
+            const locationData = businessLocationQuery.data();
+            const locationId = businessLocationQuery.id;
+
+            // paymentDetails
+            const documentRef = doc(
+                db,
+                "paymentDetails",
+                `${profileData.paymentDetails}`
+            );
+            const paymentDetailQuery = await getDoc(documentRef);
+            const paymentData = paymentDetailQuery.data();
+            const paymentId = paymentDetailQuery.id;
+
+            setProfileDetails({ ...profileData });
+            setLocationDetails({ ...locationData });
+            setPaymentDetails({ ...paymentData });
             setProfileId({
-                profileId: profileid,
-                businessLocationId: locationid,
-                paymentDetailsId: paymentid,
+                profileId: profileId,
+                businessLocationId: locationId,
+                paymentDetailsId: paymentId,
             });
         } catch (error) {
             console.error("error fetching data", error);

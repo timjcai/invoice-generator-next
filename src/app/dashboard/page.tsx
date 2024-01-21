@@ -38,6 +38,10 @@ const page = () => {
     const { total, subtotal, taxrate, allItems } =
         useLineItemsContext() as LineItemsContextValue;
 
+    useEffect(() => {
+        getProfileDetails(uid);
+    }, [uid]);
+
     return (
         <div className="flex flex-col items-center h-screen w-screen">
             <Navbar />

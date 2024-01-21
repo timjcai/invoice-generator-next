@@ -97,10 +97,6 @@ export default function Home() {
     //     // }
     // }
 
-    useEffect(() => {
-        getProfileDetails(uid);
-    }, []);
-
     return (
         <div className="flex flex-col items-center h-screen w-screen">
             <Navbar />

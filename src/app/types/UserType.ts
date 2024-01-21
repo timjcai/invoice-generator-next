@@ -8,7 +8,6 @@ export type UserType = {
 }
 
 export interface SellerType extends UserType {
-    sellerId: string;
     paymentDetails: PaymentDetailType;
 }
 
