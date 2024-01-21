@@ -79,8 +79,8 @@ export const InvoicePreview: FC<InvoiceType> = ({
                 <div id="buyerDetails" className="flex flex-row gap-4">
                     <div id="billTo">
                         <p>Bill to:</p>
-                        <p>{billerDetails.businessName}</p>
-                        <div>ABN: {billerDetails.ABN}</div>
+                        <p className="text-sm">{billerDetails.businessName}</p>
+                        <div className="text-sm">ABN: {billerDetails.ABN}</div>
                     </div>
                     <div id="shipTo">
                         <p>Ship to:</p>

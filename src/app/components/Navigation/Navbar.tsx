@@ -3,18 +3,15 @@ import React, { FC, useEffect, useState } from "react";
 import { Icon } from "../UI";
 import Link from "next/link";
 import Image from "next/image";
+import { ProfileContextValue, useProfileContext } from "@/app/context";
+import { signOut } from "firebase/auth";
+import { auth } from "@/app/server";
 
 export const Navbar = () => {
-    // const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
+    const { uid } = useProfileContext() as ProfileContextValue;
 
-    // const isSmallScreen = windowWidth <= 640;
-    // const isMediumScreen = windowWidth > 640; //&& windowWidth <= 1024;
-    // // const isLargeScreen = windowWidth > 1024;
     return (
-        // <div className="flex flex-row justify-between mx-[200px] py-[16px]">
         <>
-            {/* {isSmallScreen && <SmallNavbar />}
-            {isMediumScreen && ( */}
             <div className="flex flex-row justify-between items-center py-[8px] w-[calc(100%-32px)] md:w-[calc(100%-200px)] lg:w-[1024px] z-10 mt-[40px] top-[10px] bg-white rounded-xl mb-[40px]">
                 <NavbarLinkButton
                     label={
@@ -44,13 +41,29 @@ export const Navbar = () => {
                     <NavbarLinkButton label={<a>Support</a>} />
                 </div>
                 <div className="flex flex-row justify-between">
-                    <SecondaryButton label={<Link href="/login">Login</Link>} />
-                    <PrimaryButton
-                        label={<Link href="/signup">Sign Up</Link>}
-                    />
+                    {uid ? (
+                        <>
+                            <PrimaryButton
+                                label={
+                                    <button onClick={() => signOut(auth)}>
+                                        Logout
+                                    </button>
+                                }
+                            />
+                        </>
+                    ) : (
+                        <>
+                            {" "}
+                            <SecondaryButton
+                                label={<Link href="/login">Login</Link>}
+                            />
+                            <PrimaryButton
+                                label={<Link href="/signup">Sign Up</Link>}
+                            />
+                        </>
+                    )}
                 </div>
             </div>
-            {/* )} */}
         </>
     );
 };

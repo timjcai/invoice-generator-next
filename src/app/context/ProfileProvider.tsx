@@ -93,7 +93,7 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
                 where("user_id", "==", `${uid}`)
             );
             const userQuery = await getDocs(q);
-            const profileData = userQuery.docs[0].data();
+            const profileData = await userQuery.docs[0].data();
             const profileId = userQuery.docs[0].id;
 
             // businessLocation

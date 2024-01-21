@@ -45,10 +45,8 @@ const page = () => {
     return (
         <div className="flex flex-col items-center h-screen w-screen">
             <Navbar />
-            <div>{uid}</div>
-            <button onClick={() => signOut(auth)}>Logout</button>
             <div className="flex items-center justify-center flex-col mx-4 md:mx-[100px] lg:w-[1024px]">
-                <div className="flex flex-col py-[32px]">
+                <div className="flex flex-col">
                     {/* <button
                             className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center mx-3 flex h-[40px] mb-2"
                             onClick={(e) =>
