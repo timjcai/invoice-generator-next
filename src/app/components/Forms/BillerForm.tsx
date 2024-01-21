@@ -46,7 +46,7 @@ export const BillerForm: FC = () => {
         //     console.log("successfully setup selector");
         // }
         // return () => createSelectorOptions();
-    }, [billerId]);
+    }, [uid, billerId]);
 
     let selector;
     if (loading) {
@@ -57,7 +57,7 @@ export const BillerForm: FC = () => {
         );
     } else {
         selector = (
-            <div className="mb-4">
+            <div className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md">
                 <Selector
                     initOptions={selectorOptions}
                     setState={setBillerId}

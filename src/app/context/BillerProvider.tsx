@@ -12,7 +12,15 @@ import {
     useState,
 } from "react";
 import { db } from "../server";
-import { addDoc, collection, doc, getDoc } from "firebase/firestore";
+import {
+    addDoc,
+    collection,
+    doc,
+    getDoc,
+    getDocs,
+    query,
+    where,
+} from "firebase/firestore";
 
 export interface BillerContextValue {
     billerId: string;
@@ -62,10 +70,30 @@ export const BillerProvider: FC<ProviderProps> = ({ children }) => {
 
     async function getBillerIndex(uid: string) {
         try {
-            const response = await fetch(`/api/details/merchant?user=${uid}`);
-            const billerIndex = await response.json();
-            setAllBillers(billerIndex.allMerchants);
-            setSelectorOptions(billerIndex.selectorOptions);
+            // const response = await fetch(`/api/details/merchant?user=${uid}`);
+            // const billerIndex = await response.json();
+            const q = query(
+                collection(db, "merchant"),
+                where("associatedUser", "==", `${uid}`)
+            );
+            const userQuery = await getDocs(q);
+
+            // allMerchants
+            let allMerchants = [] as BuyerType[];
+            userQuery.docs.forEach((item) => {
+                allMerchants.push({ ...item.data(), id: item.id } as BuyerType);
+            });
+
+            // allMerchants as options for Selector
+            let options = [] as SelectorOptions[];
+            allMerchants.forEach((merchant) => {
+                options.push({
+                    value: merchant.id!,
+                    label: merchant.businessName,
+                });
+            });
+            setAllBillers(allMerchants);
+            setSelectorOptions(options);
             setLoading(false);
         } catch (error) {
             console.error("error fetching data", error);
