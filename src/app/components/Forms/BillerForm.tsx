@@ -46,7 +46,7 @@ export const BillerForm: FC = () => {
         //     console.log("successfully setup selector");
         // }
         // return () => createSelectorOptions();
-    }, [uid, billerId]);
+    }, [uid, billerId, selectorOptions]);
 
     let selector;
     if (loading) {

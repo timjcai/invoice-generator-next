@@ -138,13 +138,23 @@ export const BillerProvider: FC<ProviderProps> = ({ children }) => {
             //     `/api/details/payment?payment=${merchantData.paymentDetails}`
             // );
             // const paymentDetailsData = await paymentResponse.json();
-            const locationResponse = await fetch(
-                `/api/details/businessLocation?location=${merchantData.businessLocation}`
+
+            const locationRef = doc(
+                db,
+                "businessLocation",
+                `${merchantData.businessLocation}`
             );
-            const locationDetailsData = await locationResponse.json();
+            const businessLocationQuery = await getDoc(locationRef);
+            const locationData = businessLocationQuery.data() as LocationType;
+            const locationId = businessLocationQuery.id;
+
+            // const locationResponse = await fetch(
+            //     `/api/details/businessLocation?location=${merchantData.businessLocation}`
+            // );
+            // const locationDetailsData = await locationResponse.json();
             // const paymentDetails = await paymentResponse.json();
             // const businessLocation = await locationResponse.json();
-            setBillerLocation(locationDetailsData);
+            setBillerLocation(locationData);
             setBillerDetails(merchantData);
             // setBillerDetails(billerDetails);
         } catch (error) {
