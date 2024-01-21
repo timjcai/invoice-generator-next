@@ -32,9 +32,7 @@ export interface AuthContextValue {
     isAdmin: () => Promise<boolean>;
 }
 
-export const AuthContext = createContext<AuthContextValue | undefined>(
-    undefined
-);
+export const AuthContext = createContext<Partial<AuthContextValue>>({});
 
 export function useAuth() {
     return useContext(AuthContext);

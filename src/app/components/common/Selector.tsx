@@ -29,7 +29,7 @@ export interface SelectorOptions {
 
 export interface SelectorProps {
     initOptions?: SelectorOptions[];
-    setState?: Dispatch<SetStateAction<any>>;
+    setState?: Dispatch<SetStateAction<string>>;
 }
 
 export const Selector: FC<SelectorProps> = ({ initOptions, setState }) => {
@@ -47,8 +47,10 @@ export const Selector: FC<SelectorProps> = ({ initOptions, setState }) => {
     });
 
     const handleClick = (newValue: SingleValue<SelectorOptions>) => {
-        setState(newValue?.value);
-        setValue(newValue);
+        if (setState) {
+            setState(newValue!.value as string);
+            setValue(newValue);
+        }
     };
 
     const handleCreate = (inputValue: string) => {

@@ -25,23 +25,9 @@ export const NotesForm: FC = () => {
         });
     }
 
-    function getPaymentDetails(
-        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    ) {
-        e.preventDefault();
-        getPaymentNotes(uid);
-    }
-
     return (
         <div className="w-full">
             <form className="flex flex-col">
-                <button
-                // onClick={(e) => {
-                //     getPaymentDetails(e);
-                // }}
-                >
-                    get payment details
-                </button>
                 <label
                     htmlFor="bankAccount"
                     className="text-md font-medium mb-2"

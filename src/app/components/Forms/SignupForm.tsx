@@ -61,7 +61,7 @@ export const SignupForm = () => {
                 />
                 <p className="mb-2 text-2xl font-semibold">Hello 👋</p>
                 <p className="text-[#404347] mb-8">Create an account using:</p>
-                <AuthButtons googleSignIn={googleSignIn} />
+                <AuthButtons />
             </div>
             <div>
                 <div className="flex items-center before:content-[''] before:block before:w-full before:h-0.5 before:bg-[#EDEEEF] before:mr-2 after:content-[''] after:block after:w-full after:h-0.5 after:bg-[#EDEEEF] after:ml-2 text-sm mt-6 mb-6">

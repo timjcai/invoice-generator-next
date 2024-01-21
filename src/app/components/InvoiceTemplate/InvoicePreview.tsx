@@ -13,8 +13,7 @@ import {
     displayCurrency,
     displayPercentage,
 } from "@/app/utils";
-import { ImageDropzone } from "../Dropzone";
-import { InvoiceGrid } from "../ReactGrid";
+// import { InvoiceGrid } from "../ReactGrid";
 import {
     BillerContextValue,
     InvoiceContextValue,
@@ -57,7 +56,7 @@ export const InvoicePreview: FC<InvoiceType> = ({
     return (
         <div className="w-[840px] bg-[rgba(154, 152, 152, 0.53)] backdrop-filter backdrop-blur-lg rounded-xl border-2 border-[#ccc] p-12 shadow-black">
             <div className="flex flex-row justify-between mb-8 border-b-black border-b-2 pb-4">
-                {<ImageDropzone />}
+                {/* {<ImageDropzone />} */}
                 <div className="w-64">
                     <h1 className="text-4xl mb-1">
                         Invoice #{invoiceDetails.invoiceNumber}
@@ -99,7 +98,7 @@ export const InvoicePreview: FC<InvoiceType> = ({
                 </div>
             </div>
             <div className="mb-4 border-t-black border-t-2 pt-4">
-                <InvoiceGrid />
+                {/* <InvoiceGrid /> */}
             </div>
             <div className="flex flex-row justify-between border-t-black border-t-2 pt-4">
                 <div className="w-96">

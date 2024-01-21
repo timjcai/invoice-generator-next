@@ -30,19 +30,7 @@ export const LineItemForm: FC = () => {
     // submit allLineItems - save into Cloud
 
     // handle number changes
-    function handleNumberUpdate(e) {
-        const { value } = e.target;
-        const numberRegex = /^-?\d+(\.\d+)?$|[\b]/;
-        if (numberRegex.test(value)) {
-            console.log("valid number");
-            setCurrentLine((prevState) => ({
-                ...prevState,
-                rate: e.target.value,
-            }));
-        } else {
-            console.log("invalid input - not a number");
-        }
-    }
+
     //
 
     function clearCurrentLine() {

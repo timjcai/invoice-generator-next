@@ -30,12 +30,7 @@ const ProfileForm: FC = () => {
     ) {
         e.preventDefault();
         // to do: push local state changes to firebase
-        updateProfileDetails(
-            profileId.profileId!,
-            profileId.businessLocationId!,
-            profileDetails,
-            locationDetails
-        );
+        updateProfileDetails();
         console.log("completed update");
     }
 

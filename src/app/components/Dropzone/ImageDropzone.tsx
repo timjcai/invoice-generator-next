@@ -30,7 +30,7 @@ const rejectStyle = {
     borderColor: "#ff1744",
 };
 
-export const ImageDropzone = (props) => {
+export const ImageDropzone = () => {
     const {
         getRootProps,
         getInputProps,
@@ -51,7 +51,7 @@ export const ImageDropzone = (props) => {
 
     return (
         <div className="container">
-            <div {...getRootProps({ style })}>
+            <div {...getRootProps({ ...style })}>
                 <input {...getInputProps()} />
                 <p>Drag 'n' drop OR click to add logo</p>
             </div>
