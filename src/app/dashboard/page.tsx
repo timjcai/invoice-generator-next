@@ -19,6 +19,8 @@ import { signOut } from "firebase/auth";
 import { auth } from "../server";
 import { AppTabs, Navbar } from "../components/Navigation";
 import { InvoicePreview } from "../components/InvoiceTemplate";
+import { generateInvoice } from "../utils";
+import { LineItemsType, LocationType } from "../types";
 const page = () => {
     const { currentUser, getUser } = useAuth() as AuthContextValue;
     const {
@@ -47,38 +49,38 @@ const page = () => {
             <Navbar />
             <div className="flex items-center justify-center flex-col mx-4 md:mx-[100px] lg:w-[1024px]">
                 <div className="flex flex-col">
-                    {/* <button
-                            className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center mx-3 flex h-[40px] mb-2"
-                            onClick={(e) =>
-                                generateInvoice({
-                                    profileDetails: {
-                                        ...profileDetails,
-                                        businessLocation:
-                                            sellerLocation as LocationType,
-                                    },
-                                    billerDetails: {
-                                        ...billerDetails,
-                                        businessLocation:
-                                            billerLocation as LocationType,
-                                    },
-                                    invoiceDetails: invoiceDetails,
-                                    paymentAndNotes: {
-                                        paymentDetails: paymentDetails,
-                                        notes: notes,
-                                        paymentNotes: paymentNotes,
-                                    },
-                                    lineItems: allItems as LineItemsType[],
-                                    totals: {
-                                        subtotal: subtotal,
-                                        taxrate: taxrate,
-                                        total: total,
-                                        amountPaid: 0,
-                                    },
-                                })
-                            }
-                        >
-                            Generate Invoice
-                        </button> */}
+                    <button
+                        className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center mx-3 flex h-[40px] mb-2"
+                        onClick={(e) =>
+                            generateInvoice({
+                                profileDetails: {
+                                    ...profileDetails,
+                                    businessLocation:
+                                        sellerLocation as LocationType,
+                                },
+                                billerDetails: {
+                                    ...billerDetails,
+                                    businessLocation:
+                                        billerLocation as LocationType,
+                                },
+                                invoiceDetails: invoiceDetails,
+                                paymentAndNotes: {
+                                    paymentDetails: paymentDetails,
+                                    notes: notes,
+                                    paymentNotes: paymentNotes,
+                                },
+                                lineItems: allItems as LineItemsType[],
+                                totals: {
+                                    subtotal: subtotal,
+                                    taxrate: taxrate,
+                                    total: total,
+                                    amountPaid: 0,
+                                },
+                            })
+                        }
+                    >
+                        Generate Invoice
+                    </button>
                 </div>
                 <AppTabs></AppTabs>
                 <InvoicePreview
