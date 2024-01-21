@@ -36,12 +36,7 @@ export interface ProfileContextValue {
     paymentDetails: Partial<BankTransferType>;
     setPaymentDetails: Dispatch<SetStateAction<Partial<BankTransferType>>>;
     getProfileDetails: (uid: string) => void;
-    updateProfileDetails: (
-        uid: string,
-        locationId: string,
-        profileData: Partial<SellerType>,
-        locationData: Partial<LocationType>
-    ) => void;
+    updateProfileDetails: () => void;
     uid: string;
     loading: boolean;
     profileId: Partial<ProfileIdProps>;
@@ -135,17 +130,16 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
         }
     }
 
-    async function updateProfileDetails(
-        uid: string,
-        locationId: string,
-        profileData: Partial<SellerType>,
-        locationData: Partial<LocationType>
-    ) {
+    async function updateProfileDetails() {
         const profileRef = doc(db, "profile", uid);
         console.log(profileRef);
-        const locationRef = doc(db, "businessLocation", locationId);
-        await updateDoc(profileRef, profileData);
-        await updateDoc(locationRef, locationData);
+        const locationRef = doc(
+            db,
+            "businessLocation",
+            profileId.businessLocationId!
+        );
+        await updateDoc(profileRef, profileDetails);
+        await updateDoc(locationRef, locationDetails);
     }
 
     const value: ProfileContextValue = {
