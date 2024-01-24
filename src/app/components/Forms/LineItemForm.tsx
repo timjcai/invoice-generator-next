@@ -46,12 +46,7 @@ export const LineItemForm: FC = () => {
     return (
         <div className="w-full">
             <form className="flex flex-col" onSubmit={(e) => submitAndSave(e)}>
-                <button
-                    type="submit"
-                    className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center mx-3 flex h-[40px] mb-2"
-                >
-                    Add Line
-                </button>
+                <h2 className="text-2xl font-bold">Line Items</h2>
                 <table>
                     <thead>
                         <tr className="grid grid-cols-6 border-2 border-black rounded-md bg-black text-white">
@@ -172,6 +167,12 @@ export const LineItemForm: FC = () => {
                         </tr>
                     </tbody>
                 </table>
+                <button
+                    type="submit"
+                    className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center mx-3 flex h-[40px] my-2"
+                >
+                    Add Line
+                </button>
             </form>
         </div>
     );

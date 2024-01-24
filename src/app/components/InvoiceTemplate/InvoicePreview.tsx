@@ -50,12 +50,13 @@ export const InvoicePreview: FC<InvoiceType> = ({
     const { notes, paymentNotes } =
         usePaymentNotesContext() as PaymentNotesContextValue;
 
-    const { total, subtotal, taxrate } =
+    const { total, subtotal, taxrate, allItems } =
         useLineItemsContext() as LineItemsContextValue;
 
     return (
         <div className="w-[840px] bg-[rgba(154, 152, 152, 0.53)] backdrop-filter backdrop-blur-lg rounded-xl border-2 border-[#ccc] p-12 shadow-black">
             <div className="flex flex-row justify-between mb-8 border-b-black border-b-2 pb-4">
+                <div className="w-[50px] h-[50px]"></div>
                 {/* {<ImageDropzone />} */}
                 <div className="w-64">
                     <h1 className="text-4xl mb-1">
@@ -99,6 +100,50 @@ export const InvoicePreview: FC<InvoiceType> = ({
             </div>
             <div className="mb-4 border-t-black border-t-2 pt-4">
                 {/* <InvoiceGrid /> */}
+                <table className="w-full">
+                    <thead>
+                        <tr className="grid grid-cols-6">
+                            <th className="col-span-3 text-left">
+                                Description
+                            </th>
+                            <th className="col-span-1 text-left">Quantity</th>
+                            <th className="col-span-1 text-left">Rate</th>
+                            <th className="col-span-1 text-left">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {allItems.map((LineItemArray) => {
+                            return (
+                                <tr className="grid grid-cols-6">
+                                    <td className="col-span-3">
+                                        {LineItemArray.description}
+                                    </td>
+                                    <td className="col-span-1">
+                                        {" "}
+                                        {LineItemArray.quantity!}
+                                    </td>
+                                    <td className="col-span-1">
+                                        {" "}
+                                        {displayCurrency(
+                                            LineItemArray.rate!,
+                                            "AUD"
+                                        )}
+                                    </td>
+                                    <td className="col-span-1">
+                                        {LineItemArray.quantity! *
+                                        LineItemArray.rate!
+                                            ? displayCurrency(
+                                                  LineItemArray.quantity! *
+                                                      LineItemArray.rate!,
+                                                  "AUD"
+                                              )
+                                            : 0}
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
             </div>
             <div className="flex flex-row justify-between border-t-black border-t-2 pt-4">
                 <div className="w-96">

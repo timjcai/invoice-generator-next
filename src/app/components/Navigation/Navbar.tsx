@@ -27,7 +27,13 @@ export const Navbar = () => {
                     }
                 />
                 <div className="flex flex-row justify-between">
-                    <div></div>
+                    {uid ? (
+                        <NavbarLinkButton
+                            label={<Link href="/dashboard">Dashboard</Link>}
+                        />
+                    ) : (
+                        <></>
+                    )}
                     <NavbarLinkButton
                         label={<Link href="/pricing">Pricing</Link>}
                     />
