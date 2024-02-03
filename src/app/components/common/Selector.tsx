@@ -30,9 +30,14 @@ export interface SelectorOptions {
 export interface SelectorProps {
     initOptions?: SelectorOptions[];
     setState?: Dispatch<SetStateAction<string>>;
+    defaultValue: string;
 }
 
-export const Selector: FC<SelectorProps> = ({ initOptions, setState }) => {
+export const Selector: FC<SelectorProps> = ({
+    initOptions,
+    setState,
+    defaultValue,
+}) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [options, setOptions] = useState<SelectorOptions[]>(initOptions!);
     const [value, setValue] = useState<SelectorOptions | null>();
@@ -67,6 +72,7 @@ export const Selector: FC<SelectorProps> = ({ initOptions, setState }) => {
 
     return (
         <CreatableSelect
+            defaultInputValue={defaultValue}
             isClearable
             isDisabled={isLoading}
             isLoading={isLoading}

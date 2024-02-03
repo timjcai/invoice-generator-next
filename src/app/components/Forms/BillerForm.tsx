@@ -32,6 +32,7 @@ export const BillerForm: FC = () => {
     useEffect(() => {
         getBillerIndex(uid);
         getBillerDetails(billerId);
+        console.log(billerId);
         // function createSelectorOptions() {
         //     let billerArray = [] as SelectorOptions[];
         //     console.log(allBillers!);
@@ -62,12 +63,13 @@ export const BillerForm: FC = () => {
                 <Selector
                     initOptions={selectorOptions}
                     setState={setBillerId}
+                    defaultValue={billerDetails.businessName!}
                 />
             </div>
         );
     }
 
-    function billerSaveButtonAction(
+    async function billerSaveButtonAction(
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) {
         e.preventDefault();
@@ -77,6 +79,8 @@ export const BillerForm: FC = () => {
         console.log(
             "updating local state - push local state changes to Firebase"
         );
+        await getBillerIndex(uid);
+        setLoading(false);
     }
 
     return (

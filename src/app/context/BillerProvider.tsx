@@ -1,5 +1,5 @@
 "use client";
-import { ProviderProps } from ".";
+import { ProfileContextValue, ProviderProps, useProfileContext } from ".";
 import { SelectorOptions } from "../components/common";
 import { BuyerType, LocationType, PaymentDetailType } from "../types";
 import {
@@ -168,6 +168,7 @@ export const BillerProvider: FC<ProviderProps> = ({ children }) => {
     }
 
     async function updateBillerDetails() {
+        setLoading(true);
         const merchantRef = doc(db, "merchant", billerId);
         console.log(merchantRef);
         const locationRef = doc(db, "businessLocation", billerLocationId);
