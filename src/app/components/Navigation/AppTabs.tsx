@@ -12,7 +12,7 @@ import {
 } from "../Forms";
 
 export const AppTabs = () => {
-    const [controller, setController] = useState<IconType>("Line Items");
+    const [controller, setController] = useState<IconType>("Merchant");
     let element;
 
     const handleButtonClick = (

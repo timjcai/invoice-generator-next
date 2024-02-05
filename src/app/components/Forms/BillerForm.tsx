@@ -7,7 +7,11 @@ import {
 } from "@/app/context";
 import { LocationType, BuyerType, StateType } from "@/app/types";
 import React, { FC, useEffect, useState } from "react";
-import { Selector, SelectorOptions } from "../common/Selector";
+import {
+    BillerSelector,
+    SelectorOptions,
+    StateSelector,
+} from "../common/Selector";
 import { SkeletonBar } from "../UI";
 
 export const BillerForm: FC = () => {
@@ -60,7 +64,7 @@ export const BillerForm: FC = () => {
     } else {
         selector = (
             <div className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md">
-                <Selector
+                <BillerSelector
                     initOptions={selectorOptions}
                     setState={setBillerId}
                     defaultValue={billerDetails.businessName!}
@@ -195,7 +199,7 @@ export const BillerForm: FC = () => {
                     <label htmlFor="state" className="text-md font-medium mb-2">
                         State
                     </label>
-                    <input
+                    {/* <input
                         id="state"
                         type="text"
                         placeholder="Enter your State"
@@ -210,7 +214,11 @@ export const BillerForm: FC = () => {
                                 })
                             )
                         }
-                    ></input>
+                    ></input> */}
+                    <div className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md">
+                        <StateSelector setState={setBillerLocation} />
+                    </div>
+
                     <label
                         htmlFor="postcode"
                         className="text-md font-medium mb-2"

@@ -4,6 +4,7 @@ import {
     useBillerContext,
     useProfileContext,
 } from "@/app/context";
+import { BuyerType, LocationType } from "@/app/types";
 import React, {
     Dispatch,
     FC,
@@ -27,13 +28,13 @@ export interface SelectorOptions {
 //     { value: "pqrst4567uvw890", label: "Global Innovations Ltd." },
 // ];
 
-export interface SelectorProps {
+export interface BillerSelectorProps {
     initOptions?: SelectorOptions[];
     setState?: Dispatch<SetStateAction<string>>;
-    defaultValue: string;
+    defaultValue?: string;
 }
 
-export const Selector: FC<SelectorProps> = ({
+export const BillerSelector: FC<BillerSelectorProps> = ({
     initOptions,
     setState,
     defaultValue,
@@ -81,5 +82,51 @@ export const Selector: FC<SelectorProps> = ({
             options={options}
             value={value}
         ></CreatableSelect>
+    );
+};
+
+export interface StateSelectorProps {
+    initOptions?: SelectorOptions[];
+    setState?: Dispatch<SetStateAction<Partial<LocationType>>>;
+    defaultValue?: string;
+}
+
+export const StateSelector: FC<StateSelectorProps> = ({
+    initOptions,
+    setState,
+    defaultValue,
+}) => {
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [value, setValue] = useState<SelectorOptions | null>();
+
+    const options = [
+        { value: "NSW", label: "NSW" },
+        { value: "VIC", label: "VIC" },
+        { value: "QLD", label: "QLD" },
+        { value: "WA", label: "WA" },
+        { value: "SA", label: "SA" },
+        { value: "TAS", label: "TAS" },
+        { value: "NT", label: "NT" },
+    ];
+
+    const handleClick = (newValue: SingleValue<SelectorOptions>) => {
+        if (setState) {
+            setState((prevOption) => ({
+                ...prevOption,
+                state: newValue!.value,
+            }));
+            setValue(newValue);
+        }
+    };
+    return (
+        <CreatableSelect
+            isClearable
+            isDisabled={isLoading}
+            isLoading={isLoading}
+            onChange={(newValue) => handleClick(newValue)}
+            options={options}
+            value={value}
+            defaultInputValue={defaultValue}
+        />
     );
 };
