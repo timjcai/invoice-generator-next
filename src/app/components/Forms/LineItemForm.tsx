@@ -70,18 +70,18 @@ export const LineItemForm: FC = () => {
                         {allItems.map((row: Partial<LineItemsType>) => {
                             return (
                                 <tr className="grid grid-cols-6">
-                                    <td className="col-span-3 ps-2">
+                                    <td className="col-span-3 p-3">
                                         <p>{row.description}</p>
                                     </td>
-                                    <td className="ps-2">
+                                    <td className="p-3">
                                         <p>{row.quantity}</p>
                                     </td>
-                                    <td className="ps-2">
+                                    <td className="p-3">
                                         <p>
                                             {displayCurrency(row.rate!, "AUD")}
                                         </p>
                                     </td>
-                                    <td className="ps-2">
+                                    <td className="p-3">
                                         <p>
                                             {displayCurrency(
                                                 row.quantity! * row.rate!,
