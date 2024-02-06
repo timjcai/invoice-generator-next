@@ -83,8 +83,8 @@ const page = () => {
                     </button>
                 </div>
             </div>
-            <div className="w-full grid grid-cols-7 gap-10">
-                <div className="col-span-3 ms-20">
+            <div className="w-full grid grid-cols-8 gap-10">
+                <div className="col-span-4 ms-20 max-w-[840px] justify-self-end">
                     <AppTabs></AppTabs>
                 </div>
                 <div className="col-span-4 h-full">
