@@ -43,7 +43,7 @@ export const AppTabs = () => {
 
     return (
         <>
-            <div>
+            <div className="bg-white p-4">
                 <div className="border-b border-gray-200 dark:border-gray-700">
                     <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                         <li className="me-2">
@@ -114,7 +114,7 @@ export const AppTabs = () => {
                     </ul>
                 </div>
             </div>
-            <div className="w-[840px] my-4 flex justify-center items-center">
+            <div className="my-4 flex justify-center items-center bg-white p-4">
                 {element}
             </div>
         </>

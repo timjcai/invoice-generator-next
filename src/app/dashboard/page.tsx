@@ -82,12 +82,18 @@ const page = () => {
                         Generate Invoice
                     </button>
                 </div>
-                <AppTabs></AppTabs>
-                <InvoicePreview
-                    itemDescriptions={[]}
-                    termsAndConditions={"these are my terms and conditions"}
-                    notes={"job number: 1234"}
-                />
+            </div>
+            <div className="w-full grid grid-cols-7 gap-10">
+                <div className="col-span-3 ms-20">
+                    <AppTabs></AppTabs>
+                </div>
+                <div className="col-span-4 h-full">
+                    <InvoicePreview
+                        itemDescriptions={[]}
+                        termsAndConditions={"these are my terms and conditions"}
+                        notes={"job number: 1234"}
+                    />
+                </div>
             </div>
         </div>
     );
