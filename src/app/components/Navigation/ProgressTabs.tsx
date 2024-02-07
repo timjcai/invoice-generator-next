@@ -1,5 +1,13 @@
 import React, { ReactElement, useState } from "react";
 import { Icon } from "../UI";
+import ProfileForm from "../Forms/ProfileForm";
+import {
+    BillerForm,
+    InvoiceDetailsForm,
+    LineItemForm,
+    NotesForm,
+} from "../Forms";
+import { IconType } from "@/app/types";
 
 export const ProgressTabs = () => {
     const {
@@ -11,7 +19,56 @@ export const ProgressTabs = () => {
         next,
         step,
         goTo,
-    } = useMultistepForm([<p>1</p>, <p>2</p>, <p>3</p>, <p>4</p>, <p>5</p>]);
+    } = useMultistepForm([
+        <div>
+            <Icon label="Profile" />
+            Profile
+        </div>,
+        <div>
+            <Icon label="Merchant" />
+            Merchant
+        </div>,
+        <div>
+            <Icon label="Invoice Details" />
+            Invoice Details
+        </div>,
+        <div>
+            <Icon label="Payment & Notes" />
+            Payment & Notes
+        </div>,
+        <div>
+            <Icon label="Line Items" />
+            Line Items
+        </div>,
+    ]);
+    const [controller, setController] = useState<IconType>("Merchant");
+    let element;
+
+    const handleButtonClick = (
+        event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => {
+        setController((event.target as HTMLButtonElement).id as IconType);
+    };
+
+    switch (controller) {
+        case "Profile":
+            element = <ProfileForm />;
+            break;
+        case "Merchant":
+            element = <BillerForm />;
+            break;
+        case "Invoice Details":
+            element = <InvoiceDetailsForm />;
+            break;
+        case "Payment & Notes":
+            element = <NotesForm />;
+            break;
+        case "Line Items":
+            element = <LineItemForm />;
+            break;
+        default:
+            element = <LineItemForm />;
+    }
 
     return (
         <div className="flex flex-col bg-blue-500 w-full py-1 px-2">
@@ -21,18 +78,15 @@ export const ProgressTabs = () => {
                         <Icon label="back" />
                     </button>
                 ) : (
-                    <button></button>
+                    <button className="w-8"></button>
                 )}
-                <div>
-                    <p>step {currentStepIndex}</p>
-                    <p>{step}</p>
-                </div>
+                <div>{step}</div>
                 {!isLastStep ? (
                     <button onClick={next}>
                         <Icon label="next" />
                     </button>
                 ) : (
-                    <button></button>
+                    <button className="w-8"></button>
                 )}
             </div>
             <div className={`grid grid-cols-5 gap-4 h-[12px]`}>
