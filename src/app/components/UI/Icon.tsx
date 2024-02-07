@@ -6,6 +6,8 @@ import {
     faGoogle,
 } from "@fortawesome/free-brands-svg-icons";
 import {
+    faCircleLeft,
+    faCircleRight,
     faCircleUser,
     faClipboard,
     faClipboardUser,
@@ -48,6 +50,8 @@ const iconMapping: { [key in IconType]: IconDefinition } = {
     marketers: faFilterCircleDollar,
     trades: faHammer,
     techcontractors: faCode,
+    back: faCircleLeft,
+    next: faCircleRight,
 };
 
 export const Icon: FC<IconProps> = ({ label }) => {

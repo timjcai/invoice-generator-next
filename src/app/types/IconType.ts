@@ -22,6 +22,8 @@ export type ActionTypes =
     // | "light"
     // | "dark"
     | "add"
+    | "back"
+    | "next"
 
 export type NavigationTypes = 
     // | "Home" 
