@@ -20,34 +20,42 @@ export const ProgressTabs = () => {
         step,
         goTo,
     } = useMultistepForm([
-        <div>
+        <div key="Profile">
             <Icon label="Profile" />
             Profile
         </div>,
-        <div>
+        <div key="Merchant">
             <Icon label="Merchant" />
             Merchant
         </div>,
-        <div>
+        <div key="Invoice Details">
             <Icon label="Invoice Details" />
             Invoice Details
         </div>,
-        <div>
+        <div key="Payment & Notes">
             <Icon label="Payment & Notes" />
             Payment & Notes
         </div>,
-        <div>
+        <div key="Line Items">
             <Icon label="Line Items" />
             Line Items
         </div>,
     ]);
-    const [controller, setController] = useState<IconType>("Merchant");
+    const [controller, setController] = useState<IconType>(
+        step.key as IconType
+    );
     let element;
 
-    const handleButtonClick = (
-        event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    ) => {
-        setController((event.target as HTMLButtonElement).id as IconType);
+    async function handleNextButtonClick() {
+        const nextStep = currentStepIndex + 1;
+        next();
+        setController(steps[nextStep].key as IconType);
+    }
+
+    const handleBackButtonClick = () => {
+        const prevStep = currentStepIndex - 1;
+        back();
+        setController(steps[prevStep].key as IconType);
     };
 
     switch (controller) {
@@ -71,40 +79,51 @@ export const ProgressTabs = () => {
     }
 
     return (
-        <div className="flex flex-col bg-blue-500 w-full py-1 px-2">
-            <div className="flex flex-row justify-between">
-                {!isFirstStep ? (
-                    <button onClick={back}>
-                        <Icon label="back" />
-                    </button>
-                ) : (
-                    <button className="w-8"></button>
-                )}
-                <div>{step}</div>
-                {!isLastStep ? (
-                    <button onClick={next}>
-                        <Icon label="next" />
-                    </button>
-                ) : (
-                    <button className="w-8"></button>
-                )}
+        <div className="bg-white rounded-lg">
+            <div className="flex flex-col w-full py-3 px-4">
+                <div className="flex flex-row justify-between mb-2">
+                    {!isFirstStep ? (
+                        <button
+                            onClick={handleBackButtonClick}
+                            className="text-xl"
+                        >
+                            <Icon label="back" />
+                        </button>
+                    ) : (
+                        <button className="w-8"></button>
+                    )}
+                    <div className="text-xl font-semibold">{step}</div>
+                    {!isLastStep ? (
+                        <button
+                            onClick={handleNextButtonClick}
+                            className="text-xl"
+                        >
+                            <Icon label="next" />
+                        </button>
+                    ) : (
+                        <button className="w-8"></button>
+                    )}
+                </div>
+                <div className={`grid grid-cols-5 gap-4 h-[12px]`}>
+                    {steps.map((item, index) => (
+                        <div>
+                            {currentStepIndex > index ? (
+                                <div
+                                    className="bg-black h-2 col-span-1 rounded-lg"
+                                    key={index}
+                                ></div>
+                            ) : (
+                                <div
+                                    className="bg-white h-2 col-span-1 rounded-lg"
+                                    key={index}
+                                ></div>
+                            )}
+                        </div>
+                    ))}
+                </div>
             </div>
-            <div className={`grid grid-cols-5 gap-4 h-[12px]`}>
-                {steps.map((item, index) => (
-                    <div>
-                        {currentStepIndex > index ? (
-                            <div
-                                className="bg-black h-2 col-span-1 rounded-lg"
-                                key={index}
-                            ></div>
-                        ) : (
-                            <div
-                                className="bg-white h-2 col-span-1 rounded-lg"
-                                key={index}
-                            ></div>
-                        )}
-                    </div>
-                ))}
+            <div className="my-4 flex justify-center items-center bg-white p-4 w-full">
+                {element}
             </div>
         </div>
     );

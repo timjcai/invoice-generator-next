@@ -84,8 +84,8 @@ const page = () => {
                 </div>
             </div>
             <div className="w-full grid grid-cols-8 gap-10">
-                <div className="col-span-4 ms-20 max-w-[840px] justify-self-end">
-                    <AppTabs />
+                <div className="col-span-4 ms-20 max-w-[840px] justify-self-end w-full ps-12">
+                    {/* <AppTabs /> */}
                     <ProgressTabs />
                 </div>
                 <div className="col-span-4 h-full">
