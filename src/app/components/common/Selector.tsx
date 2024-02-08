@@ -4,7 +4,7 @@ import {
     useBillerContext,
     useProfileContext,
 } from "@/app/context";
-import { BuyerType, LocationType } from "@/app/types";
+import { BuyerType, LocationType, StateType } from "@/app/types";
 import React, {
     Dispatch,
     FC,
@@ -113,7 +113,7 @@ export const StateSelector: FC<StateSelectorProps> = ({
         if (setState) {
             setState((prevOption) => ({
                 ...prevOption,
-                state: newValue!.value,
+                state: newValue!.value as StateType,
             }));
             setValue(newValue);
         }
