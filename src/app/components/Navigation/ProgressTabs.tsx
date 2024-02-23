@@ -104,7 +104,7 @@ export const ProgressTabs = () => {
                         <button className="w-8"></button>
                     )}
                 </div>
-                <div className={`grid grid-cols-5 gap-4 h-[12px]`}>
+                <div className={`grid grid-cols-5 gap-4 h-[20px]`}>
                     {steps.map((item, index) => (
                         <div>
                             {currentStepIndex > index ? (
@@ -114,7 +114,7 @@ export const ProgressTabs = () => {
                                 ></div>
                             ) : (
                                 <div
-                                    className="bg-white h-2 col-span-1 rounded-lg"
+                                    className="bg-white border-[1px] border-black h-2 col-span-1 rounded-lg"
                                     key={index}
                                 ></div>
                             )}
