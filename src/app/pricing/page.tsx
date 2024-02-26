@@ -2,31 +2,58 @@
 
 import React from "react";
 import { Navbar } from "../components/Navigation";
+import { SubheadlineBadge } from "../components/common";
 
 const page = () => {
     return (
         <div className="flex flex-col items-center h-screen w-screen bg-[#F3F1EC]">
             <Navbar />
             <div className="flex flex-col justify-center items-center h-[320px]">
-                <p className="text-sm mb-4">Pricing</p>
+                <SubheadlineBadge
+                    label="Pricing"
+                    color="white"
+                    bgcolor="orange"
+                />
                 <h2 className="text-4xl font-bold">Two plans, two prices.</h2>
                 <h2 className="text-4xl font-bold mb-4"> No hidden fees</h2>
                 <p>How many invoices are you creating per month?</p>
             </div>
             <div className="flex flex-row w-[90vw]">
-                <div id="col1" className="flex w-[15vw] justify-center">
+                <div
+                    id="col1"
+                    className="flex w-[20vw] justify-center min-w-[260px]"
+                >
                     <div className="flex flex-col justify-start p-4">
-                        <h3 className="text-2xl font-semibold">
-                            Pick your plan
-                        </h3>
-                        <div className="flex gap-2 justify-start items-center">
-                            <input type="radio"></input>
-                            <label>Monthly billing</label>
-                        </div>
-                        <div className="flex gap-2 justify-start items-center">
-                            <input type="radio"></input>
-                            <label>Annual billing</label>
-                        </div>
+                        <form>
+                            <h3 className="text-2xl font-semibold mb-4">
+                                Pick your plan
+                            </h3>
+                            <div className="flex gap-2 justify-start items-center h-[32px]">
+                                <input
+                                    type="radio"
+                                    id="monthly"
+                                    name="billing"
+                                ></input>
+                                <label>Monthly billing</label>
+                            </div>
+                            <div className="flex gap-2 justify-start items-center relative h-[32px]">
+                                <input
+                                    type="radio"
+                                    id="annual"
+                                    name="billing"
+                                ></input>
+                                <div className="flex justify-center items-center gap-4">
+                                    <label>Annual billing</label>
+                                    <div className="absolute -right-[58px] top-[3px]">
+                                        <SubheadlineBadge
+                                            label={"save 20%"}
+                                            color="orange"
+                                            bgcolor="orange"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div
