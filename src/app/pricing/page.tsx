@@ -1,12 +1,62 @@
 "use client";
 
-import React from "react";
+import React, { FC } from "react";
 import { Navbar } from "../components/Navigation";
 import { SubheadlineBadge } from "../components/common";
+import { Icon } from "../components/UI";
 
 const page = () => {
+    const features = [
+        "Customizable Templates",
+        "Automated Invoice Generation",
+        "Itemized Billing",
+        "Tax Calculation",
+        "Multiple Currency Support",
+        "Merchant Details Saved",
+        "Invoice Tracking",
+        "Recurring Invoices",
+        "Expensive Tracking",
+        "Data Security",
+    ];
+    const features1 = [
+        <Icon label="included" />,
+        <Icon label="included" />,
+        <Icon label="included" />,
+        <Icon label="included" />,
+        <Icon label="notincluded" />,
+        <Icon label="notincluded" />,
+        <Icon label="notincluded" />,
+        <Icon label="notincluded" />,
+        <Icon label="notincluded" />,
+        <Icon label="notincluded" />,
+    ];
+    const features2 = [
+        <Icon label="included" />,
+        <Icon label="included" />,
+        <Icon label="included" />,
+        <Icon label="included" />,
+        <Icon label="included" />,
+        <Icon label="included" />,
+        <Icon label="notincluded" />,
+        <Icon label="notincluded" />,
+        <Icon label="notincluded" />,
+        <Icon label="notincluded" />,
+    ];
+    const features3 = [
+        <Icon label="included" />,
+        <Icon label="included" />,
+        <Icon label="included" />,
+        <Icon label="included" />,
+        <Icon label="included" />,
+        <Icon label="included" />,
+        <Icon label="included" />,
+        <Icon label="included" />,
+        <Icon label="included" />,
+        <Icon label="included" />,
+    ];
+
     return (
-        <div className="flex flex-col items-center h-screen w-screen bg-[#F3F1EC]">
+        <div className="flex flex-col items-center h-full w-screen bg-[#F3F1EC]">
             <Navbar />
             <div className="flex flex-col justify-center items-center h-[320px]">
                 <SubheadlineBadge
@@ -18,10 +68,10 @@ const page = () => {
                 <h2 className="text-4xl font-bold mb-4"> No hidden fees</h2>
                 <p>How many invoices are you creating per month?</p>
             </div>
-            <div className="flex flex-row w-[90vw]">
+            <div className="flex flex-row w-[90vw] mb-20">
                 <div
                     id="col1"
-                    className="flex w-[20vw] justify-center min-w-[260px]"
+                    className="flex w-[20vw] justify-start min-w-[260px]"
                 >
                     <div className="flex flex-col justify-start p-4">
                         <form>
@@ -123,8 +173,74 @@ const page = () => {
                     </div>
                 </div>
             </div>
+            <div className="flex flex-row w-[90vw]">
+                <div
+                    id="col1"
+                    className="flex w-[20vw] justify-start min-w-[260px]"
+                >
+                    <div className="flex flex-col justify-start p-4">
+                        <h3 className="text-2xl font-semibold mb-4 h-[48px]">
+                            Features
+                        </h3>
+                        {features.map((item) => (
+                            <FeatureRow label={item} />
+                        ))}
+                    </div>
+                </div>
+                <div
+                    id="col2"
+                    className="flex flex-col w-[25vw] border-2 rounded-xl p-4 me-2 bg-[#DAE6FD]"
+                >
+                    <h3 className="text-2xl font-semibold mb-4 h-[48px]">
+                        Features
+                    </h3>
+                    <div className="flex flex-col justify-center  items-center">
+                        {features1.map((item) => (
+                            <FeatureRow label={item} />
+                        ))}
+                    </div>
+                </div>
+                <div
+                    id="col3"
+                    className="flex flex-col w-[25vw] border-2  rounded-xl p-4 me-2 bg-[#DADFD9]"
+                >
+                    {" "}
+                    <h3 className="text-2xl font-semibold mb-4 h-[48px]">
+                        Features
+                    </h3>
+                    <div className="flex flex-col justify-center  items-center">
+                        {features2.map((item) => (
+                            <FeatureRow label={item} />
+                        ))}
+                    </div>
+                </div>
+                <div
+                    id="col3"
+                    className="flex flex-col w-[25vw] border-2  rounded-xl p-4 me-2 bg-[#FBE9D1]"
+                >
+                    {" "}
+                    <h3 className="text-2xl font-semibold mb-4 h-[48px]">
+                        Features
+                    </h3>
+                    <div className="flex flex-col justify-center  items-center">
+                        {features3.map((item) => (
+                            <FeatureRow label={item} />
+                        ))}
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
 
 export default page;
+
+type FeatureRowProps = {
+    label: string | React.ReactNode;
+};
+
+const FeatureRow: FC<FeatureRowProps> = ({ label }) => {
+    return (
+        <div className="flex justify-start items-center h-[32px]">{label}</div>
+    );
+};

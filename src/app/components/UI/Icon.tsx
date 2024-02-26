@@ -6,6 +6,7 @@ import {
     faGoogle,
 } from "@fortawesome/free-brands-svg-icons";
 import {
+    faCheckCircle,
     faCircleLeft,
     faCircleRight,
     faCircleUser,
@@ -18,6 +19,7 @@ import {
     faFilterCircleDollar,
     faHammer,
     faListUl,
+    faMinusCircle,
     faNoteSticky,
     faPalette,
     faPenNib,
@@ -52,6 +54,8 @@ const iconMapping: { [key in IconType]: IconDefinition } = {
     techcontractors: faCode,
     back: faCircleLeft,
     next: faCircleRight,
+    included: faCheckCircle,
+    notincluded: faMinusCircle,
 };
 
 export const Icon: FC<IconProps> = ({ label }) => {
