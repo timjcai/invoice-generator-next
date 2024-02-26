@@ -11,41 +11,44 @@ export const Navbar = () => {
     const { uid } = useProfileContext() as ProfileContextValue;
 
     return (
-        <>
-            <div className="flex flex-row justify-between items-center py-[8px] w-[calc(100%-32px)] md:w-[calc(100%-200px)] lg:w-[1024px] z-10 mt-[40px] top-[10px] bg-white rounded-xl mb-[40px] shadow-lg">
-                <NavbarLinkButton
-                    label={
-                        <Link href="/">
-                            <Image
-                                className="rounded-full"
-                                src="/bulkinvgen-logo.jpg"
-                                alt="me"
-                                width="42"
-                                height="42"
-                            />
-                        </Link>
-                    }
-                />
-                <div className="flex flex-row justify-between">
-                    {uid ? (
-                        <NavbarLinkButton
-                            label={<Link href="/dashboard">Dashboard</Link>}
-                        />
-                    ) : (
-                        <></>
-                    )}
-                    <NavbarLinkButton
-                        label={<Link href="/pricing">Pricing</Link>}
-                    />
+        <div className="flex items-center justify-center w-full bg-white border-b-2 border-[#e5e7eb] mb-[40px] h-[80px] px-4 md:px-[200px]">
+            <div className="flex flex-row justify-between items-center max-w-8xl w-[80vw]">
+                <div className="flex flex-row">
                     <NavbarLinkButton
                         label={
-                            <a href="https://www.buymeacoffee.com/shelbythesnag">
-                                Donate
-                            </a>
+                            <Link href="/">
+                                <Image
+                                    className="rounded-full"
+                                    src="/bulkinvgen-logo.jpg"
+                                    alt="me"
+                                    width="42"
+                                    height="42"
+                                />
+                            </Link>
                         }
                     />
-                    <NavbarLinkButton label={<a>Support</a>} />
+                    <div className="flex flex-row justify-between">
+                        {uid ? (
+                            <NavbarLinkButton
+                                label={<Link href="/dashboard">Dashboard</Link>}
+                            />
+                        ) : (
+                            <></>
+                        )}
+                        <NavbarLinkButton
+                            label={<Link href="/pricing">Pricing</Link>}
+                        />
+                        <NavbarLinkButton
+                            label={
+                                <a href="https://www.buymeacoffee.com/shelbythesnag">
+                                    Donate
+                                </a>
+                            }
+                        />
+                        <NavbarLinkButton label={<a>Support</a>} />
+                    </div>
                 </div>
+
                 <div className="flex flex-row justify-between">
                     {uid ? (
                         <>
@@ -70,7 +73,7 @@ export const Navbar = () => {
                     )}
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

@@ -6,6 +6,14 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --brand-black: #0E0F19;
+  --brand-white: #ffffff;
+  --brand-accent1: #ff9f1C;
+  --brand-accent1-opaque: rgb(255, 159, 28,0.5);
+  --brand-accent2: #006c67;
+  --brand-accent2-opaque: rgb(0, 108, 103,0.5);
+  --brand-accent3: #f194b4;
+  --brand-accent3-opaque: rgb(241, 148, 180,0.5);
 }
 
 @media (prefers-color-scheme: dark) {

@@ -1,12 +1,17 @@
 import React, { FC } from "react";
 import { Icon } from "../UI";
 import { IconType } from "@/app/types";
+import { SubheadlineBadge } from "./Badge";
 
 export const LandingPage = () => {
     return (
         <div>
             <section className="grid grid-cols-2 gap-10 items-center justify-center flex-col mx-4 md:mx-[100px] h-[400px] mb-[5vh]">
                 <div className="flex flex-col justify-start">
+                    <SubheadlineBadge
+                        label={"Try Now for free"}
+                        bgcolor="orange"
+                    />
                     <h1 className="text-[2.375rem] leading-[2.75rem] color-[#0e101a] font-bold mb-[2vh]">
                         Free Invoice Generator
                     </h1>

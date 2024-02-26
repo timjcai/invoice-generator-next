@@ -24,6 +24,8 @@ export type ActionTypes =
     | "add"
     | "back"
     | "next"
+    | "included"
+    | "notincluded"
 
 export type NavigationTypes = 
     // | "Home" 
