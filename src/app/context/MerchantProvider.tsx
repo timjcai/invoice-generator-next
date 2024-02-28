@@ -1,7 +1,12 @@
 "use client";
 import { ProfileContextValue, ProviderProps, useProfileContext } from ".";
 import { SelectorOptions } from "../components/common";
-import { BuyerType, LocationType, PaymentDetailType } from "../types";
+import {
+    BuyerType,
+    LocationType,
+    PaymentDetailType,
+    StateType,
+} from "../types";
 import {
     Dispatch,
     FC,
@@ -63,24 +68,39 @@ export const MerchantProvider: FC<ProviderProps> = ({ children }) => {
     const [merchantDetails, setMerchantDetails] = useState<Partial<BuyerType>>(
         {}
     );
+    const [merchantBusinessName, setMerchantBusinessName] = useState<string>();
+    const [merchantABN, setMerchantABN] = useState<number>();
 
     // Merchant Location
     const [merchantLocationId, setMerchantLocationId] = useState<string>("");
     const [merchantLocation, setMerchantLocation] = useState<
         Partial<LocationType>
     >({});
+    const [streetLine1, setStreetLine1] = useState<string>();
+    const [streetLine2, setStreetLine2] = useState<string>();
+    const [country, setCountry] = useState<string>();
+    const [suburb, setSuburb] = useState<string>();
+    const [locationState, setLocationState] = useState<StateType>();
+    const [postcode, setPostcode] = useState<string>();
 
     // Merchant Payment Details
     const [merchantPaymentDetails, setMerchantPaymentDetails] = useState<
         Partial<PaymentDetailType>
     >({});
+    const [merchantBSB, setMerchantBSB] = useState<number>();
+    const [merchantACC, setMerchantACC] = useState<number>();
+    const [merchantBankAccount, setMerchantBankAccount] = useState<string>();
 
+    // CRUD useState
     const [allMerchants, setAllMerchants] = useState<BuyerType[]>([]);
+
+    // UTIL
     const [selectorOptions, setSelectorOptions] = useState<SelectorOptions[]>(
         []
     );
     const [loading, setLoading] = useState<boolean>(true);
 
+    // CRUD Functions
     async function getMerchantIndex(uid: string) {
         try {
             // const response = await fetch(`/api/details/merchant?user=${uid}`);
