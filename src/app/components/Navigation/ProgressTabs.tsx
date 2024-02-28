@@ -2,9 +2,9 @@ import React, { ReactElement, useState } from "react";
 import { Icon } from "../UI";
 import ProfileForm from "../Forms/ProfileForm";
 import {
-    BillerForm,
     InvoiceDetailsForm,
     LineItemForm,
+    MerchantForm,
     NotesForm,
 } from "../Forms";
 import { IconType } from "@/app/types";
@@ -63,7 +63,7 @@ export const ProgressTabs = () => {
             element = <ProfileForm />;
             break;
         case "Merchant":
-            element = <BillerForm />;
+            element = <MerchantForm />;
             break;
         case "Invoice Details":
             element = <InvoiceDetailsForm />;

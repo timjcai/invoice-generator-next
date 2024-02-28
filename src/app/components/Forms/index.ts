@@ -1,4 +1,4 @@
-export * from './BillerForm'
+export * from './MerchantForm'
 export * from './InvoiceDetailsForm'
 export * from './ProfileForm'
 export * from './LoginForm'

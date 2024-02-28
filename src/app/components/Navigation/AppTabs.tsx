@@ -5,10 +5,10 @@ import { Icon } from "../UI";
 import { IconType } from "@/app/types";
 import ProfileForm from "../Forms/ProfileForm";
 import {
-    BillerForm,
     InvoiceDetailsForm,
     NotesForm,
     LineItemForm,
+    MerchantForm,
 } from "../Forms";
 
 export const AppTabs = () => {
@@ -26,7 +26,7 @@ export const AppTabs = () => {
             element = <ProfileForm />;
             break;
         case "Merchant":
-            element = <BillerForm />;
+            element = <MerchantForm />;
             break;
         case "Invoice Details":
             element = <InvoiceDetailsForm />;

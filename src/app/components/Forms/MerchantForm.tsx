@@ -14,7 +14,7 @@ import {
 } from "../common/Selector";
 import { SkeletonBar } from "../UI";
 
-export const BillerForm: FC = () => {
+export const MerchantForm: FC = () => {
     const {
         billerId,
         setBillerId,

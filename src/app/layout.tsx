@@ -6,10 +6,10 @@ import LoginPage from "./login/page";
 import {
     AuthProvider,
     ProfileProvider,
-    BillerProvider,
     InvoiceDetailProvider,
     PaymentNotesProvider,
     LineItemsProvider,
+    MerchantProvider,
 } from "./context";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -32,7 +32,7 @@ export default async function RootLayout({
             <body className={roboto.className}>
                 <AuthProvider>
                     <ProfileProvider>
-                        <BillerProvider>
+                        <MerchantProvider>
                             <InvoiceDetailProvider>
                                 <PaymentNotesProvider>
                                     <LineItemsProvider>
@@ -40,7 +40,7 @@ export default async function RootLayout({
                                     </LineItemsProvider>
                                 </PaymentNotesProvider>
                             </InvoiceDetailProvider>
-                        </BillerProvider>
+                        </MerchantProvider>
                     </ProfileProvider>
                 </AuthProvider>
             </body>
