@@ -2,14 +2,14 @@
 import React, { useEffect, useState } from "react";
 import {
     AuthContextValue,
-    BillerContextValue,
+    MerchantContextValue,
     InvoiceContextValue,
     InvoiceDetailContext,
     LineItemsContextValue,
     PaymentNotesContextValue,
     ProfileContextValue,
     useAuth,
-    useBillerContext,
+    useMerchantContext,
     useInvoiceDetailContext,
     useLineItemsContext,
     usePaymentNotesContext,
@@ -32,8 +32,8 @@ const page = () => {
         uid,
         loading,
     } = useProfileContext() as ProfileContextValue;
-    const { billerDetails, billerLocation } =
-        useBillerContext() as BillerContextValue;
+    const { merchantDetails, merchantLocation } =
+        useMerchantContext() as MerchantContextValue;
     const { invoiceDetails } = useInvoiceDetailContext() as InvoiceContextValue;
     const { notes, paymentNotes } =
         usePaymentNotesContext() as PaymentNotesContextValue;
@@ -58,10 +58,10 @@ const page = () => {
                                     businessLocation:
                                         sellerLocation as LocationType,
                                 },
-                                billerDetails: {
-                                    ...billerDetails,
+                                merchantDetails: {
+                                    ...merchantDetails,
                                     businessLocation:
-                                        billerLocation as LocationType,
+                                        merchantLocation as LocationType,
                                 },
                                 invoiceDetails: invoiceDetails,
                                 paymentAndNotes: {

@@ -15,14 +15,14 @@ import {
 } from "@/app/utils";
 // import { InvoiceGrid } from "../ReactGrid";
 import {
-    BillerContextValue,
     InvoiceContextValue,
     LineItemsContextValue,
+    MerchantContextValue,
     PaymentNotesContextValue,
     ProfileContextValue,
-    useBillerContext,
     useInvoiceDetailContext,
     useLineItemsContext,
+    useMerchantContext,
     usePaymentNotesContext,
     useProfileContext,
 } from "@/app/context";
@@ -36,8 +36,8 @@ export type InvoiceType = {
 export const InvoicePreview: FC<InvoiceType> = ({}) => {
     const [totalBalance, setTotalBalance] = useState<number>(10.1);
     const [amountPaid, setAmountPaid] = useState<number>(0);
-    const { billerDetails, billerLocation } =
-        useBillerContext() as BillerContextValue;
+    const { merchantDetails, merchantLocation } =
+        useMerchantContext() as MerchantContextValue;
     const {
         profileDetails,
         locationDetails: sellerLocation,
@@ -76,12 +76,16 @@ export const InvoicePreview: FC<InvoiceType> = ({}) => {
                 <div id="buyerDetails" className="flex flex-row gap-4">
                     <div id="billTo">
                         <p>Bill to:</p>
-                        <p className="text-sm">{billerDetails.businessName}</p>
-                        <div className="text-sm">ABN: {billerDetails.ABN}</div>
+                        <p className="text-sm">
+                            {merchantDetails.businessName}
+                        </p>
+                        <div className="text-sm">
+                            ABN: {merchantDetails.ABN}
+                        </div>
                     </div>
                     <div id="shipTo">
                         <p>Ship to:</p>
-                        <LocationGrid {...billerLocation} />
+                        <LocationGrid {...merchantLocation} />
                     </div>
                 </div>
                 <div className="grid grid-cols-2 gap-2">

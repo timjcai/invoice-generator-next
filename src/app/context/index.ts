@@ -1,6 +1,6 @@
 export * from './AuthProvider'
 export * from './ProfileProvider'
-export * from './BillerProvider'
+export * from './MerchantProvider'
 export * from './InvoiceDetailProvider'
 export * from './LineItemsProvider'
 export * from './PaymentNotesProvider'

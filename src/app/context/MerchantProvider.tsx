@@ -1,7 +1,12 @@
 "use client";
 import { ProfileContextValue, ProviderProps, useProfileContext } from ".";
 import { SelectorOptions } from "../components/common";
-import { BuyerType, LocationType, PaymentDetailType } from "../types";
+import {
+    BuyerType,
+    LocationType,
+    PaymentDetailType,
+    StateType,
+} from "../types";
 import {
     Dispatch,
     FC,
@@ -23,56 +28,80 @@ import {
     where,
 } from "firebase/firestore";
 
-export interface BillerContextValue {
-    billerId: string;
-    setBillerId: Dispatch<SetStateAction<string>>;
-    billerLocationId: string;
-    setBillerLocationId: Dispatch<SetStateAction<string>>;
-    billerDetails: Partial<BuyerType>;
-    setBillerDetails: Dispatch<SetStateAction<Partial<BuyerType>>>;
-    billerLocation: Partial<LocationType>;
-    setBillerLocation: Dispatch<SetStateAction<Partial<LocationType>>>;
-    billerPaymentDetails: Partial<PaymentDetailType>;
-    setBillerPaymentDetails: Dispatch<
+export interface MerchantContextValue {
+    merchantId: string;
+    setMerchantId: Dispatch<SetStateAction<string>>;
+    merchantLocationId: string;
+    setMerchantLocationId: Dispatch<SetStateAction<string>>;
+    merchantDetails: Partial<BuyerType>;
+    setMerchantDetails: Dispatch<SetStateAction<Partial<BuyerType>>>;
+    merchantLocation: Partial<LocationType>;
+    setMerchantLocation: Dispatch<SetStateAction<Partial<LocationType>>>;
+    merchantPaymentDetails: Partial<PaymentDetailType>;
+    setMerchantPaymentDetails: Dispatch<
         SetStateAction<Partial<PaymentDetailType>>
     >;
-    allBillers: BuyerType[];
-    setAllBillers: Dispatch<SetStateAction<BuyerType[]>>;
+    allMerchants: BuyerType[];
+    setAllMerchants: Dispatch<SetStateAction<BuyerType[]>>;
     selectorOptions: SelectorOptions[];
     setSelectorOptions: Dispatch<SetStateAction<SelectorOptions[]>>;
-    getBillerDetails: (billderId: string) => void;
-    updateBillerDetails: () => void;
-    getBillerIndex: (uid: string) => void;
-    createBiller: (postData: Partial<BuyerType>, uid: string) => void;
+    getMerchantDetails: (billderId: string) => void;
+    updateMerchantDetails: () => void;
+    getMerchantIndex: (uid: string) => void;
+    createMerchant: (postData: Partial<BuyerType>, uid: string) => void;
     loading: boolean;
     setLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 export const BillerDetailsContext = createContext<
-    BillerContextValue | undefined
+    MerchantContextValue | undefined
 >(undefined);
 
-export function useBillerContext() {
+export function useMerchantContext() {
     return useContext(BillerDetailsContext);
 }
 
-export const BillerProvider: FC<ProviderProps> = ({ children }) => {
-    const [billerId, setBillerId] = useState<string>("");
-    const [billerDetails, setBillerDetails] = useState<Partial<BuyerType>>({});
-    const [billerLocationId, setBillerLocationId] = useState<string>("");
-    const [billerLocation, setBillerLocation] = useState<Partial<LocationType>>(
+export const MerchantProvider: FC<ProviderProps> = ({ children }) => {
+    // Merchant Details
+    const [merchantId, setMerchantId] = useState<string>("");
+
+    const [merchantDetails, setMerchantDetails] = useState<Partial<BuyerType>>(
         {}
     );
-    const [billerPaymentDetails, setBillerPaymentDetails] = useState<
+    const [merchantBusinessName, setMerchantBusinessName] = useState<string>();
+    const [merchantABN, setMerchantABN] = useState<number>();
+
+    // Merchant Location
+    const [merchantLocationId, setMerchantLocationId] = useState<string>("");
+    const [merchantLocation, setMerchantLocation] = useState<
+        Partial<LocationType>
+    >({});
+    const [streetLine1, setStreetLine1] = useState<string>();
+    const [streetLine2, setStreetLine2] = useState<string>();
+    const [country, setCountry] = useState<string>();
+    const [suburb, setSuburb] = useState<string>();
+    const [locationState, setLocationState] = useState<StateType>();
+    const [postcode, setPostcode] = useState<string>();
+
+    // Merchant Payment Details
+    const [merchantPaymentDetails, setMerchantPaymentDetails] = useState<
         Partial<PaymentDetailType>
     >({});
-    const [allBillers, setAllBillers] = useState<BuyerType[]>([]);
+    const [merchantBSB, setMerchantBSB] = useState<number>();
+    const [merchantACC, setMerchantACC] = useState<number>();
+    const [merchantBankAccount, setMerchantBankAccount] = useState<string>();
+
+    // CRUD useState
+    const [allMerchants, setAllMerchants] = useState<BuyerType[]>([]);
+
+    // UTIL
     const [selectorOptions, setSelectorOptions] = useState<SelectorOptions[]>(
         []
     );
     const [loading, setLoading] = useState<boolean>(true);
 
-    async function getBillerIndex(uid: string) {
+    // CRUD Functions
+    async function getMerchantIndex(uid: string) {
         try {
             // const response = await fetch(`/api/details/merchant?user=${uid}`);
             // const billerIndex = await response.json();
@@ -96,7 +125,7 @@ export const BillerProvider: FC<ProviderProps> = ({ children }) => {
                     label: merchant.businessName,
                 });
             });
-            setAllBillers(allMerchants);
+            setAllMerchants(allMerchants);
             setSelectorOptions(options);
             setLoading(false);
         } catch (error) {
@@ -104,7 +133,7 @@ export const BillerProvider: FC<ProviderProps> = ({ children }) => {
         }
     }
 
-    async function createBiller(postData: Partial<BuyerType>, uid: string) {
+    async function createMerchant(postData: Partial<BuyerType>, uid: string) {
         console.log(postData);
         try {
             const docRef = await addDoc(collection(db, "merchant"), {
@@ -132,7 +161,7 @@ export const BillerProvider: FC<ProviderProps> = ({ children }) => {
     //     return billerArray;
     // }
 
-    async function getBillerDetails(billerId: string) {
+    async function getMerchantDetails(billerId: string) {
         try {
             const merchantRef = doc(db, "merchant", `${billerId}`);
             const merchantResponse = await getDoc(merchantRef);
@@ -158,43 +187,43 @@ export const BillerProvider: FC<ProviderProps> = ({ children }) => {
             // const locationDetailsData = await locationResponse.json();
             // const paymentDetails = await paymentResponse.json();
             // const businessLocation = await locationResponse.json();
-            setBillerLocation(locationData);
-            setBillerDetails(merchantData);
-            setBillerLocationId(locationId);
+            setMerchantLocation(locationData);
+            setMerchantDetails(merchantData);
+            setMerchantLocationId(locationId);
             // setBillerDetails(billerDetails);
         } catch (error) {
             console.error("error fetching data", error);
         }
     }
 
-    async function updateBillerDetails() {
+    async function updateMerchantDetails() {
         setLoading(true);
-        const merchantRef = doc(db, "merchant", billerId);
+        const merchantRef = doc(db, "merchant", merchantId);
         console.log(merchantRef);
-        const locationRef = doc(db, "businessLocation", billerLocationId);
-        await updateDoc(merchantRef, billerDetails);
-        await updateDoc(locationRef, billerLocation);
+        const locationRef = doc(db, "businessLocation", merchantLocationId);
+        await updateDoc(merchantRef, merchantDetails);
+        await updateDoc(locationRef, merchantLocation);
     }
 
-    const value: BillerContextValue = {
-        billerDetails,
-        setBillerDetails,
-        billerLocationId,
-        setBillerLocationId,
-        billerId,
-        setBillerId,
-        billerLocation,
-        setBillerLocation,
-        billerPaymentDetails,
-        setBillerPaymentDetails,
-        allBillers,
-        setAllBillers,
+    const value: MerchantContextValue = {
+        merchantDetails,
+        setMerchantDetails,
+        merchantLocationId,
+        setMerchantLocationId,
+        merchantId,
+        setMerchantId,
+        merchantLocation,
+        setMerchantLocation,
+        merchantPaymentDetails,
+        setMerchantPaymentDetails,
+        allMerchants,
+        setAllMerchants,
         selectorOptions,
         setSelectorOptions,
-        getBillerDetails,
-        createBiller,
-        getBillerIndex,
-        updateBillerDetails,
+        getMerchantDetails,
+        createMerchant,
+        getMerchantIndex,
+        updateMerchantDetails,
         loading,
         setLoading,
     };
