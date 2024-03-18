@@ -6,14 +6,14 @@ import { BuyerType, LineItemsType, LocationType, SellerType } from "./types";
 import { AppTabs, Navbar } from "./components/Navigation";
 import {
     AuthContextValue,
-    BillerContextValue,
+    MerchantContextValue,
     InvoiceContextValue,
     InvoiceDetailContext,
     LineItemsContextValue,
     PaymentNotesContextValue,
     ProfileContextValue,
     useAuth,
-    useBillerContext,
+    useMerchantContext,
     useInvoiceDetailContext,
     useLineItemsContext,
     usePaymentNotesContext,
@@ -68,8 +68,8 @@ export default function Home() {
         uid,
         loading,
     } = useProfileContext() as ProfileContextValue;
-    const { billerDetails, billerLocation } =
-        useBillerContext() as BillerContextValue;
+    const { merchantDetails, merchantLocation } =
+        useMerchantContext() as MerchantContextValue;
     const { invoiceDetails } = useInvoiceDetailContext() as InvoiceContextValue;
     const { notes, paymentNotes } =
         usePaymentNotesContext() as PaymentNotesContextValue;
