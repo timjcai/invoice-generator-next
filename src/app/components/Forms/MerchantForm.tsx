@@ -78,15 +78,23 @@ export const MerchantForm: FC = () => {
     ) {
         e.preventDefault();
         // to do: push local state changes to firebase
-        updateMerchantDetails();
-        console.log(merchantDetails);
-        console.log(
-            "updating local state - push local state changes to Firebase"
-        );
-        await getMerchantIndex(uid);
+        console.log(merchantId)
+        if (merchantId === null) {
+            console.log('no merchant id - creating a new Merchant account')
+        } else {
+            updateMerchantDetails();
+            console.log(merchantDetails);
+            console.log(
+                "updating local state - push local state changes to Firebase"
+            );
+            await getMerchantIndex(uid);
+
+        }
+
         setLoading(false);
     }
 
+    const merchantDetailTemp = (merchantDetails?.businessName ? merchantDetails?.businessName : "")
     return (
         <div className="w-full">
             {selector}
@@ -103,7 +111,7 @@ export const MerchantForm: FC = () => {
                     placeholder="Enter your Business Name"
                     className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                     required={true}
-                    value={merchantDetails?.businessName}
+                    value={merchantDetailTemp}
                     onChange={(e) =>
                         setMerchantDetails((prevState: Partial<BuyerType>) => ({
                             ...prevState,

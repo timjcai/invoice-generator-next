@@ -30,7 +30,7 @@ export interface SelectorOptions {
 
 export interface MerchantSelectorProps {
     initOptions?: SelectorOptions[];
-    setState?: Dispatch<SetStateAction<string>>;
+    setState?: Dispatch<SetStateAction<string|null>>;
     defaultValue?: string;
 }
 
@@ -53,7 +53,7 @@ export const MerchantSelector: FC<MerchantSelectorProps> = ({
     });
 
     const handleClick = (newValue: SingleValue<SelectorOptions>) => {
-        if (newValue !== null || undefined) {
+        if (setState && (newValue !== null || undefined)) {
             setState(newValue!.value as string);
             setValue(newValue);
         }
@@ -70,7 +70,7 @@ export const MerchantSelector: FC<MerchantSelectorProps> = ({
             setOptions((prev) => [...prev, newOption]);
             setValue(newOption);
         }, 1000);
-        const payload = billerDetails;
+        const payload = merchantDetails;
         createMerchant(payload, uid);
     };
 
