@@ -1,14 +1,14 @@
 "use client";
 import {
-    BillerContextValue,
+    MerchantContextValue,
     ProfileContextValue,
-    useBillerContext,
+    useMerchantContext,
     useProfileContext,
 } from "@/app/context";
 import { LocationType, BuyerType, StateType } from "@/app/types";
 import React, { FC, useEffect, useState } from "react";
 import {
-    BillerSelector,
+    MerchantSelector,
     SelectorOptions,
     StateSelector,
 } from "../common/Selector";
@@ -16,27 +16,26 @@ import { SkeletonBar } from "../UI";
 
 export const MerchantForm: FC = () => {
     const {
-        billerId,
-        setBillerId,
-        billerDetails,
-        setBillerDetails,
-        billerLocation,
-        setBillerLocation,
-        allBillers,
-        setAllBillers,
-        getBillerIndex,
+        merchantId,
+        setMerchantId,
+        merchantDetails,
+        setMerchantDetails,
+        merchantLocation,
+        setMerchantLocation,
+        allMerchants,
+        setAllMerchants,
+        getMerchantIndex,
         selectorOptions,
-        getBillerDetails,
+        getMerchantDetails,
         loading,
         setLoading,
-        updateBillerDetails,
-    } = useBillerContext() as BillerContextValue;
+        updateMerchantDetails,
+    } = useMerchantContext() as MerchantContextValue;
     const { uid } = useProfileContext() as ProfileContextValue;
 
     useEffect(() => {
-        getBillerIndex(uid);
-        getBillerDetails(billerId);
-        console.log(billerId);
+        getMerchantIndex(uid);
+        getMerchantDetails(merchantId);
         // function createSelectorOptions() {
         //     let billerArray = [] as SelectorOptions[];
         //     console.log(allBillers!);
@@ -52,7 +51,7 @@ export const MerchantForm: FC = () => {
         //     console.log("successfully setup selector");
         // }
         // return () => createSelectorOptions();
-    }, [uid, billerId, loading]);
+    }, [uid, merchantId, loading]);
 
     let selector;
     if (loading) {
@@ -64,26 +63,33 @@ export const MerchantForm: FC = () => {
     } else {
         selector = (
             <div className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md">
-                <BillerSelector
+                <MerchantSelector
                     initOptions={selectorOptions}
-                    setState={setBillerId}
-                    defaultValue={billerDetails.businessName!}
+                    setState={setMerchantId}
+                    defaultValue={merchantDetails.businessName!}
                 />
             </div>
         );
     }
 
-    async function billerSaveButtonAction(
+    async function merchantSaveButtonAction(
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) {
         e.preventDefault();
         // to do: push local state changes to firebase
-        updateBillerDetails();
-        console.log(billerDetails);
-        console.log(
-            "updating local state - push local state changes to Firebase"
-        );
-        await getBillerIndex(uid);
+        console.log(merchantId)
+        if (merchantId === null) {
+            console.log('no merchant id - creating a new Merchant account')
+        } else {
+            updateMerchantDetails();
+            console.log(merchantDetails);
+            console.log(
+                "updating local state - push local state changes to Firebase"
+            );
+            await getMerchantIndex(uid);
+
+        }
+
         setLoading(false);
     }
 
@@ -103,9 +109,9 @@ export const MerchantForm: FC = () => {
                     placeholder="Enter your Business Name"
                     className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                     required={true}
-                    value={billerDetails?.businessName}
+                    value={merchantDetails?.businessName}
                     onChange={(e) =>
-                        setBillerDetails((prevState: Partial<BuyerType>) => ({
+                        setMerchantDetails((prevState: Partial<BuyerType>) => ({
                             ...prevState,
                             businessName: e.target.value,
                         }))
@@ -120,9 +126,9 @@ export const MerchantForm: FC = () => {
                     placeholder="Enter your ABN"
                     className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                     required={true}
-                    value={billerDetails?.ABN}
+                    value={merchantDetails?.ABN}
                     onChange={(e) =>
-                        setBillerDetails((prevState: Partial<BuyerType>) => ({
+                        setMerchantDetails((prevState: Partial<BuyerType>) => ({
                             ...prevState,
                             ABN: Number(e.target.value),
                         }))
@@ -142,9 +148,9 @@ export const MerchantForm: FC = () => {
                         placeholder="Enter your Street line 1"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={billerLocation?.streetLine1}
+                        value={merchantLocation?.streetLine1}
                         onChange={(e) =>
-                            setBillerLocation(
+                            setMerchantLocation(
                                 (prevState: Partial<LocationType>) => ({
                                     ...prevState,
                                     streetLine1: e.target.value,
@@ -164,9 +170,9 @@ export const MerchantForm: FC = () => {
                         placeholder="Enter your Street line 2"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={billerLocation?.streetLine2}
+                        value={merchantLocation?.streetLine2}
                         onChange={(e) =>
-                            setBillerLocation(
+                            setMerchantLocation(
                                 (prevState: Partial<LocationType>) => ({
                                     ...prevState,
                                     streetLine2: e.target.value,
@@ -186,9 +192,9 @@ export const MerchantForm: FC = () => {
                         placeholder="Enter your Country"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={billerLocation?.country}
+                        value={merchantLocation?.country}
                         onChange={(e) =>
-                            setBillerLocation(
+                            setMerchantLocation(
                                 (prevState: Partial<LocationType>) => ({
                                     ...prevState,
                                     country: e.target.value,
@@ -205,9 +211,9 @@ export const MerchantForm: FC = () => {
                         placeholder="Enter your State"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={billerLocation?.state}
+                        value={merchantLocation?.state}
                         onChange={(e) =>
-                            setBillerLocation(
+                            setMerchantLocation(
                                 (prevState: Partial<LocationType>) => ({
                                     ...prevState,
                                     state: e.target.value as StateType,
@@ -216,7 +222,7 @@ export const MerchantForm: FC = () => {
                         }
                     ></input> */}
                     <div className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md">
-                        <StateSelector setState={setBillerLocation} />
+                        <StateSelector setState={setMerchantLocation} />
                     </div>
 
                     <label
@@ -231,9 +237,9 @@ export const MerchantForm: FC = () => {
                         placeholder="Enter your Postcode"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={billerLocation?.postcode}
+                        value={merchantLocation?.postcode}
                         onChange={(e) =>
-                            setBillerLocation(
+                            setMerchantLocation(
                                 (prevState: Partial<LocationType>) => ({
                                     ...prevState,
                                     postcode: Number(e.target.value),
@@ -245,10 +251,10 @@ export const MerchantForm: FC = () => {
                 <button
                     type="submit"
                     className="w-full border-2 bg-[#212122] border-[#212122] py-2 text-white font-light rounded-md mt-4 mb-4 disabled:opacity-40"
-                    onClick={(e) => billerSaveButtonAction(e)}
+                    onClick={(e) => merchantSaveButtonAction(e)}
                     // disabled={!userEmail || !userPassword}
                 >
-                    Save
+                    {merchantId ? "Save" : "Create"}
                 </button>
             </form>
         </div>

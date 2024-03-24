@@ -1,7 +1,7 @@
 import {
-    BillerContextValue,
+    MerchantContextValue,
     ProfileContextValue,
-    useBillerContext,
+    useMerchantContext,
     useProfileContext,
 } from "@/app/context";
 import { BuyerType, LocationType, StateType } from "@/app/types";
@@ -28,13 +28,13 @@ export interface SelectorOptions {
 //     { value: "pqrst4567uvw890", label: "Global Innovations Ltd." },
 // ];
 
-export interface BillerSelectorProps {
+export interface MerchantSelectorProps {
     initOptions?: SelectorOptions[];
-    setState?: Dispatch<SetStateAction<string>>;
+    setState: Dispatch<SetStateAction<string|null>>;
     defaultValue?: string;
 }
 
-export const BillerSelector: FC<BillerSelectorProps> = ({
+export const MerchantSelector: FC<MerchantSelectorProps> = ({
     initOptions,
     setState,
     defaultValue,
@@ -42,8 +42,8 @@ export const BillerSelector: FC<BillerSelectorProps> = ({
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [options, setOptions] = useState<SelectorOptions[]>(initOptions!);
     const [value, setValue] = useState<SelectorOptions | null>();
-    const { billerDetails, createBiller } =
-        useBillerContext() as BillerContextValue;
+    const { merchantDetails, createMerchant } =
+        useMerchantContext() as MerchantContextValue;
     const { uid } = useProfileContext() as ProfileContextValue;
 
     // value = firestore id, we let firestore handle id generation on creation
@@ -53,9 +53,13 @@ export const BillerSelector: FC<BillerSelectorProps> = ({
     });
 
     const handleClick = (newValue: SingleValue<SelectorOptions>) => {
-        if (setState) {
+        if (setState && (newValue !== null || undefined)) {
             setState(newValue!.value as string);
             setValue(newValue);
+        }
+        else {
+            setState(null)
+            setValue(null)
         }
     };
 
@@ -67,8 +71,8 @@ export const BillerSelector: FC<BillerSelectorProps> = ({
             setOptions((prev) => [...prev, newOption]);
             setValue(newOption);
         }, 1000);
-        const payload = billerDetails;
-        createBiller(payload, uid);
+        const payload = merchantDetails;
+        createMerchant(payload, uid);
     };
 
     return (
