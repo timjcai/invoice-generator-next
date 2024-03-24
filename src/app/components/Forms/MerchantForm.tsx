@@ -256,7 +256,7 @@ export const MerchantForm: FC = () => {
                     onClick={(e) => merchantSaveButtonAction(e)}
                     // disabled={!userEmail || !userPassword}
                 >
-                    Save
+                    {merchantId ? "Save" : "Create"}
                 </button>
             </form>
         </div>
