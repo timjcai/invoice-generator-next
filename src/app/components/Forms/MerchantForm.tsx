@@ -36,7 +36,6 @@ export const MerchantForm: FC = () => {
     useEffect(() => {
         getMerchantIndex(uid);
         getMerchantDetails(merchantId);
-        console.log(merchantId);
         // function createSelectorOptions() {
         //     let billerArray = [] as SelectorOptions[];
         //     console.log(allBillers!);
@@ -94,7 +93,6 @@ export const MerchantForm: FC = () => {
         setLoading(false);
     }
 
-    const merchantDetailTemp = (merchantDetails?.businessName ? merchantDetails?.businessName : "")
     return (
         <div className="w-full">
             {selector}
@@ -111,7 +109,7 @@ export const MerchantForm: FC = () => {
                     placeholder="Enter your Business Name"
                     className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                     required={true}
-                    value={merchantDetailTemp}
+                    value={merchantDetails?.businessName}
                     onChange={(e) =>
                         setMerchantDetails((prevState: Partial<BuyerType>) => ({
                             ...prevState,

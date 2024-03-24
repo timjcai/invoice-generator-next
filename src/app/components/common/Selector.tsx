@@ -30,7 +30,7 @@ export interface SelectorOptions {
 
 export interface MerchantSelectorProps {
     initOptions?: SelectorOptions[];
-    setState?: Dispatch<SetStateAction<string|null>>;
+    setState: Dispatch<SetStateAction<string|null>>;
     defaultValue?: string;
 }
 
@@ -58,6 +58,7 @@ export const MerchantSelector: FC<MerchantSelectorProps> = ({
             setValue(newValue);
         }
         else {
+            setState(null)
             setValue(null)
         }
     };

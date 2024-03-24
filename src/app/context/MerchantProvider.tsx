@@ -161,36 +161,52 @@ export const MerchantProvider: FC<ProviderProps> = ({ children }) => {
     //     return billerArray;
     // }
 
-    async function getMerchantDetails(billerId: string) {
+    async function getMerchantDetails(billerId: string | null) {
         try {
-            const merchantRef = doc(db, "merchant", `${billerId}`);
-            const merchantResponse = await getDoc(merchantRef);
-            const merchantData = merchantResponse.data() as BuyerType;
-            const merchantId = merchantResponse.id;
-            // const paymentResponse = await fetch(
-            //     `/api/details/payment?payment=${merchantData.paymentDetails}`
-            // );
-            // const paymentDetailsData = await paymentResponse.json();
-
-            const locationRef = doc(
-                db,
-                "businessLocation",
-                `${merchantData.businessLocation}`
-            );
-            const businessLocationQuery = await getDoc(locationRef);
-            const locationData = businessLocationQuery.data() as LocationType;
-            const locationId = businessLocationQuery.id;
-
-            // const locationResponse = await fetch(
-            //     `/api/details/businessLocation?location=${merchantData.businessLocation}`
-            // );
-            // const locationDetailsData = await locationResponse.json();
-            // const paymentDetails = await paymentResponse.json();
-            // const businessLocation = await locationResponse.json();
-            setMerchantLocation(locationData);
-            setMerchantDetails(merchantData);
-            setMerchantLocationId(locationId);
-            // setBillerDetails(billerDetails);
+            if (billerId === null) {
+                console.log('hello')
+                setMerchantLocation({
+                    streetLine1: "",
+                    streetLine2: "",
+                    country: "",
+                    suburb: "",
+                    state: "VIC",
+                    postcode: 0});
+                setMerchantDetails({
+                    businessName: "",
+                    ABN: 0
+                });
+                setMerchantLocationId("");
+            } else {
+                const merchantRef = doc(db, "merchant", `${billerId}`);
+                const merchantResponse = await getDoc(merchantRef);
+                const merchantData = merchantResponse.data() as BuyerType;
+                const merchantId = merchantResponse.id;
+                // const paymentResponse = await fetch(
+                //     `/api/details/payment?payment=${merchantData.paymentDetails}`
+                // );
+                // const paymentDetailsData = await paymentResponse.json();
+    
+                const locationRef = doc(
+                    db,
+                    "businessLocation",
+                    `${merchantData.businessLocation}`
+                );
+                const businessLocationQuery = await getDoc(locationRef);
+                const locationData = businessLocationQuery.data() as LocationType;
+                const locationId = businessLocationQuery.id;
+    
+                // const locationResponse = await fetch(
+                //     `/api/details/businessLocation?location=${merchantData.businessLocation}`
+                // );
+                // const locationDetailsData = await locationResponse.json();
+                // const paymentDetails = await paymentResponse.json();
+                // const businessLocation = await locationResponse.json();
+                setMerchantLocation(locationData);
+                setMerchantDetails(merchantData);
+                setMerchantLocationId(locationId);
+                // setBillerDetails(billerDetails);
+            }
         } catch (error) {
             console.error("error fetching data", error);
         }
