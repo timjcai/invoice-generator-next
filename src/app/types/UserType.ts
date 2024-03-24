@@ -4,7 +4,7 @@ export type UserType = {
     id?: string;
     businessName: string;
     businessLocation: LocationType;
-    ABN: number | null;
+    ABN: string | null;
 }
 
 export interface SellerType extends UserType {

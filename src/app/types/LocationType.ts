@@ -4,7 +4,7 @@ export type LocationType = {
     country: string;
     suburb: string;
     state: StateType;
-    postcode: number;
+    postcode: string | null;
 }
 
 export type StateType = 

@@ -6,7 +6,7 @@ import {
     useProfileContext,
 } from "@/app/context";
 import { LocationType, BuyerType, StateType } from "@/app/types";
-import React, { FC, useEffect, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import {
     MerchantSelector,
     SelectorOptions,
@@ -77,9 +77,9 @@ export const MerchantForm: FC = () => {
     ) {
         e.preventDefault();
         // to do: push local state changes to firebase
-        console.log(merchantId)
+        console.log(merchantId);
         if (merchantId === null) {
-            console.log('no merchant id - creating a new Merchant account')
+            console.log("no merchant id - creating a new Merchant account");
         } else {
             updateMerchantDetails();
             console.log(merchantDetails);
@@ -87,10 +87,36 @@ export const MerchantForm: FC = () => {
                 "updating local state - push local state changes to Firebase"
             );
             await getMerchantIndex(uid);
-
         }
 
         setLoading(false);
+    }
+
+    function handleABNInput(event: ChangeEvent<HTMLInputElement>) {
+        const inputValue = event.target.value ?? "";
+        console.log(inputValue);
+        // console.log(merchantDetails.ABN);
+        if (/^\d*$/.test(inputValue)) {
+            setMerchantDetails((prevState: Partial<BuyerType>) => ({
+                ...prevState,
+                ABN: inputValue as string,
+            }));
+            // } else {
+            //     console.log("invalid input message");
+            // }
+        }
+    }
+
+    function handlePostcodeInput(event: ChangeEvent<HTMLInputElement>) {
+        const inputValue = event.target.value ?? "";
+        console.log(inputValue);
+        // console.log(merchantDetails.ABN);
+        if (/^\d*$/.test(inputValue)) {
+            setMerchantLocation((prevState: Partial<LocationType>) => ({
+                ...prevState,
+                postcode: inputValue,
+            }));
+        }
     }
 
     return (
@@ -110,10 +136,10 @@ export const MerchantForm: FC = () => {
                     className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                     required={true}
                     value={merchantDetails?.businessName}
-                    onChange={(e) =>
+                    onChange={(event) =>
                         setMerchantDetails((prevState: Partial<BuyerType>) => ({
                             ...prevState,
-                            businessName: e.target.value,
+                            businessName: event.target.value,
                         }))
                     }
                 ></input>
@@ -123,27 +149,25 @@ export const MerchantForm: FC = () => {
                 <input
                     id="ABN"
                     type="text"
+                    pattern="[0-9]*"
+                    maxLength={9}
+                    minLength={9}
                     placeholder="Enter your ABN"
                     className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                     required={true}
                     value={merchantDetails?.ABN}
-                    onChange={(e) =>
-                        setMerchantDetails((prevState: Partial<BuyerType>) => ({
-                            ...prevState,
-                            ABN: Number(e.target.value),
-                        }))
-                    }
+                    onChange={(event) => handleABNInput(event)}
                 ></input>
                 <p className="text-md font-medium mb-2">Business Location</p>
-                <div className="flex grid grid-cols-6">
+                <div className="grid grid-cols-6">
                     <label
-                        htmlFor="streeline1"
+                        htmlFor="streetLine1"
                         className="text-md font-medium mb-2"
                     >
                         Street Line 1
                     </label>
                     <input
-                        id="streeline1"
+                        id="streetLine1"
                         type="text"
                         placeholder="Enter your Street line 1"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
@@ -159,13 +183,13 @@ export const MerchantForm: FC = () => {
                         }
                     ></input>
                     <label
-                        htmlFor="streeline2"
+                        htmlFor="streetLine2"
                         className="text-md font-medium mb-2"
                     >
                         Street Line 2
                     </label>
                     <input
-                        id="streeline2"
+                        id="streetLine2"
                         type="text"
                         placeholder="Enter your Street line 2"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
@@ -233,19 +257,15 @@ export const MerchantForm: FC = () => {
                     </label>
                     <input
                         id="postcode"
-                        type="number"
+                        type="text"
+                        pattern="[0-9]*"
+                        maxLength={4}
+                        minLength={4}
                         placeholder="Enter your Postcode"
                         className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
                         value={merchantLocation?.postcode}
-                        onChange={(e) =>
-                            setMerchantLocation(
-                                (prevState: Partial<LocationType>) => ({
-                                    ...prevState,
-                                    postcode: Number(e.target.value),
-                                })
-                            )
-                        }
+                        onChange={(event) => handlePostcodeInput(event)}
                     ></input>
                 </div>
                 <button

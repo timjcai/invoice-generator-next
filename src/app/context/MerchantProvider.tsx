@@ -63,7 +63,7 @@ export function useMerchantContext() {
 
 export const MerchantProvider: FC<ProviderProps> = ({ children }) => {
     // Merchant Details
-    const [merchantId, setMerchantId] = useState<string|null>(null);
+    const [merchantId, setMerchantId] = useState<string | null>(null);
 
     const [merchantDetails, setMerchantDetails] = useState<Partial<BuyerType>>(
         {}
@@ -164,17 +164,18 @@ export const MerchantProvider: FC<ProviderProps> = ({ children }) => {
     async function getMerchantDetails(billerId: string | null) {
         try {
             if (billerId === null) {
-                console.log('hello')
+                console.log("hello");
                 setMerchantLocation({
                     streetLine1: "",
                     streetLine2: "",
                     country: "",
                     suburb: "",
                     state: "VIC",
-                    postcode: 0});
+                    postcode: "",
+                });
                 setMerchantDetails({
                     businessName: "",
-                    ABN: 0
+                    ABN: "",
                 });
                 setMerchantLocationId("");
             } else {
@@ -186,16 +187,17 @@ export const MerchantProvider: FC<ProviderProps> = ({ children }) => {
                 //     `/api/details/payment?payment=${merchantData.paymentDetails}`
                 // );
                 // const paymentDetailsData = await paymentResponse.json();
-    
+
                 const locationRef = doc(
                     db,
                     "businessLocation",
                     `${merchantData.businessLocation}`
                 );
                 const businessLocationQuery = await getDoc(locationRef);
-                const locationData = businessLocationQuery.data() as LocationType;
+                const locationData =
+                    businessLocationQuery.data() as LocationType;
                 const locationId = businessLocationQuery.id;
-    
+
                 // const locationResponse = await fetch(
                 //     `/api/details/businessLocation?location=${merchantData.businessLocation}`
                 // );
@@ -215,7 +217,7 @@ export const MerchantProvider: FC<ProviderProps> = ({ children }) => {
     async function updateMerchantDetails() {
         setLoading(true);
         if (merchantId === null) {
-            console.log('merchantId is null')
+            console.log("merchantId is null");
         } else {
             const merchantRef = doc(db, "merchant", merchantId);
             console.log(merchantRef);
@@ -223,7 +225,6 @@ export const MerchantProvider: FC<ProviderProps> = ({ children }) => {
             await updateDoc(merchantRef, merchantDetails);
             await updateDoc(locationRef, merchantLocation);
         }
-
     }
 
     const value: MerchantContextValue = {

@@ -10,7 +10,7 @@ import {
     updateDoc,
     where,
 } from "firebase/firestore";
-import React, { FC, useState } from "react";
+import React, { ChangeEvent, FC, useState } from "react";
 import { SkeletonBar, SkeletonEllipsis } from "../UI";
 
 const ProfileForm: FC = () => {
@@ -34,6 +34,33 @@ const ProfileForm: FC = () => {
         console.log("completed update");
     }
 
+    function handleABNInput(event: ChangeEvent<HTMLInputElement>) {
+        const inputValue = event.target.value ?? "";
+        console.log(inputValue);
+        // console.log(merchantDetails.ABN);
+        if (/^\d*$/.test(inputValue)) {
+            setProfileDetails((prevState: Partial<SellerType>) => ({
+                ...prevState,
+                ABN: inputValue,
+            }));
+            // } else {
+            //     console.log("invalid input message");
+            // }
+        }
+    }
+
+    function handlePostcodeInput(event: ChangeEvent<HTMLInputElement>) {
+        const inputValue = event.target.value ?? "";
+        console.log(inputValue);
+        // console.log(merchantDetails.ABN);
+        if (/^\d*$/.test(inputValue)) {
+            setLocationDetails((prevState: Partial<LocationType>) => ({
+                ...prevState,
+                postcode: inputValue,
+            }));
+        }
+    }
+
     return (
         <div className="w-full">
             <form className="flex flex-col">
@@ -43,7 +70,7 @@ const ProfileForm: FC = () => {
                 >
                     Registered Business Name
                 </label>
-                {profileDetails.businessName ? (
+                {!loading ? (
                     <input
                         id="businessName"
                         type="text"
@@ -69,22 +96,18 @@ const ProfileForm: FC = () => {
                 <label htmlFor="ABN" className="text-md font-medium mb-2">
                     ABN
                 </label>
-                {profileDetails.ABN ? (
+                {!loading ? (
                     <input
                         id="ABN"
                         type="text"
+                        pattern="[0-9]*"
+                        maxLength={9}
+                        minLength={9}
                         placeholder="Enter your ABN"
                         className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
                         value={profileDetails?.ABN}
-                        onChange={(e) =>
-                            setProfileDetails(
-                                (prevState: Partial<SellerType>) => ({
-                                    ...prevState,
-                                    ABN: Number(e.target.value),
-                                })
-                            )
-                        }
+                        onChange={(event) => handleABNInput(event)}
                     ></input>
                 ) : (
                     <div className="mb-4">
@@ -101,7 +124,7 @@ const ProfileForm: FC = () => {
                     </label>
                     {locationDetails.streetLine1 ? (
                         <input
-                            id="streeline1"
+                            id="streetLine1"
                             type="text"
                             placeholder="Enter your Street line 1"
                             className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
@@ -122,14 +145,14 @@ const ProfileForm: FC = () => {
                         </div>
                     )}
                     <label
-                        htmlFor="streeline2"
+                        htmlFor="streetLine2"
                         className="text-md font-medium mb-2"
                     >
                         Street Line 2
                     </label>
                     {locationDetails.streetLine2 ? (
                         <input
-                            id="streeline2"
+                            id="streetLine2"
                             type="text"
                             placeholder="Enter your Street line 2"
                             className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
@@ -240,19 +263,13 @@ const ProfileForm: FC = () => {
                     {locationDetails.postcode ? (
                         <input
                             id="postcode"
-                            type="number"
+                            type="text"
+                            maxLength={4}
                             placeholder="Enter your Postcode"
                             className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                             required={true}
                             value={locationDetails?.postcode}
-                            onChange={(e) =>
-                                setLocationDetails(
-                                    (prevState: Partial<LocationType>) => ({
-                                        ...prevState,
-                                        postcode: Number(e.target.value),
-                                    })
-                                )
-                            }
+                            onChange={(event) => handlePostcodeInput(event)}
                         ></input>
                     ) : (
                         <div className="col-span-5 mb-4">
