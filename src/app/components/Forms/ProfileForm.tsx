@@ -115,14 +115,14 @@ const ProfileForm: FC = () => {
                     </div>
                 )}
                 <p className="text-md font-medium mb-2">Business Location</p>
-                <div className="flex grid grid-cols-6">
+                <div className="grid grid-cols-6">
                     <label
-                        htmlFor="streeline1"
+                        htmlFor="streetLine1"
                         className="text-md font-medium mb-2"
                     >
                         Street Line 1
                     </label>
-                    {locationDetails.streetLine1 ? (
+                    {!loading ? (
                         <input
                             id="streetLine1"
                             type="text"
@@ -150,7 +150,7 @@ const ProfileForm: FC = () => {
                     >
                         Street Line 2
                     </label>
-                    {locationDetails.streetLine2 ? (
+                    {!loading ? (
                         <input
                             id="streetLine2"
                             type="text"
@@ -178,7 +178,7 @@ const ProfileForm: FC = () => {
                     >
                         Suburb
                     </label>
-                    {locationDetails.suburb ? (
+                    {!loading ? (
                         <input
                             id="suburb"
                             type="text"
@@ -206,7 +206,7 @@ const ProfileForm: FC = () => {
                     >
                         Country
                     </label>
-                    {locationDetails.country ? (
+                    {!loading ? (
                         <input
                             id="country"
                             type="text"
@@ -231,7 +231,7 @@ const ProfileForm: FC = () => {
                     <label htmlFor="state" className="text-md font-medium mb-2">
                         State
                     </label>
-                    {locationDetails.state ? (
+                    {!loading ? (
                         <input
                             id="state"
                             type="text"
@@ -260,7 +260,7 @@ const ProfileForm: FC = () => {
                     >
                         Postcode
                     </label>
-                    {locationDetails.postcode ? (
+                    {!loading ? (
                         <input
                             id="postcode"
                             type="text"

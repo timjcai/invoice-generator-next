@@ -87,6 +87,7 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
     }, []);
 
     async function getProfileDetails(uid: string) {
+        setLoading(true);
         try {
             // profile details
             const q = query(
@@ -125,6 +126,7 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
                 businessLocationId: locationId,
                 paymentDetailsId: paymentId,
             });
+            setLoading(false);
         } catch (error) {
             console.error("error fetching data", error);
         }

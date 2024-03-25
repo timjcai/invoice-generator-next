@@ -162,9 +162,9 @@ export const MerchantProvider: FC<ProviderProps> = ({ children }) => {
     // }
 
     async function getMerchantDetails(billerId: string | null) {
+        setLoading(true);
         try {
             if (billerId === null) {
-                console.log("hello");
                 setMerchantLocation({
                     streetLine1: "",
                     streetLine2: "",
@@ -207,6 +207,7 @@ export const MerchantProvider: FC<ProviderProps> = ({ children }) => {
                 setMerchantLocation(locationData);
                 setMerchantDetails(merchantData);
                 setMerchantLocationId(locationId);
+                setLoading(false);
                 // setBillerDetails(billerDetails);
             }
         } catch (error) {

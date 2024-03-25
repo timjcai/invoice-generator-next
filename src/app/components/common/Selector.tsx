@@ -30,7 +30,7 @@ export interface SelectorOptions {
 
 export interface MerchantSelectorProps {
     initOptions?: SelectorOptions[];
-    setState: Dispatch<SetStateAction<string|null>>;
+    setState: Dispatch<SetStateAction<string | null>>;
     defaultValue?: string;
 }
 
@@ -56,10 +56,9 @@ export const MerchantSelector: FC<MerchantSelectorProps> = ({
         if (setState && (newValue !== null || undefined)) {
             setState(newValue!.value as string);
             setValue(newValue);
-        }
-        else {
-            setState(null)
-            setValue(null)
+        } else {
+            setState(null);
+            setValue(null);
         }
     };
 
@@ -89,19 +88,28 @@ export const MerchantSelector: FC<MerchantSelectorProps> = ({
     );
 };
 
+export interface StateSelectorOptions {
+    readonly value: StateType | undefined;
+    readonly label: StateType | undefined;
+}
+
 export interface StateSelectorProps {
-    initOptions?: SelectorOptions[];
+    initOptions?: StateSelectorOptions[];
     setState?: Dispatch<SetStateAction<Partial<LocationType>>>;
     defaultValue?: string;
+    initValue?: StateSelectorOptions;
 }
 
 export const StateSelector: FC<StateSelectorProps> = ({
     initOptions,
     setState,
     defaultValue,
+    initValue,
 }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [value, setValue] = useState<SelectorOptions | null>();
+    const [value, setValue] = useState<StateSelectorOptions | null>(
+        initValue || { value: undefined, label: undefined }
+    );
 
     const options = [
         { value: "NSW", label: "NSW" },
@@ -113,7 +121,7 @@ export const StateSelector: FC<StateSelectorProps> = ({
         { value: "NT", label: "NT" },
     ];
 
-    const handleClick = (newValue: SingleValue<SelectorOptions>) => {
+    const handleClick = (newValue: SingleValue<StateSelectorOptions>) => {
         if (setState) {
             setState((prevOption) => ({
                 ...prevOption,
@@ -124,7 +132,6 @@ export const StateSelector: FC<StateSelectorProps> = ({
     };
     return (
         <CreatableSelect
-            isClearable
             isDisabled={isLoading}
             isLoading={isLoading}
             onChange={(newValue) => handleClick(newValue)}

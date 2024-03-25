@@ -51,10 +51,10 @@ export const MerchantForm: FC = () => {
         //     console.log("successfully setup selector");
         // }
         // return () => createSelectorOptions();
-    }, [uid, merchantId, loading]);
+    }, [uid, merchantId]);
 
     let selector;
-    if (loading) {
+    if (loading && allMerchants.length === 0) {
         selector = (
             <div className="mb-4">
                 <SkeletonBar />
@@ -129,35 +129,51 @@ export const MerchantForm: FC = () => {
                 >
                     Registered Business Name
                 </label>
-                <input
-                    id="businessName"
-                    type="text"
-                    placeholder="Enter your Business Name"
-                    className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
-                    required={true}
-                    value={merchantDetails?.businessName}
-                    onChange={(event) =>
-                        setMerchantDetails((prevState: Partial<BuyerType>) => ({
-                            ...prevState,
-                            businessName: event.target.value,
-                        }))
-                    }
-                ></input>
+                {!loading ? (
+                    <input
+                        id="businessName"
+                        type="text"
+                        placeholder="Enter your Business Name"
+                        className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                        required={true}
+                        value={merchantDetails?.businessName}
+                        onChange={(event) =>
+                            setMerchantDetails(
+                                (prevState: Partial<BuyerType>) => ({
+                                    ...prevState,
+                                    businessName: event.target.value,
+                                })
+                            )
+                        }
+                    ></input>
+                ) : (
+                    <div className="col-span-5 mb-4">
+                        <SkeletonBar />
+                    </div>
+                )}
+
                 <label htmlFor="ABN" className="text-md font-medium mb-2">
                     ABN
                 </label>
-                <input
-                    id="ABN"
-                    type="text"
-                    pattern="[0-9]*"
-                    maxLength={9}
-                    minLength={9}
-                    placeholder="Enter your ABN"
-                    className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
-                    required={true}
-                    value={merchantDetails?.ABN}
-                    onChange={(event) => handleABNInput(event)}
-                ></input>
+                {!loading ? (
+                    <input
+                        id="ABN"
+                        type="text"
+                        pattern="[0-9]*"
+                        maxLength={9}
+                        minLength={9}
+                        placeholder="Enter your ABN"
+                        className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                        required={true}
+                        value={merchantDetails?.ABN}
+                        onChange={(event) => handleABNInput(event)}
+                    ></input>
+                ) : (
+                    <div className="col-span-5 mb-4">
+                        <SkeletonBar />
+                    </div>
+                )}
+
                 <p className="text-md font-medium mb-2">Business Location</p>
                 <div className="grid grid-cols-6">
                     <label
@@ -166,66 +182,87 @@ export const MerchantForm: FC = () => {
                     >
                         Street Line 1
                     </label>
-                    <input
-                        id="streetLine1"
-                        type="text"
-                        placeholder="Enter your Street line 1"
-                        className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
-                        required={true}
-                        value={merchantLocation?.streetLine1}
-                        onChange={(e) =>
-                            setMerchantLocation(
-                                (prevState: Partial<LocationType>) => ({
-                                    ...prevState,
-                                    streetLine1: e.target.value,
-                                })
-                            )
-                        }
-                    ></input>
+                    {!loading ? (
+                        <input
+                            id="streetLine1"
+                            type="text"
+                            placeholder="Enter your Street line 1"
+                            className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                            required={true}
+                            value={merchantLocation?.streetLine1}
+                            onChange={(e) =>
+                                setMerchantLocation(
+                                    (prevState: Partial<LocationType>) => ({
+                                        ...prevState,
+                                        streetLine1: e.target.value,
+                                    })
+                                )
+                            }
+                        ></input>
+                    ) : (
+                        <div className="col-span-5 mb-4">
+                            <SkeletonBar />
+                        </div>
+                    )}
+
                     <label
                         htmlFor="streetLine2"
                         className="text-md font-medium mb-2"
                     >
                         Street Line 2
                     </label>
-                    <input
-                        id="streetLine2"
-                        type="text"
-                        placeholder="Enter your Street line 2"
-                        className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
-                        required={true}
-                        value={merchantLocation?.streetLine2}
-                        onChange={(e) =>
-                            setMerchantLocation(
-                                (prevState: Partial<LocationType>) => ({
-                                    ...prevState,
-                                    streetLine2: e.target.value,
-                                })
-                            )
-                        }
-                    ></input>
+                    {!loading ? (
+                        <input
+                            id="streetLine2"
+                            type="text"
+                            placeholder="Enter your Street line 2"
+                            className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                            required={true}
+                            value={merchantLocation?.streetLine2}
+                            onChange={(e) =>
+                                setMerchantLocation(
+                                    (prevState: Partial<LocationType>) => ({
+                                        ...prevState,
+                                        streetLine2: e.target.value,
+                                    })
+                                )
+                            }
+                        ></input>
+                    ) : (
+                        <div className="col-span-5 mb-4">
+                            <SkeletonBar />
+                        </div>
+                    )}
+
                     <label
                         htmlFor="country"
                         className="text-md font-medium mb-2"
                     >
                         Country
                     </label>
-                    <input
-                        id="country"
-                        type="text"
-                        placeholder="Enter your Country"
-                        className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
-                        required={true}
-                        value={merchantLocation?.country}
-                        onChange={(e) =>
-                            setMerchantLocation(
-                                (prevState: Partial<LocationType>) => ({
-                                    ...prevState,
-                                    country: e.target.value,
-                                })
-                            )
-                        }
-                    ></input>
+                    {!loading ? (
+                        <input
+                            id="country"
+                            type="text"
+                            placeholder="Enter your Country"
+                            className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                            required={true}
+                            value={merchantLocation?.country}
+                            onChange={(e) =>
+                                setMerchantLocation(
+                                    (prevState: Partial<LocationType>) => ({
+                                        ...prevState,
+                                        country: e.target.value,
+                                    })
+                                )
+                            }
+                        ></input>
+                    ) : (
+                        <div className="col-span-5 mb-4">
+                            <SkeletonBar />
+                        </div>
+                    )}
+
                     <label htmlFor="state" className="text-md font-medium mb-2">
                         State
                     </label>
@@ -245,9 +282,21 @@ export const MerchantForm: FC = () => {
                             )
                         }
                     ></input> */}
-                    <div className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md">
-                        <StateSelector setState={setMerchantLocation} />
-                    </div>
+                    {!loading ? (
+                        <div className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md">
+                            <StateSelector
+                                setState={setMerchantLocation}
+                                initValue={{
+                                    value: merchantLocation.state,
+                                    label: merchantLocation.state,
+                                }}
+                            />
+                        </div>
+                    ) : (
+                        <div className="col-span-5 mb-4">
+                            <SkeletonBar />
+                        </div>
+                    )}
 
                     <label
                         htmlFor="postcode"
@@ -255,18 +304,24 @@ export const MerchantForm: FC = () => {
                     >
                         Postcode
                     </label>
-                    <input
-                        id="postcode"
-                        type="text"
-                        pattern="[0-9]*"
-                        maxLength={4}
-                        minLength={4}
-                        placeholder="Enter your Postcode"
-                        className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
-                        required={true}
-                        value={merchantLocation?.postcode}
-                        onChange={(event) => handlePostcodeInput(event)}
-                    ></input>
+                    {!loading ? (
+                        <input
+                            id="postcode"
+                            type="text"
+                            pattern="[0-9]*"
+                            maxLength={4}
+                            minLength={4}
+                            placeholder="Enter your Postcode"
+                            className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                            required={true}
+                            value={merchantLocation?.postcode}
+                            onChange={(event) => handlePostcodeInput(event)}
+                        ></input>
+                    ) : (
+                        <div className="col-span-5 mb-4">
+                            <SkeletonBar />
+                        </div>
+                    )}
                 </div>
                 <button
                     type="submit"
