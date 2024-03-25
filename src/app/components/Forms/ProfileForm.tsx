@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import React, { ChangeEvent, FC, useState } from "react";
 import { SkeletonBar, SkeletonEllipsis } from "../UI";
+import { StateSelector } from "../common";
 
 const ProfileForm: FC = () => {
     const {
@@ -232,22 +233,15 @@ const ProfileForm: FC = () => {
                         State
                     </label>
                     {!loading ? (
-                        <input
-                            id="state"
-                            type="text"
-                            placeholder="Enter your State"
-                            className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
-                            required={true}
-                            value={locationDetails?.state}
-                            onChange={(e) =>
-                                setLocationDetails(
-                                    (prevState: Partial<LocationType>) => ({
-                                        ...prevState,
-                                        state: e.target.value as StateType,
-                                    })
-                                )
-                            }
-                        ></input>
+                        <div className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md">
+                            <StateSelector
+                                setState={setLocationDetails}
+                                initValue={{
+                                    value: locationDetails.state,
+                                    label: locationDetails.state,
+                                }}
+                            />
+                        </div>
                     ) : (
                         <div className="col-span-5 mb-4">
                             <SkeletonBar />
