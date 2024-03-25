@@ -288,10 +288,14 @@ export const MerchantForm: FC = () => {
                         <div className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md">
                             <StateSelector
                                 setState={setMerchantLocation}
-                                initValue={{
-                                    value: merchantLocation?.state,
-                                    label: merchantLocation?.state,
-                                }}
+                                initValue={
+                                    merchantLocation.state
+                                        ? {
+                                              value: merchantLocation.state,
+                                              label: merchantLocation.state,
+                                          }
+                                        : undefined
+                                }
                             />
                         </div>
                     ) : (

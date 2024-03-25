@@ -7,7 +7,7 @@ import {
     MerchantForm,
     NotesForm,
 } from "../Forms";
-import { IconType } from "@/app/types";
+import { IconType, LineItemsType, LocationType } from "@/app/types";
 import { generateInvoice } from "@/app/utils";
 import {
     InvoiceContextValue,

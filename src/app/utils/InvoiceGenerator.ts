@@ -229,8 +229,8 @@ export async function generateInvoice(data: Partial<GeneratorType>) {
                                         new Paragraph({
                                             children: [
                                                 new TextRun({text: `Bill To:`, break: 1, font: 'Damascus', bold: true}),
-                                                new TextRun({text: `${data.billerDetails?.businessName ? data.billerDetails?.businessName : ""}`, break: 1, font: 'Damascus'}),
-                                                new TextRun({text: `ABN: ${data.billerDetails?.ABN ? data.billerDetails?.ABN  : ""}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `${data.merchantDetails?.businessName ? data.merchantDetails?.businessName : ""}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `ABN: ${data.merchantDetails?.ABN ? data.merchantDetails?.ABN  : ""}`, break: 1, font: 'Damascus'}),
                                             ],
                                         }),
                                     ],
@@ -246,9 +246,9 @@ export async function generateInvoice(data: Partial<GeneratorType>) {
                                         new Paragraph({
                                             children: [
                                                 new TextRun({text: `Ship To:`, font: 'Damascus', break: 1, bold: true}),
-                                                new TextRun({text: `${data.billerDetails?.businessLocation?.streetLine1 ? data.billerDetails?.businessLocation?.streetLine1 : ""} ${data.billerDetails?.businessLocation?.streetLine2 != undefined ? data.billerDetails?.businessLocation?.streetLine2 : ""}`, break: 1, font: 'Damascus'}),
-                                                new TextRun({text: `${data.billerDetails?.businessLocation?.suburb ? data.billerDetails?.businessLocation?.suburb : ""} ${data.billerDetails?.businessLocation?.state != undefined ? data.billerDetails?.businessLocation?.state: ""} ${data.billerDetails?.businessLocation?.postcode!= undefined ? data.billerDetails?.businessLocation?.postcode : ""}`, break: 1, font: 'Damascus'}),
-                                                new TextRun({text: `${data.billerDetails?.businessLocation?.country ? data.billerDetails?.businessLocation?.country : ""}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `${data.merchantDetails?.businessLocation?.streetLine1 ? data.merchantDetails?.businessLocation?.streetLine1 : ""} ${data.merchantDetails?.businessLocation?.streetLine2 != undefined ? data.merchantDetails?.businessLocation?.streetLine2 : ""}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `${data.merchantDetails?.businessLocation?.suburb ? data.merchantDetails?.businessLocation?.suburb : ""} ${data.merchantDetails?.businessLocation?.state != undefined ? data.merchantDetails?.businessLocation?.state: ""} ${data.merchantDetails?.businessLocation?.postcode!= undefined ? data.merchantDetails?.businessLocation?.postcode : ""}`, break: 1, font: 'Damascus'}),
+                                                new TextRun({text: `${data.merchantDetails?.businessLocation?.country ? data.merchantDetails?.businessLocation?.country : ""}`, break: 1, font: 'Damascus'}),
                                             ],
                                         }),
                                     ],

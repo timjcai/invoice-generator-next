@@ -97,7 +97,7 @@ export interface StateSelectorProps {
     initOptions?: StateSelectorOptions[];
     setState?: Dispatch<SetStateAction<Partial<LocationType>>>;
     defaultValue?: string;
-    initValue?: StateSelectorOptions;
+    initValue?: SelectorOptions | null;
 }
 
 export const StateSelector: FC<StateSelectorProps> = ({
@@ -107,8 +107,8 @@ export const StateSelector: FC<StateSelectorProps> = ({
     initValue,
 }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [value, setValue] = useState<StateSelectorOptions | null>(
-        initValue || { value: undefined, label: undefined }
+    const [value, setValue] = useState<SelectorOptions | null>(
+        initValue ?? null
     );
 
     const options = [
@@ -121,8 +121,8 @@ export const StateSelector: FC<StateSelectorProps> = ({
         { value: "NT", label: "NT" },
     ];
 
-    const handleClick = (newValue: SingleValue<StateSelectorOptions>) => {
-        if (setState) {
+    const handleClick = (newValue: SelectorOptions | null) => {
+        if (setState && (newValue !== null || undefined)) {
             setState((prevOption) => ({
                 ...prevOption,
                 state: newValue!.value as StateType,

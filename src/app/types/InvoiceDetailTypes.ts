@@ -30,7 +30,7 @@ export type TotalType = {
 
 export type GeneratorType = {
     profileDetails?: Partial<SellerType>,
-    billerDetails?: Partial<BuyerType>,
+    merchantDetails?: Partial<BuyerType>,
     invoiceDetails?: Partial<InvoiceDetailType>,
     paymentAndNotes?: Partial<PaymentNotesType>,
     lineItems?: LineItemsType[],

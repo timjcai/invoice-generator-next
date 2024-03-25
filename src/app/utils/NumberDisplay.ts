@@ -1,17 +1,16 @@
 import { CurrencyType } from "../types";
 
-export function displayABN(abn: number | undefined | null): string {
+export function displayABN(abn: string | undefined | null): string {
     // Convert the number to a string
     if (abn === null || abn === undefined) {
         return ""
     }
-    let numberString = abn.toString();
 
     // Split the string into groups of three digits from the end
     let groups = [];
-    while (numberString.length > 0) {
-        groups.unshift(numberString.slice(-3));
-        numberString = numberString.slice(0, -3);
+    while (abn.length > 0) {
+        groups.unshift(abn.slice(-3));
+        abn = abn.slice(0, -3);
     }
 
     // Join the groups with spaces
