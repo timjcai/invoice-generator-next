@@ -237,8 +237,8 @@ const ProfileForm: FC = () => {
                             <StateSelector
                                 setState={setLocationDetails}
                                 initValue={{
-                                    value: locationDetails.state,
-                                    label: locationDetails.state,
+                                    value: locationDetails?.state,
+                                    label: locationDetails?.state,
                                 }}
                             />
                         </div>

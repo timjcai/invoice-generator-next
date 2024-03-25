@@ -287,8 +287,8 @@ export const MerchantForm: FC = () => {
                             <StateSelector
                                 setState={setMerchantLocation}
                                 initValue={{
-                                    value: merchantLocation.state,
-                                    label: merchantLocation.state,
+                                    value: merchantLocation?.state,
+                                    label: merchantLocation?.state,
                                 }}
                             />
                         </div>
