@@ -107,7 +107,7 @@ const ProfileForm: FC = () => {
                         placeholder="Enter your ABN"
                         className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={profileDetails?.ABN}
+                        value={profileDetails?.ABN ?? ""}
                         onChange={(event) => handleABNInput(event)}
                     ></input>
                 ) : (
@@ -262,7 +262,7 @@ const ProfileForm: FC = () => {
                             placeholder="Enter your Postcode"
                             className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                             required={true}
-                            value={locationDetails?.postcode}
+                            value={locationDetails?.postcode ?? ""}
                             onChange={(event) => handlePostcodeInput(event)}
                         ></input>
                     ) : (

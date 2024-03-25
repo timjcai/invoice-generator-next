@@ -30,6 +30,7 @@ export const MerchantForm: FC = () => {
         loading,
         setLoading,
         updateMerchantDetails,
+        createMerchant,
     } = useMerchantContext() as MerchantContextValue;
     const { uid } = useProfileContext() as ProfileContextValue;
 
@@ -79,6 +80,7 @@ export const MerchantForm: FC = () => {
         // to do: push local state changes to firebase
         console.log(merchantId);
         if (merchantId === null) {
+            createMerchant(merchantDetails, uid);
             console.log("no merchant id - creating a new Merchant account");
         } else {
             updateMerchantDetails();
@@ -165,7 +167,7 @@ export const MerchantForm: FC = () => {
                         placeholder="Enter your ABN"
                         className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
-                        value={merchantDetails?.ABN}
+                        value={merchantDetails?.ABN ?? ""}
                         onChange={(event) => handleABNInput(event)}
                     ></input>
                 ) : (
@@ -314,7 +316,7 @@ export const MerchantForm: FC = () => {
                             placeholder="Enter your Postcode"
                             className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                             required={true}
-                            value={merchantLocation?.postcode}
+                            value={merchantLocation?.postcode ?? ""}
                             onChange={(event) => handlePostcodeInput(event)}
                         ></input>
                     ) : (
