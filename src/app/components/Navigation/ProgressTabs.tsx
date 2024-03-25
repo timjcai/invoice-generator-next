@@ -8,6 +8,19 @@ import {
     NotesForm,
 } from "../Forms";
 import { IconType } from "@/app/types";
+import { generateInvoice } from "@/app/utils";
+import {
+    InvoiceContextValue,
+    LineItemsContextValue,
+    MerchantContextValue,
+    PaymentNotesContextValue,
+    ProfileContextValue,
+    useInvoiceDetailContext,
+    useLineItemsContext,
+    useMerchantContext,
+    usePaymentNotesContext,
+    useProfileContext,
+} from "@/app/context";
 
 export const ProgressTabs = () => {
     const {
@@ -20,27 +33,45 @@ export const ProgressTabs = () => {
         step,
         goTo,
     } = useMultistepForm([
-        <div key="Profile">
+        <div className="flex flex-row" key="Profile">
             <Icon label="Profile" />
             Profile
         </div>,
-        <div key="Merchant">
+        <div className="flex flex-row" key="Merchant">
             <Icon label="Merchant" />
             Merchant
         </div>,
-        <div key="Invoice Details">
+        <div className="flex flex-row" key="Invoice Details">
             <Icon label="Invoice Details" />
             Invoice Details
         </div>,
-        <div key="Payment & Notes">
+        <div className="flex flex-row" key="Payment & Notes">
             <Icon label="Payment & Notes" />
             Payment & Notes
         </div>,
-        <div key="Line Items">
+        <div className="flex flex-row" key="Line Items">
             <Icon label="Line Items" />
             Line Items
         </div>,
     ]);
+
+    const {
+        profileDetails,
+        locationDetails: sellerLocation,
+        setProfileDetails,
+        getProfileDetails,
+        paymentDetails,
+        uid,
+        loading,
+    } = useProfileContext() as ProfileContextValue;
+    const { merchantDetails, merchantLocation } =
+        useMerchantContext() as MerchantContextValue;
+    const { invoiceDetails } = useInvoiceDetailContext() as InvoiceContextValue;
+    const { notes, paymentNotes } =
+        usePaymentNotesContext() as PaymentNotesContextValue;
+    const { total, subtotal, taxrate, allItems } =
+        useLineItemsContext() as LineItemsContextValue;
+
     const [controller, setController] = useState<IconType>(
         step.key as IconType
     );
@@ -101,7 +132,38 @@ export const ProgressTabs = () => {
                             <Icon label="next" />
                         </button>
                     ) : (
-                        <button className="w-8"></button>
+                        <button
+                            className="text-xl"
+                            onClick={(e) =>
+                                generateInvoice({
+                                    profileDetails: {
+                                        ...profileDetails,
+                                        businessLocation:
+                                            sellerLocation as LocationType,
+                                    },
+                                    merchantDetails: {
+                                        ...merchantDetails,
+                                        businessLocation:
+                                            merchantLocation as LocationType,
+                                    },
+                                    invoiceDetails: invoiceDetails,
+                                    paymentAndNotes: {
+                                        paymentDetails: paymentDetails,
+                                        notes: notes,
+                                        paymentNotes: paymentNotes,
+                                    },
+                                    lineItems: allItems as LineItemsType[],
+                                    totals: {
+                                        subtotal: subtotal,
+                                        taxrate: taxrate,
+                                        total: total,
+                                        amountPaid: 0,
+                                    },
+                                })
+                            }
+                        >
+                            <Icon label="download" />
+                        </button>
                     )}
                 </div>
                 <div className={`grid grid-cols-5 gap-4 h-[20px]`}>
@@ -109,12 +171,12 @@ export const ProgressTabs = () => {
                         <div>
                             {currentStepIndex > index ? (
                                 <div
-                                    className="bg-black h-2 col-span-1 rounded-lg"
+                                    className="bg-black h-3 col-span-1 rounded-xl"
                                     key={index}
                                 ></div>
                             ) : (
                                 <div
-                                    className="bg-white border-[1px] border-black h-2 col-span-1 rounded-lg"
+                                    className="bg-[#C7DBEB] border-[1px] h-3 col-span-1 rounded-xl"
                                     key={index}
                                 ></div>
                             )}

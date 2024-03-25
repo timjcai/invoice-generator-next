@@ -51,7 +51,7 @@ export const InvoicePreview: FC<InvoiceType> = ({}) => {
         useLineItemsContext() as LineItemsContextValue;
 
     return (
-        <div className="h-[75vh] w-[840px] bg-[rgba(154, 152, 152, 0.53)] backdrop-filter backdrop-blur-lg rounded-xl border-2 border-[#ccc] p-12 shadow-black">
+        <div className="h-[75vh] w-[800px] bg-[rgba(154, 152, 152, 0.53)] backdrop-filter backdrop-blur-lg rounded-xl border-2 border-[#ccc] p-12 shadow-black">
             <div className="flex flex-row justify-between mb-8 border-b-black border-b-2 pb-4">
                 <div className="w-[50px] h-[50px]"></div>
                 {/* {<ImageDropzone />} */}

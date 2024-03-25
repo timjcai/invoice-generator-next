@@ -7,15 +7,18 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import {
     faCheckCircle,
+    faCircleDown,
     faCircleLeft,
     faCircleRight,
     faCircleUser,
     faClipboard,
     faClipboardUser,
+    faCloudArrowDown,
     faCode,
     faCog,
     faCreditCard,
     faCube,
+    faFileArrowDown,
     faFilterCircleDollar,
     faHammer,
     faListUl,
@@ -27,6 +30,7 @@ import {
     faShop,
     faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import { faCloud } from "@fortawesome/free-solid-svg-icons/faCloud";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FC } from "react";
 
@@ -56,6 +60,7 @@ const iconMapping: { [key in IconType]: IconDefinition } = {
     next: faCircleRight,
     included: faCheckCircle,
     notincluded: faMinusCircle,
+    download: faCloudArrowDown,
 };
 
 export const Icon: FC<IconProps> = ({ label }) => {

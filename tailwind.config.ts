@@ -22,6 +22,13 @@ const config: Config = {
         'brandpink-half': 'var(--brand-accent3-opaque)',
       }
     },
+    screens: {
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1025px',
+      'xl': '1280px',
+      'xxl': '1640px'
+    }
   },
   plugins: [
     require('@tailwindcss/forms')

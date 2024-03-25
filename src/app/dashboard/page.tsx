@@ -83,12 +83,12 @@ const page = () => {
                     </button>
                 </div>
             </div>
-            <div className="w-full grid grid-cols-8 gap-10">
-                <div className="col-span-4 ms-20 max-w-[840px] justify-self-end w-full ps-12">
+            <div className="w-full xxl:grid xxl:grid-cols-8 gap-10 p-10 sm:flex sm: flex-col sm:items-center">
+                <div className="col-span-4 xxl:ms-20 max-w-[840px] justify-self-end w-full xxl:ps-12">
                     {/* <AppTabs /> */}
                     <ProgressTabs />
                 </div>
-                <div className="col-span-4 h-full">
+                <div className="col-span-3 h-full">
                     <InvoicePreview />
                 </div>
             </div>
