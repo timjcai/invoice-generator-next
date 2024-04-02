@@ -120,9 +120,16 @@ export const MerchantProvider: FC<ProviderProps> = ({ children }) => {
             // allMerchants as options for Selector
             let options = [] as SelectorOptions[];
             allMerchants.forEach((merchant) => {
+                let joinedLabel = "";
+                if (merchant.slug !== undefined) {
+                    joinedLabel = `[${merchant.slug}] ${merchant.businessName}`;
+                } else {
+                    joinedLabel = merchant.businessName;
+                }
+
                 options.push({
                     value: merchant.id!,
-                    label: merchant.businessName,
+                    label: joinedLabel,
                 });
             });
             setAllMerchants(allMerchants);
