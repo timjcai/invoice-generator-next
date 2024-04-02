@@ -3,16 +3,18 @@ import { CurrencyType } from "../types";
 export function displayABN(abn: string | undefined | null): string {
     // Convert the number to a string
     if (abn === null || abn === undefined) {
-        return ""
+        return "hello"
+    } else {
+        
     }
 
     // Split the string into groups of three digits from the end
     let groups = [];
-    while (abn.length > 0) {
-        groups.unshift(abn.slice(-3));
-        abn = abn.slice(0, -3);
+    let arrayABN = abn.toString().split('')
+    while (arrayABN.length > 0) {
+        groups.unshift(arrayABN.slice(-3).join(''));
+        arrayABN = arrayABN.slice(0, -3);
     }
-
     // Join the groups with spaces
     let formattedNumber = groups.join(' ');
 

@@ -80,7 +80,7 @@ export const InvoicePreview: FC<InvoiceType> = ({}) => {
                             {merchantDetails.businessName}
                         </p>
                         <div className="text-sm">
-                            ABN: {merchantDetails.ABN}
+                            ABN: {displayABN(merchantDetails.ABN)}
                         </div>
                     </div>
                     <div id="shipTo">
