@@ -143,11 +143,18 @@ export const MerchantProvider: FC<ProviderProps> = ({ children }) => {
     async function createMerchant(postData: Partial<BuyerType>, uid: string) {
         console.log(postData);
         try {
+            const locationRef = await addDoc(
+                collection(db, "businessLocation"),
+                { ...merchantLocation }
+            );
+            // console.log(`${locationRef.id}`);
             const docRef = await addDoc(collection(db, "merchant"), {
                 ...postData,
                 associatedUser: uid,
+                businessLocation: locationRef.id,
             });
-            console.log(`${docRef.id}`);
+
+            // console.log(`${docRef.id}`);
         } catch (error) {
             console.error("error in creating biller", error);
         }
@@ -168,7 +175,7 @@ export const MerchantProvider: FC<ProviderProps> = ({ children }) => {
                 setMerchantDetails({
                     businessName: "",
                     ABN: "",
-                    slug: "",
+                    slug: undefined,
                 });
                 setMerchantLocationId("");
             } else {
