@@ -11,6 +11,7 @@ import {
     LineItemsProvider,
     MerchantProvider,
 } from "./context";
+import InvoiceGeneratorProvider from "./context/InvoiceGeneratorProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,7 +37,9 @@ export default async function RootLayout({
                             <InvoiceDetailProvider>
                                 <PaymentNotesProvider>
                                     <LineItemsProvider>
-                                        <>{children}</>
+                                        <InvoiceGeneratorProvider>
+                                            <>{children}</>
+                                        </InvoiceGeneratorProvider>
                                     </LineItemsProvider>
                                 </PaymentNotesProvider>
                             </InvoiceDetailProvider>

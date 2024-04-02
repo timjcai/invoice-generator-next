@@ -9,10 +9,12 @@ export type UserType = {
 
 export interface SellerType extends UserType {
     paymentDetails: PaymentDetailType;
+
 }
 
 export interface BuyerType extends UserType {
     paymentDetails: PaymentDetailType;
+    slug: string;
 }
 
 

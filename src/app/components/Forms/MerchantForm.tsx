@@ -164,11 +164,38 @@ export const MerchantForm: FC = () => {
                         pattern="[0-9]*"
                         maxLength={9}
                         minLength={9}
-                        placeholder="Enter your ABN"
+                        placeholder="Enter ABN"
                         className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}
                         value={merchantDetails?.ABN ?? ""}
                         onChange={(event) => handleABNInput(event)}
+                    ></input>
+                ) : (
+                    <div className="col-span-5 mb-4">
+                        <SkeletonBar />
+                    </div>
+                )}
+                <label htmlFor="ABN" className="text-md font-medium mb-2">
+                    Slug
+                </label>
+                {!loading ? (
+                    <input
+                        id="Slug"
+                        type="text"
+                        maxLength={4}
+                        minLength={3}
+                        placeholder="Create Slug"
+                        className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                        required={true}
+                        value={merchantDetails?.slug ?? ""}
+                        onChange={(event) =>
+                            setMerchantDetails(
+                                (prevState: Partial<BuyerType>) => ({
+                                    ...prevState,
+                                    slug: event.target.value,
+                                })
+                            )
+                        }
                     ></input>
                 ) : (
                     <div className="col-span-5 mb-4">

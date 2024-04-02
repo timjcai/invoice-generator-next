@@ -1,7 +1,7 @@
 import { BankTransferType, BuyerType, PaymentDetailType, SellerType } from ".";
 
 export type InvoiceDetailType = {
-    invoiceNumber: number;
+    invoiceNumber: string;
     workDate: Date;
     dueDate: Date;
     PONumber: string;

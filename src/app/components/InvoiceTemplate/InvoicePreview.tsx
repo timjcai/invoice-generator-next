@@ -57,7 +57,7 @@ export const InvoicePreview: FC<InvoiceType> = ({}) => {
                 {/* {<ImageDropzone />} */}
                 <div className="w-64">
                     <h1 className="text-4xl mb-1">
-                        Invoice #{invoiceDetails.invoiceNumber}
+                        Invoice # {invoiceDetails.invoiceNumber}
                     </h1>
                     <div id="sellerDetails">
                         <p className="font-medium text-md">
@@ -80,7 +80,7 @@ export const InvoicePreview: FC<InvoiceType> = ({}) => {
                             {merchantDetails.businessName}
                         </p>
                         <div className="text-sm">
-                            ABN: {merchantDetails.ABN}
+                            ABN: {displayABN(merchantDetails.ABN)}
                         </div>
                     </div>
                     <div id="shipTo">

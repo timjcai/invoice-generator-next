@@ -120,9 +120,16 @@ export const MerchantProvider: FC<ProviderProps> = ({ children }) => {
             // allMerchants as options for Selector
             let options = [] as SelectorOptions[];
             allMerchants.forEach((merchant) => {
+                let joinedLabel = "";
+                if (merchant.slug !== undefined) {
+                    joinedLabel = `[${merchant.slug}] ${merchant.businessName}`;
+                } else {
+                    joinedLabel = merchant.businessName;
+                }
+
                 options.push({
                     value: merchant.id!,
-                    label: merchant.businessName,
+                    label: joinedLabel,
                 });
             });
             setAllMerchants(allMerchants);
@@ -136,30 +143,22 @@ export const MerchantProvider: FC<ProviderProps> = ({ children }) => {
     async function createMerchant(postData: Partial<BuyerType>, uid: string) {
         console.log(postData);
         try {
+            const locationRef = await addDoc(
+                collection(db, "businessLocation"),
+                { ...merchantLocation }
+            );
+            // console.log(`${locationRef.id}`);
             const docRef = await addDoc(collection(db, "merchant"), {
                 ...postData,
                 associatedUser: uid,
+                businessLocation: locationRef.id,
             });
-            console.log(`${docRef.id}`);
+
+            // console.log(`${docRef.id}`);
         } catch (error) {
             console.error("error in creating biller", error);
         }
     }
-
-    // function createSelectorOptions(
-    //     billerIndex: BuyerType[]
-    // ): SelectorOptions[] {
-    //     let billerArray = [] as SelectorOptions[];
-    //     console.log(billerIndex);
-    //     billerIndex.forEach((merchant: BuyerType) => {
-    //         billerArray.push({
-    //             value: merchant.id!,
-    //             label: merchant.businessName,
-    //         });
-    //     });
-    //     console.log(billerArray);
-    //     return billerArray;
-    // }
 
     async function getMerchantDetails(billerId: string | null) {
         setLoading(true);
@@ -176,6 +175,7 @@ export const MerchantProvider: FC<ProviderProps> = ({ children }) => {
                 setMerchantDetails({
                     businessName: "",
                     ABN: "",
+                    slug: undefined,
                 });
                 setMerchantLocationId("");
             } else {

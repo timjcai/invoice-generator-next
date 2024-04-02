@@ -3,16 +3,18 @@ import { CurrencyType } from "../types";
 export function displayABN(abn: string | undefined | null): string {
     // Convert the number to a string
     if (abn === null || abn === undefined) {
-        return ""
+        return "hello"
+    } else {
+        
     }
 
     // Split the string into groups of three digits from the end
     let groups = [];
-    while (abn.length > 0) {
-        groups.unshift(abn.slice(-3));
-        abn = abn.slice(0, -3);
+    let arrayABN = abn.toString().split('')
+    while (arrayABN.length > 0) {
+        groups.unshift(arrayABN.slice(-3).join(''));
+        arrayABN = arrayABN.slice(0, -3);
     }
-
     // Join the groups with spaces
     let formattedNumber = groups.join(' ');
 
@@ -55,4 +57,18 @@ export function displayBankNumber(BankNumber: number): string {
 export function displayPercentage(decimal: number): string {
     return (`${decimal*100} %`)
 
+}
+
+export function invoiceNumberDisplay(currentInvoiceNumber: number | undefined): string {
+
+    if (currentInvoiceNumber === undefined) {
+        return '0000000'
+    }
+
+    let invoice = currentInvoiceNumber.toString().split('')
+
+    while (invoice.length < 7) {
+        invoice.unshift('0')
+    }
+    return invoice.join('')
 }
