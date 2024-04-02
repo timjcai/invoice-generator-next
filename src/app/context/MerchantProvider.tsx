@@ -146,21 +146,6 @@ export const MerchantProvider: FC<ProviderProps> = ({ children }) => {
         }
     }
 
-    // function createSelectorOptions(
-    //     billerIndex: BuyerType[]
-    // ): SelectorOptions[] {
-    //     let billerArray = [] as SelectorOptions[];
-    //     console.log(billerIndex);
-    //     billerIndex.forEach((merchant: BuyerType) => {
-    //         billerArray.push({
-    //             value: merchant.id!,
-    //             label: merchant.businessName,
-    //         });
-    //     });
-    //     console.log(billerArray);
-    //     return billerArray;
-    // }
-
     async function getMerchantDetails(billerId: string | null) {
         setLoading(true);
         try {
@@ -176,6 +161,7 @@ export const MerchantProvider: FC<ProviderProps> = ({ children }) => {
                 setMerchantDetails({
                     businessName: "",
                     ABN: "",
+                    slug: "",
                 });
                 setMerchantLocationId("");
             } else {
