@@ -59,12 +59,6 @@ const page = () => {
                     >
                         Generate Invoice
                     </button>
-                    <button
-                        className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center mx-3 flex h-[40px] mb-2"
-                        onClick={(e) => getTotalInvoices(e)}
-                    >
-                        get total number of Invoices
-                    </button>
                 </div>
             </div>
             <div className="w-full xxl:grid xxl:grid-cols-8 gap-10 p-10 sm:flex sm: flex-col sm:items-center">

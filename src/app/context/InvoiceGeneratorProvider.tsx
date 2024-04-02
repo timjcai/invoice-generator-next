@@ -118,7 +118,7 @@ const InvoiceGeneratorProvider: FC<ProviderProps> = ({ children }) => {
             });
             console.log(`${invoiceRef}`);
             getTotalInvoices();
-            // await generateInvoice(currentInvoiceDetails);
+            await generateInvoice(currentInvoiceDetails);
         } catch (error) {
             console.error("error in creating biller", error);
         }
