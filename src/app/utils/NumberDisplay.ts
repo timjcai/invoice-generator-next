@@ -58,3 +58,17 @@ export function displayPercentage(decimal: number): string {
     return (`${decimal*100} %`)
 
 }
+
+export function invoiceNumberDisplay(currentInvoiceNumber: number | undefined): string {
+
+    if (currentInvoiceNumber === undefined) {
+        return '0000000'
+    }
+
+    let invoice = currentInvoiceNumber.toString().split('')
+
+    while (invoice.length < 7) {
+        invoice.unshift('0')
+    }
+    return invoice.join('')
+}

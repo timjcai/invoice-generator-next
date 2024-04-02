@@ -21,7 +21,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../server";
 import { AppTabs, Navbar, ProgressTabs } from "../components/Navigation";
 import { InvoicePreview } from "../components/InvoiceTemplate";
-import { generateInvoice } from "../utils";
+import { generateInvoice, invoiceNumberDisplay } from "../utils";
 import { LineItemsType, LocationType } from "../types";
 const page = () => {
     const { currentUser, getUser } = useAuth() as AuthContextValue;
@@ -53,7 +53,6 @@ const page = () => {
             <Navbar />
             <div className="flex items-center justify-center flex-col mx-4 md:mx-[100px] lg:w-[1024px] mb-8">
                 <div className="flex flex-col">
-                    <>{currentInvoiceNumber}</>
                     <button
                         className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center mx-3 flex h-[40px] mb-2"
                         onClick={(e) => saveInvoiceToFirebase(e)}

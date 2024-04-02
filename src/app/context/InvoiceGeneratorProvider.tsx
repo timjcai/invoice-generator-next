@@ -28,7 +28,7 @@ import {
     LocationType,
 } from "../types";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
-import { generateInvoice } from "../utils";
+import { generateInvoice, invoiceNumberDisplay } from "../utils";
 import { db } from "../server";
 
 export interface InvoiceGeneratorContextValue {
@@ -42,6 +42,7 @@ export interface InvoiceGeneratorContextValue {
     getTotalInvoices: (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => void;
+    autoGenerateInvoiceNumber: () => void;
 }
 
 export const InvoiceGeneratorContext = createContext<
@@ -69,7 +70,8 @@ const InvoiceGeneratorProvider: FC<ProviderProps> = ({ children }) => {
     } = useProfileContext() as ProfileContextValue;
     const { merchantDetails, merchantLocation, merchantId } =
         useMerchantContext() as MerchantContextValue;
-    const { invoiceDetails } = useInvoiceDetailContext() as InvoiceContextValue;
+    const { invoiceDetails, setInvoiceDetails } =
+        useInvoiceDetailContext() as InvoiceContextValue;
     const { notes, paymentNotes } =
         usePaymentNotesContext() as PaymentNotesContextValue;
     const { total, subtotal, taxrate, allItems } =
@@ -77,7 +79,8 @@ const InvoiceGeneratorProvider: FC<ProviderProps> = ({ children }) => {
 
     useEffect(() => {
         getTotalInvoices();
-    }, [uid, merchantId]);
+        autoGenerateInvoiceNumber();
+    }, [uid, merchantId, merchantDetails]);
 
     async function saveInvoiceToFirebase(
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -132,12 +135,25 @@ const InvoiceGeneratorProvider: FC<ProviderProps> = ({ children }) => {
         setCurrentInvoiceNumber(querySnapshot.docs.length);
     }
 
+    async function autoGenerateInvoiceNumber() {
+        if (currentInvoiceNumber !== undefined) {
+            console.log(merchantDetails);
+            setInvoiceDetails((prevState: Partial<InvoiceDetailType>) => ({
+                ...prevState,
+                invoiceNumber: `${merchantDetails.slug}${invoiceNumberDisplay(
+                    currentInvoiceNumber + 1
+                )}`,
+            }));
+        }
+    }
+
     const value: InvoiceGeneratorContextValue = {
         invoiceGenerator,
         setInvoiceGenerator,
         currentInvoiceNumber,
         saveInvoiceToFirebase,
         getTotalInvoices,
+        autoGenerateInvoiceNumber,
     };
 
     return (

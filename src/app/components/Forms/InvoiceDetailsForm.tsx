@@ -25,7 +25,7 @@ export const InvoiceDetailsForm: FC = () => {
                 </label>
                 <input
                     id="invoiceNumber"
-                    type="number"
+                    type="text"
                     placeholder="Enter your Invoice Number"
                     className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                     value={invoiceDetails?.invoiceNumber}
@@ -33,7 +33,7 @@ export const InvoiceDetailsForm: FC = () => {
                         setInvoiceDetails(
                             (prevState: Partial<InvoiceDetailType>) => ({
                                 ...prevState,
-                                invoiceNumber: Number(e.target.value),
+                                invoiceNumber: e.target.value,
                             })
                         )
                     }
