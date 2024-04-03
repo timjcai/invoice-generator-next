@@ -3,10 +3,8 @@ import { CurrencyType } from "../types";
 export function displayABN(abn: string | undefined | null): string {
     // Convert the number to a string
     if (abn === null || abn === undefined) {
-        return "hello"
-    } else {
-        
-    }
+        return ""
+    } 
 
     // Split the string into groups of three digits from the end
     let groups = [];
