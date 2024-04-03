@@ -137,13 +137,15 @@ const InvoiceGeneratorProvider: FC<ProviderProps> = ({ children }) => {
 
     async function autoGenerateInvoiceNumber() {
         if (currentInvoiceNumber !== undefined) {
-            console.log(merchantDetails);
-            setInvoiceDetails((prevState: Partial<InvoiceDetailType>) => ({
-                ...prevState,
-                invoiceNumber: `${merchantDetails.slug}${invoiceNumberDisplay(
-                    currentInvoiceNumber + 1
-                )}`,
-            }));
+            if (merchantDetails.slug !== undefined) {
+                setInvoiceDetails((prevState: Partial<InvoiceDetailType>) => ({
+                    ...prevState,
+                    invoiceNumber: `${
+                        merchantDetails.slug
+                    }${invoiceNumberDisplay(currentInvoiceNumber + 1)}`,
+                }));
+            } else {
+            }
         }
     }
 
