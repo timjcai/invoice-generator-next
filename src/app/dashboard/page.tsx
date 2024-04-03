@@ -61,7 +61,7 @@ const page = () => {
                     </button>
                 </div>
             </div>
-            <div className="w-full xxl:grid xxl:grid-cols-8 gap-10 p-10 sm:flex sm: flex-col sm:items-center">
+            <div className="w-full xxl:grid xxl:grid-cols-8 gap-10 p-10 sm:flex sm: flex-col sm:items-center xxl:items-start">
                 <div className="col-span-4 xxl:ms-20 max-w-[840px] justify-self-end w-full xxl:ps-12">
                     {/* <AppTabs /> */}
                     <ProgressTabs />
