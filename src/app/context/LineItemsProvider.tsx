@@ -84,7 +84,9 @@ export const LineItemsProvider: FC<ProviderProps> = ({ children }) => {
     // Delete LineItem
 
     function deleteLineItem(key: number) {
-        console.log(key);
+        const shallowCopyAllItems = [...allItems];
+        const allItemsWithoutDeleteLine = shallowCopyAllItems.splice(key, 1);
+        setAllItems(shallowCopyAllItems);
     }
 
     const value: LineItemsContextValue = {

@@ -25,7 +25,7 @@ export const LineItemForm: FC = () => {
         clearCurrentLine();
     }
 
-    useEffect(() => {}, [currentLine]);
+    useEffect(() => {}, [currentLine, allItems]);
     // remove INDEX line from lineItems
 
     // remove last line from lineItems
