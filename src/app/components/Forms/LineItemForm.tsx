@@ -6,14 +6,6 @@ import { LineItemsContextValue, useLineItemsContext } from "@/app/context";
 import { Icon } from "../UI";
 
 export const LineItemForm: FC = () => {
-    // const [counter, setCounter] = useState<number>(0);
-    // const [currentLine, setCurrentLine] = useState<Partial<LineItemsType>>({
-    //     description: "",
-    //     quantity: 1,
-    //     rate: 0,
-    // });
-    // const [allItems, setAllItems] = useState<Partial<LineItemsType>[]>([]);
-
     const { currentLine, setCurrentLine, allItems, setAllItems } =
         useLineItemsContext() as LineItemsContextValue;
     // load function - to determine how many lineitems there are
