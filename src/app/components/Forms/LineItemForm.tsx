@@ -13,8 +13,12 @@ export const LineItemForm: FC = () => {
     // push currentLine into all Items
     function submitAndSave(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        setAllItems((prevState) => [...prevState, currentLine]);
-        clearCurrentLine();
+        if (allItems.length < 10) {
+            setAllItems((prevState) => [...prevState, currentLine]);
+            clearCurrentLine();
+        } else {
+            // add alert - we there is a maximum of 10 lines per invoice, consider creating a second invoice or consolidating some of your line items
+        }
     }
 
     useEffect(() => {}, [currentLine, allItems]);
