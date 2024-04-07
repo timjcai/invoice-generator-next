@@ -40,7 +40,10 @@ export const Navbar = () => {
                         />
                         <NavbarLinkButton
                             label={
-                                <a href="https://www.buymeacoffee.com/shelbythesnag">
+                                <a
+                                    href="https://www.buymeacoffee.com/shelbythesnag"
+                                    target="_blank"
+                                >
                                     Donate
                                 </a>
                             }
