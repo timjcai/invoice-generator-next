@@ -92,7 +92,7 @@ export const LineItemForm: FC = () => {
                         {allItems.map((row: Partial<LineItemsType>, index) => {
                             return (
                                 <LineItemDisplayComponent
-                                    index={index}
+                                    index={index!}
                                     description={row.description!}
                                     quantity={row.quantity!}
                                     rate={row.rate!}
@@ -198,9 +198,7 @@ export const LineItemDisplayComponent: FC<LineItemsType> = ({
         e.preventDefault();
         console.log("hello");
         console.log(index);
-        if (index) {
-            deleteLineItem(index);
-        }
+        deleteLineItem(index!);
     }
 
     return (

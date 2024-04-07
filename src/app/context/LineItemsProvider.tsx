@@ -82,7 +82,12 @@ export const LineItemsProvider: FC<ProviderProps> = ({ children }) => {
 
     function deleteLineItem(key: number) {
         const shallowCopyAllItems = [...allItems];
-        const allItemsWithoutDeleteLine = shallowCopyAllItems.splice(key, 1);
+        if (key === 0) {
+            shallowCopyAllItems.shift();
+        } else {
+            shallowCopyAllItems.splice(key, 1);
+        }
+        console.log(shallowCopyAllItems);
         setAllItems(shallowCopyAllItems);
     }
 
