@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useEffect, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import { displayCurrency } from "@/app/utils";
 import { LineItemsType } from "@/app/types";
 import { LineItemsContextValue, useLineItemsContext } from "@/app/context";
@@ -22,6 +22,29 @@ export const LineItemForm: FC = () => {
     }
 
     useEffect(() => {}, [currentLine, allItems]);
+
+    function handleQuantityInput(event: ChangeEvent<HTMLInputElement>) {
+        const inputValue = event.target.value ?? "";
+        // console.log(merchantDetails.ABN);
+        if (/^\d*$/.test(inputValue)) {
+            setCurrentLine((prevState) => ({
+                ...prevState,
+                quantity: Number(event.target.value),
+            }));
+        }
+    }
+
+    function handleRateInput(event: ChangeEvent<HTMLInputElement>) {
+        const inputValue = event.target.value ?? "";
+        // console.log(merchantDetails.ABN);
+        if (/^\d*$/.test(inputValue)) {
+            setCurrentLine((prevState) => ({
+                ...prevState,
+                rate: Number(event.target.value),
+            }));
+        }
+    }
+
     // remove INDEX line from lineItems
 
     // remove last line from lineItems
@@ -95,16 +118,14 @@ export const LineItemForm: FC = () => {
                                 <input
                                     autoComplete="off"
                                     className=" w-full border-1 border-[#EDEEEF] rounded-md"
-                                    type="number"
+                                    type="text"
+                                    pattern="[0-9]*"
+                                    maxLength={4}
+                                    minLength={0}
                                     id="lineQuantity"
                                     value={currentLine.quantity}
                                     min={0}
-                                    onChange={(e) =>
-                                        setCurrentLine((prevState) => ({
-                                            ...prevState,
-                                            quantity: Number(e.target.value),
-                                        }))
-                                    }
+                                    onChange={(e) => handleQuantityInput(e)}
                                 />
                             </td>
                             <td className="">
@@ -115,15 +136,14 @@ export const LineItemForm: FC = () => {
                                     <input
                                         autoComplete="off"
                                         className="ps-[32px] w-full border-1 border-[#EDEEEF] rounded-md"
-                                        type="number"
+                                        type="text"
+                                        pattern="[0-9]*"
+                                        maxLength={5}
+                                        minLength={1}
+                                        min={0}
                                         id="lineRate"
                                         value={currentLine.rate}
-                                        onChange={(e) =>
-                                            setCurrentLine((prevState) => ({
-                                                ...prevState,
-                                                rate: Number(e.target.value),
-                                            }))
-                                        }
+                                        onChange={(e) => handleRateInput(e)}
                                     />
                                 </span>
                             </td>
@@ -168,6 +188,8 @@ export const LineItemDisplayComponent: FC<LineItemsType> = ({
     rate,
     index,
 }) => {
+    const [isHovered, setIsHovered] = useState<boolean>(false);
+
     const { deleteLineItem } = useLineItemsContext() as LineItemsContextValue;
 
     function handleDeleteButton(
@@ -196,8 +218,11 @@ export const LineItemDisplayComponent: FC<LineItemsType> = ({
                 <p>{displayCurrency(quantity! * rate!, "AUD")}</p>
             </td>
             <button
-                className="absolute -right-1 top-4"
+                className="absolute -right-1 top-3 py-1 px-0"
                 onClick={(e) => handleDeleteButton(e)}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                style={{ background: isHovered ? "lightblue" : "transparent" }}
             >
                 <Icon label="delete" />
             </button>
