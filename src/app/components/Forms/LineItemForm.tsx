@@ -1,7 +1,9 @@
-import React, { FC, useState } from "react";
+"use client";
+import React, { FC, useEffect, useState } from "react";
 import { displayCurrency } from "@/app/utils";
 import { LineItemsType } from "@/app/types";
 import { LineItemsContextValue, useLineItemsContext } from "@/app/context";
+import { Icon } from "../UI";
 
 export const LineItemForm: FC = () => {
     // const [counter, setCounter] = useState<number>(0);
@@ -20,9 +22,10 @@ export const LineItemForm: FC = () => {
     function submitAndSave(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setAllItems((prevState) => [...prevState, currentLine]);
-        console.log(allItems);
         clearCurrentLine();
     }
+
+    useEffect(() => {}, [currentLine]);
     // remove INDEX line from lineItems
 
     // remove last line from lineItems
@@ -67,29 +70,14 @@ export const LineItemForm: FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {allItems.map((row: Partial<LineItemsType>) => {
+                        {allItems.map((row: Partial<LineItemsType>, index) => {
                             return (
-                                <tr className="grid grid-cols-6">
-                                    <td className="col-span-3 p-3">
-                                        <p>{row.description}</p>
-                                    </td>
-                                    <td className="p-3">
-                                        <p>{row.quantity}</p>
-                                    </td>
-                                    <td className="p-3">
-                                        <p>
-                                            {displayCurrency(row.rate!, "AUD")}
-                                        </p>
-                                    </td>
-                                    <td className="p-3">
-                                        <p>
-                                            {displayCurrency(
-                                                row.quantity! * row.rate!,
-                                                "AUD"
-                                            )}
-                                        </p>
-                                    </td>
-                                </tr>
+                                <LineItemDisplayComponent
+                                    index={index}
+                                    description={row.description!}
+                                    quantity={row.quantity!}
+                                    rate={row.rate!}
+                                />
                             );
                         })}
                         <tr className="grid grid-cols-6 border-2 border-black">
@@ -175,5 +163,48 @@ export const LineItemForm: FC = () => {
                 </button>
             </form>
         </div>
+    );
+};
+
+export const LineItemDisplayComponent: FC<LineItemsType> = ({
+    description,
+    quantity,
+    rate,
+    index,
+}) => {
+    const { deleteLineItem } = useLineItemsContext() as LineItemsContextValue;
+
+    function handleDeleteButton(
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) {
+        e.preventDefault();
+        console.log("hello");
+        console.log(index);
+        if (index) {
+            deleteLineItem(index);
+        }
+    }
+
+    return (
+        <tr className="grid grid-cols-6 relative" key={index}>
+            <td className="col-span-3 p-3">
+                <p>{description}</p>
+            </td>
+            <td className="p-3">
+                <p>{quantity}</p>
+            </td>
+            <td className="p-3">
+                <p>{displayCurrency(rate!, "AUD")}</p>
+            </td>
+            <td className="p-3">
+                <p>{displayCurrency(quantity! * rate!, "AUD")}</p>
+            </td>
+            <button
+                className="absolute -right-1 top-4"
+                onClick={(e) => handleDeleteButton(e)}
+            >
+                <Icon label="delete" />
+            </button>
+        </tr>
     );
 };

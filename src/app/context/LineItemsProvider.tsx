@@ -25,6 +25,7 @@ export interface LineItemsContextValue {
     setTaxrate: Dispatch<SetStateAction<number>>;
     total: number;
     setTotal: Dispatch<SetStateAction<number>>;
+    deleteLineItem: (key: number) => void;
     calculateSubtotal: () => number;
 }
 
@@ -78,6 +79,14 @@ export const LineItemsProvider: FC<ProviderProps> = ({ children }) => {
         return subtotal * (1 + taxrate);
     }
 
+    // Edit LineItem
+
+    // Delete LineItem
+
+    function deleteLineItem(key: number) {
+        console.log(key);
+    }
+
     const value: LineItemsContextValue = {
         counter,
         setCounter,
@@ -92,6 +101,7 @@ export const LineItemsProvider: FC<ProviderProps> = ({ children }) => {
         taxrate,
         setTaxrate,
         calculateSubtotal,
+        deleteLineItem,
     };
 
     return (
