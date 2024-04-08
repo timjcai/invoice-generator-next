@@ -43,8 +43,17 @@ export const AuthProvider: FC<ProviderProps> = ({ children }) => {
     const [loading, setLoading] = useState<boolean>(true);
     const router = useRouter();
 
-    function signUp({ email, password }: LoginPayload) {
-        return createUserWithEmailAndPassword(auth, email, password);
+    async function signUp({ email, password }: LoginPayload) {
+        await createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredentials) => {
+                const user = userCredentials.user;
+                setCurrentUser(user);
+                return user;
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+            });
     }
 
     function signOut() {
@@ -73,6 +82,12 @@ export const AuthProvider: FC<ProviderProps> = ({ children }) => {
                 return false;
             }
         });
+    }
+
+    // Validations
+
+    function isValidPassword(password: string) {
+        return password.length > 6;
     }
 
     useEffect(() => {

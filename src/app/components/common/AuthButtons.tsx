@@ -29,7 +29,7 @@ const AuthButtons: FC<ButtonActions> = () => {
                     onClick={(e) => handleGoogleSignIn(e)}
                 >
                     <Icon label="Google" />
-                    Sign in with Google
+                    Google
                 </button>
             </li>
             {/* <li>

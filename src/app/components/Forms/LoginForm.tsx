@@ -31,13 +31,15 @@ export const LoginForm = () => {
     return (
         <div className="bg-white h-fit border-2 border-white rounded-lg py-12 px-8 w-[480px] mt-4">
             <div className="flex flex-col items-center">
-                <Image
-                    className="rounded-full mb-4"
-                    src="/bulkinvgen-logo.jpg"
-                    alt="me"
-                    width="64"
-                    height="64"
-                />
+                <a href="/">
+                    <Image
+                        className="rounded-full mb-4"
+                        src="/bulkinvgen-logo.jpg"
+                        alt="me"
+                        width="64"
+                        height="64"
+                    />
+                </a>
                 <p className="mb-2 text-2xl font-semibold">Welcome back</p>
                 <p className="text-[#404347] mb-8">
                     Please enter your details to sign in
