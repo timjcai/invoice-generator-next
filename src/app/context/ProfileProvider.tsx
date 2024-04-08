@@ -16,6 +16,7 @@ import {
     SellerType,
 } from "../types";
 import {
+    addDoc,
     collection,
     doc,
     getDoc,
@@ -40,6 +41,7 @@ export interface ProfileContextValue {
     uid: string;
     loading: boolean;
     profileId: Partial<ProfileIdProps>;
+    createProfile: () => void;
 }
 
 export type ProviderProps = {
@@ -72,7 +74,7 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
     const [paymentDetails, setPaymentDetails] = useState<
         Partial<BankTransferType>
     >({});
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -144,6 +146,35 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
         await updateDoc(locationRef, locationDetails);
     }
 
+    async function createProfile() {
+        try {
+            const paymentRef = await addDoc(collection(db, "paymentDetails"), {
+                BSB: 0,
+                ACC: 0,
+                bankAccount: "",
+            });
+            const locationRef = await addDoc(
+                collection(db, "businessLocation"),
+                {
+                    streetLine1: "",
+                    streetLine2: "",
+                    country: "",
+                    suburb: "",
+                    postcode: null,
+                }
+            );
+            const profileRef = await addDoc(collection(db, "profile"), {
+                user_id: uid,
+                businessLocation: locationRef.id,
+                paymentDetails: paymentRef.id,
+                businessName: "",
+            });
+            console.log("creating profiles");
+        } catch (error) {
+            console.error("error in creating profile", error);
+        }
+    }
+
     const value: ProfileContextValue = {
         profileDetails,
         setProfileDetails,
@@ -156,6 +187,7 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
         uid,
         loading,
         profileId,
+        createProfile,
     };
 
     return (

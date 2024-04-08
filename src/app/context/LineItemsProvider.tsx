@@ -13,8 +13,6 @@ import { LineItemsType } from "../types";
 
 // InvoiceContextValue Type
 export interface LineItemsContextValue {
-    counter: number;
-    setCounter: Dispatch<SetStateAction<number>>;
     currentLine: Partial<LineItemsType>;
     setCurrentLine: Dispatch<SetStateAction<Partial<LineItemsType>>>;
     allItems: Partial<LineItemsType>[];
@@ -25,6 +23,7 @@ export interface LineItemsContextValue {
     setTaxrate: Dispatch<SetStateAction<number>>;
     total: number;
     setTotal: Dispatch<SetStateAction<number>>;
+    deleteLineItem: (key: number) => void;
     calculateSubtotal: () => number;
 }
 
@@ -43,7 +42,6 @@ export function useLineItemsContext() {
 // CRUD
 
 export const LineItemsProvider: FC<ProviderProps> = ({ children }) => {
-    const [counter, setCounter] = useState<number>(0);
     const [currentLine, setCurrentLine] = useState<Partial<LineItemsType>>({
         description: "",
         quantity: 1,
@@ -78,9 +76,22 @@ export const LineItemsProvider: FC<ProviderProps> = ({ children }) => {
         return subtotal * (1 + taxrate);
     }
 
+    // Edit LineItem
+
+    // Delete LineItem
+
+    function deleteLineItem(key: number) {
+        const shallowCopyAllItems = [...allItems];
+        if (key === 0) {
+            shallowCopyAllItems.shift();
+        } else {
+            shallowCopyAllItems.splice(key, 1);
+        }
+        console.log(shallowCopyAllItems);
+        setAllItems(shallowCopyAllItems);
+    }
+
     const value: LineItemsContextValue = {
-        counter,
-        setCounter,
         currentLine,
         setCurrentLine,
         allItems,
@@ -92,6 +103,7 @@ export const LineItemsProvider: FC<ProviderProps> = ({ children }) => {
         taxrate,
         setTaxrate,
         calculateSubtotal,
+        deleteLineItem,
     };
 
     return (

@@ -24,39 +24,6 @@ import { auth } from "./server";
 import { generateInvoice } from "./utils/InvoiceGenerator";
 import { LandingPage } from "./components/common";
 
-// const Tim: SellerType = {
-//     sellerId: "1",
-//     businessName: "Tim Jianger Cai",
-//     businessLocation: {
-//         streetLine1: "3 Elliot Avenue",
-//         streetLine2: "Flat G07",
-//         country: "Australia",
-//         suburb: "CARNEGIE",
-//         state: "VIC",
-//         postcode: 3163,
-//     },
-//     ABN: 37676346082,
-//     paymentDetails: {
-//         BSB: 134134,
-//         ACC: 13613612,
-//         bankAccount: "Commonwealth Bank",
-//     },
-// };
-
-// const ABNGroup: BuyerType = {
-//     businessName: "ABN Group",
-//     businessLocation: {
-//         streetLine1: "82 Lorimer Street",
-//         country: "Australia",
-//         suburb: "DOCKLANDS",
-//         state: "VIC",
-//         postcode: 3008,
-//     },
-//     ABN: 82130382188,
-// };
-
-//  add signout functionality
-
 export default function Home() {
     const { currentUser, getUser } = useAuth() as AuthContextValue;
     const {

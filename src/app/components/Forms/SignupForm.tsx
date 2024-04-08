@@ -14,37 +14,33 @@ import { auth } from "@/app/server";
 import { redirect } from "next/dist/server/api-utils";
 import { useAuth } from "@/app/context";
 import AuthButtons from "../common/AuthButtons";
+import { useRouter } from "next/navigation";
 
 export const SignupForm = () => {
     const [userEmail, setUserEmail] = useState<string>("");
     const [userPassword, setUserPassword] = useState<string>("");
     const [userPasswordAgain, setUserPasswordAgain] = useState<string>("");
-    const { googleSignIn } = useAuth();
+    const { googleSignIn, signUp, currentUser } = useAuth();
+    const router = useRouter();
 
-    const signUp = async (e: FormEvent<HTMLFormElement>) => {
+    const handleSignUpSubmission = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await fetch("/api/auth/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
+            if (
+                userEmail !== null &&
+                userPassword !== null &&
+                signUp !== undefined
+            ) {
+                const user = signUp({
                     email: userEmail,
                     password: userPassword,
-                }),
-            });
-
-            if (response.ok) {
-                console.log("Post request successful");
-                console.log(response);
-                // You can handle success scenarios here
-            } else {
-                console.error("Post request failed");
-                // You can handle error scenarios here
+                });
+                if (user !== null) {
+                    router.push("/dashboard");
+                }
             }
         } catch (error) {
-            console.error("Error making POST request:", error);
+            console.error("Error:", error);
         }
         console.log("creating user...");
     };
@@ -52,13 +48,15 @@ export const SignupForm = () => {
     return (
         <div className="bg-white h-fit border-2 border-white rounded-lg py-12 px-8 w-[480px] mt-4">
             <div className="flex flex-col items-center">
-                <Image
-                    className="rounded-full mb-4"
-                    src="/linearlogo.jpeg"
-                    alt="me"
-                    width="64"
-                    height="64"
-                />
+                <a href="/">
+                    <Image
+                        className="rounded-full mb-4"
+                        src="/bulkinvgen-logo.jpg"
+                        alt="me"
+                        width="64"
+                        height="64"
+                    />
+                </a>
                 <p className="mb-2 text-2xl font-semibold">Hello 👋</p>
                 <p className="text-[#404347] mb-8">Create an account using:</p>
                 <AuthButtons />
@@ -69,7 +67,10 @@ export const SignupForm = () => {
                 </div>
             </div>
             <div>
-                <form className="flex flex-col" onSubmit={(e) => signUp(e)}>
+                <form
+                    className="flex flex-col"
+                    onSubmit={(e) => handleSignUpSubmission(e)}
+                >
                     <label htmlFor="email" className="text-md font-medium mb-2">
                         Email Address
                     </label>

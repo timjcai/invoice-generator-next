@@ -12,6 +12,7 @@ export type LineItemsType = {
     quantity: number;
     rate: number;
     total?: number;
+    index?: number;
 }
 
 export type PaymentNotesType = {

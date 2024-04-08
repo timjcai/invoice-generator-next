@@ -31,8 +31,8 @@ export default async function RootLayout({
     return (
         <html lang="en">
             <body className={roboto.className}>
-                <AuthProvider>
-                    <ProfileProvider>
+                <ProfileProvider>
+                    <AuthProvider>
                         <MerchantProvider>
                             <InvoiceDetailProvider>
                                 <PaymentNotesProvider>
@@ -44,8 +44,8 @@ export default async function RootLayout({
                                 </PaymentNotesProvider>
                             </InvoiceDetailProvider>
                         </MerchantProvider>
-                    </ProfileProvider>
-                </AuthProvider>
+                    </AuthProvider>
+                </ProfileProvider>
             </body>
         </html>
     );

@@ -19,13 +19,14 @@ import {
     User,
     UserCredential,
 } from "firebase/auth";
-import { ProviderProps } from ".";
+import { ProfileContextValue, ProviderProps, useProfileContext } from ".";
 import { useRouter } from "next/navigation";
 
 export interface AuthContextValue {
     currentUser: User | null;
     signUp: (payload: LoginPayload) => Promise<UserCredential>;
     signOut: () => Promise<void>;
+    signIn: (payload: LoginPayload) => Promise<UserCredential>;
     googleSignIn: () => void;
     login: (payload: LoginPayload) => Promise<UserCredential>;
     getUser: () => User | null | undefined;
@@ -41,14 +42,38 @@ export function useAuth() {
 export const AuthProvider: FC<ProviderProps> = ({ children }) => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
+
+    const { createProfile } = useProfileContext() as ProfileContextValue;
+
     const router = useRouter();
 
-    function signUp({ email, password }: LoginPayload) {
-        return createUserWithEmailAndPassword(auth, email, password);
+    async function signUp({ email, password }: LoginPayload) {
+        await createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredentials) => {
+                const user = userCredentials.user;
+                setCurrentUser(user);
+                createProfile();
+                return user;
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+            });
     }
 
     function signOut() {
         return auth.signOut();
+    }
+
+    async function signIn({ email, password }: LoginPayload) {
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+            });
     }
 
     async function googleSignIn() {
@@ -73,6 +98,12 @@ export const AuthProvider: FC<ProviderProps> = ({ children }) => {
                 return false;
             }
         });
+    }
+
+    // Validations
+
+    function isValidPassword(password: string) {
+        return password.length > 6;
     }
 
     useEffect(() => {
