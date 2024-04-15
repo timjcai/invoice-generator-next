@@ -36,6 +36,7 @@ import React, { FC } from "react";
 
 type IconProps = {
     label: IconType;
+    style?: {};
 };
 
 const iconMapping: { [key in IconType]: IconDefinition } = {
@@ -63,7 +64,13 @@ const iconMapping: { [key in IconType]: IconDefinition } = {
     download: faCloudArrowDown,
 };
 
-export const Icon: FC<IconProps> = ({ label }) => {
+export const Icon: FC<IconProps> = ({ label, style }) => {
     const icon = iconMapping[label];
-    return <FontAwesomeIcon className="flex self-center mx-2" icon={icon} />;
+    return (
+        <FontAwesomeIcon
+            className="flex self-center mx-2"
+            icon={icon}
+            style={style}
+        />
+    );
 };

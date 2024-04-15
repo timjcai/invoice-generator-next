@@ -2,8 +2,18 @@ import React, { FC } from "react";
 import { Icon } from "../UI";
 import { IconType } from "@/app/types";
 import { SubheadlineBadge } from "./Badge";
+import { AuthContextValue, useAuth } from "@/app/context";
 
 export const LandingPage = () => {
+    const { googleSignIn } = useAuth() as AuthContextValue;
+
+    function handleGoogleSignIn(
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) {
+        e.preventDefault();
+        googleSignIn();
+    }
+
     return (
         <div>
             <section className="grid grid-cols-2 gap-10 items-center justify-center flex-col mx-4 md:mx-[100px] h-[400px] mb-[5vh]">
@@ -22,11 +32,19 @@ export const LandingPage = () => {
                     <div className="grid grid-cols-2 gap-2">
                         {" "}
                         <button className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center flex h-[40px] mb-2">
-                            Sign Up
+                            <span>Sign Up</span>
                         </button>
-                        <button className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center flex h-[40px] mb-2">
-                            <Icon label="Google" />
-                            Sign Up with Google
+                        <button
+                            className="flex items-center justify-center border-2 border-[#EDEEEF] px-10 py-2 rounded-md w-[412px]"
+                            onClick={(e) => handleGoogleSignIn(e)}
+                        >
+                            <span>
+                                <Icon
+                                    label="Google"
+                                    style={{ height: "16px", width: "16px" }}
+                                />
+                            </span>
+                            <span>Google</span>
                         </button>
                     </div>
                 </div>
