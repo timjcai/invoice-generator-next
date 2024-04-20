@@ -6,6 +6,7 @@ import { AuthContextValue, useAuth } from "@/app/context";
 import Image from "next/image";
 import Link from "next/link";
 import {
+    FAQSection,
     SectionLong1,
     SectionLong2,
     SectionWide1,
@@ -92,7 +93,7 @@ export const LandingPage = () => {
                     </div>
                 </div>
             </section>
-            <div className="flex flex-col flex-wrap gap-[24px]">
+            <div className="flex flex-col flex-wrap gap-[24px] mb-[200px]">
                 <SectionWide1 />
                 <div className="flex flex-row gap-4">
                     <SectionLong1 />
@@ -100,6 +101,7 @@ export const LandingPage = () => {
                 </div>
                 <SectionWide2 />
             </div>
+            <FAQSection />
         </div>
     );
 };
