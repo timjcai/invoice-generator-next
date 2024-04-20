@@ -27,6 +27,7 @@ export type ActionTypes =
     | "included"
     | "notincluded"
     | "download"
+    | "learnmore"
 
 export type NavigationTypes = 
     // | "Home" 

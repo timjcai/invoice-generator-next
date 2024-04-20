@@ -3,34 +3,34 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-  --brand-black: #0E0F19;
-  --brand-white: #ffffff;
-  --brand-accent1: #ff9f1C;
-  --brand-accent1-opaque: rgb(255, 159, 28,0.5);
-  --brand-accent2: #006c67;
-  --brand-accent2-opaque: rgb(0, 108, 103,0.5);
-  --brand-accent3: #f194b4;
-  --brand-accent3-opaque: rgb(241, 148, 180,0.5);
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+    --brand-black: #0e0f19;
+    --brand-white: #ffffff;
+    --lush-green: #124433;
+    --avocado: #c6dc6e;
+    --yellow-nectarine: #f8d072;
+    --vanilla: #fdf7d8;
+    --sky-blue: #c8e9f0;
+    --blush-pink: #f38292;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-start-rgb: 0, 0, 0;
+        --background-end-rgb: 0, 0, 0;
+    }
 }
 
 body {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  background-color: #ffffff;
-  background-image: url('/background.svg')
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+    background-image: url("/background.svg");
 }
 
 input::-webkit-outer-spin-button,

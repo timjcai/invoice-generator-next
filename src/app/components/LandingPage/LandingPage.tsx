@@ -1,8 +1,10 @@
 import React, { FC } from "react";
 import { Icon } from "../UI";
 import { IconType } from "@/app/types";
-import { SubheadlineBadge } from "./Badge";
+import { SubheadlineBadge } from "../common/Badge";
 import { AuthContextValue, useAuth } from "@/app/context";
+import Image from "next/image";
+import Link from "next/link";
 
 export const LandingPage = () => {
     const { googleSignIn } = useAuth() as AuthContextValue;
@@ -16,20 +18,41 @@ export const LandingPage = () => {
 
     return (
         <div>
-            <section className="grid grid-cols-2 gap-10 items-center justify-center flex-col mx-4 md:mx-[100px] h-[400px] mb-[5vh]">
-                <div className="flex flex-col justify-start">
+            <section className="flex flex-col gap-10 items-center justify-center flex-col mx-4 md:mx-[100px] mb-[5vh] max-w-[1032px]">
+                {/* <div className="rounded-xl flex justify-center items-center border-[12px] h-fit top-0 w-fit">
+                    <Image
+                        className="rounded-xl"
+                        src="/lp-mainimage3.png"
+                        alt="main image"
+                        width={700}
+                        height={500}
+                    />
+                </div> */}
+                <div className="flex flex-col justify-start items-center">
                     <SubheadlineBadge
                         label={"Try Now for free"}
-                        bgcolor="orange"
+                        style={{
+                            backgroundColor: "var(--avocado)",
+                            color: `var(--lush-green)`,
+                            opacity: 0.8,
+                        }}
                     />
-                    <h1 className="text-[2.375rem] leading-[2.75rem] color-[#0e101a] font-bold mb-[2vh]">
+                    <h1 className="text-[2.375rem] leading-[2.75rem] color-[#0e101a] font-bold mb-[2vh] tracking-tight">
                         Free Invoice Generator
                     </h1>
-                    <p className="mb-[2vh] text-[1.125rem]">
+                    <p className="mb-[2vh] text-[1.125rem] text-center tracking-tight">
                         Instantly generate invoices. <br />
                         Saving time for the important things
                     </p>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="w-full">
+                        <Link href="/dashboard">
+                            <button className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center flex h-[40px] mb-2 w-full gap-1">
+                                <span>Get Started</span>
+                                <Icon label="learnmore" />
+                            </button>
+                        </Link>
+                    </div>
+                    {/* <div className="grid grid-cols-2 gap-2">
                         {" "}
                         <button className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center flex h-[40px] mb-2">
                             <span>Sign Up</span>
@@ -46,14 +69,11 @@ export const LandingPage = () => {
                             </span>
                             <span>Google</span>
                         </button>
-                    </div>
-                </div>
-                <div className="bg-[#F5EEE6] h-full w-full rounded-xl flex justify-center items-center">
-                    <h1>demo</h1>
+                    </div> */}
                 </div>
             </section>
             <section>
-                <div className="flex flex-col justify-center items-center mb-20">
+                <div className="flex flex-col justify-center items-center mb-20 max-w-[1032px]">
                     <h3 className="text-2xl font-semibold mb-2">
                         Trusted by 100+ Small Businesses
                     </h3>

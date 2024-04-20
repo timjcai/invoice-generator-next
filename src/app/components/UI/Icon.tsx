@@ -6,6 +6,7 @@ import {
     faGoogle,
 } from "@fortawesome/free-brands-svg-icons";
 import {
+    faArrowRight,
     faCheckCircle,
     faCircleDown,
     faCircleLeft,
@@ -62,6 +63,7 @@ const iconMapping: { [key in IconType]: IconDefinition } = {
     included: faCheckCircle,
     notincluded: faMinusCircle,
     download: faCloudArrowDown,
+    learnmore: faArrowRight,
 };
 
 export const Icon: FC<IconProps> = ({ label, style }) => {
