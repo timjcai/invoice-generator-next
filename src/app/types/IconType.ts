@@ -28,6 +28,10 @@ export type ActionTypes =
     | "notincluded"
     | "download"
     | "learnmore"
+    | "save"
+    | "template"
+    | "calculate" 
+    | "bulk"
 
 export type NavigationTypes = 
     // | "Home" 

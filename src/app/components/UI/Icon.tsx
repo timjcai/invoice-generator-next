@@ -4,9 +4,12 @@ import {
     faApple,
     faFacebook,
     faGoogle,
+    faHive,
 } from "@fortawesome/free-brands-svg-icons";
 import {
     faArrowRight,
+    faBookmark,
+    faCalculator,
     faCheckCircle,
     faCircleDown,
     faCircleLeft,
@@ -19,13 +22,11 @@ import {
     faCog,
     faCreditCard,
     faCube,
-    faFileArrowDown,
+    faFile,
     faFilterCircleDollar,
     faHammer,
     faListUl,
     faMinusCircle,
-    faNoteSticky,
-    faPalette,
     faPenNib,
     faPlus,
     faShop,
@@ -64,6 +65,10 @@ const iconMapping: { [key in IconType]: IconDefinition } = {
     notincluded: faMinusCircle,
     download: faCloudArrowDown,
     learnmore: faArrowRight,
+    save: faBookmark,
+    template: faFile,
+    calculate: faCalculator,
+    bulk: faHive,
 };
 
 export const Icon: FC<IconProps> = ({ label, style }) => {

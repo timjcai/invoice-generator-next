@@ -5,6 +5,12 @@ import { SubheadlineBadge } from "../common/Badge";
 import { AuthContextValue, useAuth } from "@/app/context";
 import Image from "next/image";
 import Link from "next/link";
+import {
+    SectionLong1,
+    SectionLong2,
+    SectionWide1,
+    SectionWide2,
+} from "./Section";
 
 export const LandingPage = () => {
     const { googleSignIn } = useAuth() as AuthContextValue;
@@ -86,6 +92,14 @@ export const LandingPage = () => {
                     </div>
                 </div>
             </section>
+            <div className="flex flex-col flex-wrap gap-[24px]">
+                <SectionWide1 />
+                <div className="flex flex-row gap-4">
+                    <SectionLong1 />
+                    <SectionLong2 />
+                </div>
+                <SectionWide2 />
+            </div>
         </div>
     );
 };
