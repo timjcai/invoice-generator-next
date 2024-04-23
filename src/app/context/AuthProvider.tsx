@@ -24,7 +24,7 @@ import { useRouter } from "next/navigation";
 
 export interface AuthContextValue {
     currentUser: User | null;
-    signUp: (payload: LoginPayload) => Promise<UserCredential>;
+    signUp: (payload: LoginPayload) => void;
     signOut: () => Promise<void>;
     signIn: (payload: LoginPayload) => Promise<UserCredential>;
     googleSignIn: () => void;

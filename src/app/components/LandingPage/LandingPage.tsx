@@ -58,7 +58,10 @@ export const LandingPage = () => {
                         <Link href="/dashboard">
                             <button className="border-2 bg-[#212122] border-[#212122] py-1 text-white font-light rounded-md px-6 justify-center items-center flex h-[40px] mb-2 w-full gap-1">
                                 <span>Get Started</span>
-                                <Icon label="learnmore" />
+                                <Icon
+                                    label="learnmore"
+                                    style={{ height: "16px", width: "16px" }}
+                                />
                             </button>
                         </Link>
                     </div>
