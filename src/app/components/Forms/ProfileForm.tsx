@@ -102,8 +102,8 @@ const ProfileForm: FC = () => {
                         id="ABN"
                         type="text"
                         pattern="[0-9]*"
-                        maxLength={9}
-                        minLength={9}
+                        maxLength={11}
+                        minLength={11}
                         placeholder="Enter your ABN"
                         className="border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
                         required={true}

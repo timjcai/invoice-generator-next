@@ -4,10 +4,12 @@ import {
     faApple,
     faFacebook,
     faGoogle,
+    faHive,
 } from "@fortawesome/free-brands-svg-icons";
 import {
+    faBookmark,
+    faCalculator,
     faCheckCircle,
-    faCircleDown,
     faCircleLeft,
     faCircleRight,
     faCircleUser,
@@ -18,14 +20,13 @@ import {
     faCog,
     faCreditCard,
     faCube,
-    faFileArrowDown,
+    faFile,
     faFilterCircleDollar,
     faHammer,
     faListUl,
     faMinusCircle,
-    faNoteSticky,
-    faPalette,
     faPenNib,
+    faPlay,
     faPlus,
     faShop,
     faXmark,
@@ -36,6 +37,7 @@ import React, { FC } from "react";
 
 type IconProps = {
     label: IconType;
+    style?: {};
 };
 
 const iconMapping: { [key in IconType]: IconDefinition } = {
@@ -61,9 +63,20 @@ const iconMapping: { [key in IconType]: IconDefinition } = {
     included: faCheckCircle,
     notincluded: faMinusCircle,
     download: faCloudArrowDown,
+    learnmore: faPlay,
+    save: faBookmark,
+    template: faFile,
+    calculate: faCalculator,
+    bulk: faHive,
 };
 
-export const Icon: FC<IconProps> = ({ label }) => {
+export const Icon: FC<IconProps> = ({ label, style }) => {
     const icon = iconMapping[label];
-    return <FontAwesomeIcon className="flex self-center mx-2" icon={icon} />;
+    return (
+        <FontAwesomeIcon
+            className="flex self-center mx-2"
+            icon={icon}
+            style={style}
+        />
+    );
 };

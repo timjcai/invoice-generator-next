@@ -22,7 +22,7 @@ import {
 import { signOut } from "firebase/auth";
 import { auth } from "./server";
 import { generateInvoice } from "./utils/InvoiceGenerator";
-import { LandingPage } from "./components/common";
+import { LandingPage } from "./components/LandingPage";
 
 export default function Home() {
     const { currentUser, getUser } = useAuth() as AuthContextValue;

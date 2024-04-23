@@ -13,14 +13,6 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
-      colors: {
-        'brandorange': 'var(--brand-accent1)',
-        'brandgreen': 'var(--brand-accent2)',
-        'brandpink': 'var(--brand-accent3)',
-        'brandorange-half': 'var(--brand-accent1-opaque)',
-        'brandgreen-half': 'var(--brand-accent2-opaque)',
-        'brandpink-half': 'var(--brand-accent3-opaque)',
-      }
     },
     screens: {
       'sm': '640px',
