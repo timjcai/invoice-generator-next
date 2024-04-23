@@ -12,6 +12,8 @@ import {
     SectionWide1,
     SectionWide2,
 } from "./Section";
+import { AvatarCard } from "../Card";
+import { HeroAnimation } from "./Animations";
 
 export const LandingPage = () => {
     const { googleSignIn } = useAuth() as AuthContextValue;
@@ -35,6 +37,7 @@ export const LandingPage = () => {
                         height={500}
                     />
                 </div> */}
+                <HeroAnimation />
                 <div className="flex flex-col justify-start items-center">
                     <SubheadlineBadge
                         label={"Try Now for free"}
@@ -81,15 +84,25 @@ export const LandingPage = () => {
             </section>
             <section>
                 <div className="flex flex-col justify-center items-center mb-20 max-w-[1032px]">
-                    <h3 className="text-2xl font-semibold mb-2">
+                    {/* <h3 className="text-2xl font-semibold mb-2">
                         Trusted by 100+ Small Businesses
                     </h3>
-                    <p className="text-lg mb-2">designed for</p>
-                    <div className="grid grid-cols-4 gap-24 justify-between items-center mb-24 px-[8vw]">
-                        <Card label="Designers" icon="designers" />
-                        <Card label="Marketers" icon="marketers" />
-                        <Card label="Trades & Services" icon="trades" />
-                        <Card label="Tech Contractors" icon="techcontractors" />
+                    <div className="flex flex-row w-full gap-2 justify-center">
+                        <AvatarCard number={"1"} label="Tradies" />
+                        <AvatarCard number={"2"} label="Designers" />
+                        <AvatarCard number={"3"} label="Marketers" />
+                        <AvatarCard number={"4"} label="Tech Contractors" />
+                        <AvatarCard number={"5"} label="Consultants" />
+                    </div> */}
+                    <h3 className="text-2xl font-semibold mb-2">
+                        Designed for you
+                    </h3>
+                    <div className="flex flex-row w-full gap-2 justify-center">
+                        <AvatarCard number={"1"} label="Tradies" />
+                        <AvatarCard number={"2"} label="Designers" />
+                        <AvatarCard number={"3"} label="Marketers" />
+                        <AvatarCard number={"4"} label="Tech Contractors" />
+                        <AvatarCard number={"5"} label="Consultants" />
                     </div>
                 </div>
             </section>

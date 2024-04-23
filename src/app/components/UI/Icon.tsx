@@ -7,11 +7,9 @@ import {
     faHive,
 } from "@fortawesome/free-brands-svg-icons";
 import {
-    faArrowRight,
     faBookmark,
     faCalculator,
     faCheckCircle,
-    faCircleDown,
     faCircleLeft,
     faCircleRight,
     faCircleUser,
@@ -28,6 +26,7 @@ import {
     faListUl,
     faMinusCircle,
     faPenNib,
+    faPlay,
     faPlus,
     faShop,
     faXmark,
@@ -64,7 +63,7 @@ const iconMapping: { [key in IconType]: IconDefinition } = {
     included: faCheckCircle,
     notincluded: faMinusCircle,
     download: faCloudArrowDown,
-    learnmore: faArrowRight,
+    learnmore: faPlay,
     save: faBookmark,
     template: faFile,
     calculate: faCalculator,

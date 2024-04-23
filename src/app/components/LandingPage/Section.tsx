@@ -1,10 +1,11 @@
 import React from "react";
 import { Icon } from "../UI";
+import { SaveDetailsAnimation } from "./Animations";
 
 export const SectionWide1 = () => {
     return (
         <section
-            className="flex flex-row relative rounded-[24px] bg-[var(--lush-green)] text-white"
+            className="flex flex-row relative rounded-[24px] bg-[var(--lush-green)] text-white h-[600px]"
             style={{ boxShadow: "4px 4px 30px rgba(0, 0, 0, 0.3)" }}
         >
             <div className="flex flex-col justify-between p-[56px] basis-1/2">
@@ -21,7 +22,8 @@ export const SectionWide1 = () => {
                     <p className="text-[#b3b6bc]">Create once, reuse forever</p>
                 </div>
             </div>
-            <div className="absolute">Image</div>
+            <SaveDetailsAnimation />
+            {/* <div className="absolute">Image</div> */}
         </section>
     );
 };
@@ -46,7 +48,9 @@ export const SectionWide2 = () => {
                     <p className="text-[white]">Create once, reuse forever</p>
                 </div>
             </div>
-            <div className="absolute">Image</div>
+            <div className="absolute bg-black opacity-50 w-full h-full rounded-2xl flex justify-center items-center">
+                <div className="text-white font-bold text-md">Coming Soon</div>
+            </div>
         </section>
     );
 };
