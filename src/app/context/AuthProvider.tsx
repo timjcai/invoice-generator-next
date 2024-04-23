@@ -24,9 +24,9 @@ import { useRouter } from "next/navigation";
 
 export interface AuthContextValue {
     currentUser: User | null;
-    signUp: (payload: LoginPayload) => void;
+    signUp: ({ email, password }: LoginPayload) => Promise<void | User>;
     signOut: () => Promise<void>;
-    signIn: (payload: LoginPayload) => Promise<UserCredential>;
+    signIn: ({ email, password }: LoginPayload) => Promise<void | User>;
     googleSignIn: () => void;
     login: (payload: LoginPayload) => Promise<UserCredential>;
     getUser: () => User | null | undefined;
@@ -48,7 +48,7 @@ export const AuthProvider: FC<ProviderProps> = ({ children }) => {
     const router = useRouter();
 
     async function signUp({ email, password }: LoginPayload) {
-        await createUserWithEmailAndPassword(auth, email, password)
+        return await createUserWithEmailAndPassword(auth, email, password)
             .then((userCredentials) => {
                 const user = userCredentials.user;
                 setCurrentUser(user);
@@ -66,7 +66,7 @@ export const AuthProvider: FC<ProviderProps> = ({ children }) => {
     }
 
     async function signIn({ email, password }: LoginPayload) {
-        signInWithEmailAndPassword(auth, email, password)
+        return signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
             })
@@ -120,6 +120,7 @@ export const AuthProvider: FC<ProviderProps> = ({ children }) => {
         currentUser,
         signUp,
         signOut,
+        signIn,
         login,
         getUser,
         isAdmin,
