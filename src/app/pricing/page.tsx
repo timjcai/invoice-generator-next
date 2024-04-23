@@ -61,8 +61,10 @@ const page = () => {
             <div className="flex flex-col justify-center items-center h-[320px]">
                 <SubheadlineBadge
                     label="Pricing"
-                    color="white"
-                    bgcolor="orange"
+                    style={{
+                        color: "black",
+                        backgroundColor: "var(--yellow-nectarine)",
+                    }}
                 />
                 <h2 className="text-4xl font-bold">Two plans, two prices.</h2>
                 <h2 className="text-4xl font-bold mb-4"> No hidden fees</h2>
@@ -97,8 +99,11 @@ const page = () => {
                                     <div className="absolute -right-[58px] top-[3px]">
                                         <SubheadlineBadge
                                             label={"save 20%"}
-                                            color="orange"
-                                            bgcolor="orange"
+                                            style={{
+                                                color: "black",
+                                                backgroundColor:
+                                                    "var(--yellow-nectarine)",
+                                            }}
                                         />
                                     </div>
                                 </div>
