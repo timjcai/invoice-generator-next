@@ -15,6 +15,7 @@ import { redirect } from "next/dist/server/api-utils";
 import { useAuth } from "@/app/context";
 import AuthButtons from "../common/AuthButtons";
 import { useRouter } from "next/navigation";
+import { PayzoSecondaryLogo } from "../common";
 
 export const SignupForm = () => {
     const [userEmail, setUserEmail] = useState<string>("");
@@ -48,15 +49,7 @@ export const SignupForm = () => {
     return (
         <div className="bg-white h-fit border-2 border-white rounded-lg py-12 px-8 w-[480px] mt-4">
             <div className="flex flex-col items-center">
-                <a href="/">
-                    <Image
-                        className="rounded-full mb-4"
-                        src="/bulkinvgen-logo.jpg"
-                        alt="me"
-                        width="64"
-                        height="64"
-                    />
-                </a>
+                <PayzoSecondaryLogo />
                 <p className="mb-2 text-2xl font-semibold">Hello 👋</p>
                 <p className="text-[#404347] mb-8">Create an account using:</p>
                 <AuthButtons />
@@ -72,7 +65,8 @@ export const SignupForm = () => {
                     onSubmit={(e) => handleSignUpSubmission(e)}
                 >
                     <label htmlFor="email" className="text-md font-medium mb-2">
-                        Email Address
+                        {" "}
+                        de Email Address
                     </label>
                     <input
                         id="email"

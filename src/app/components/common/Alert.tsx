@@ -4,6 +4,7 @@ import { AlertIcons } from "@/app/types";
 
 type AlertType = {
     name: AlertLabel;
+    message?: string;
 };
 
 type AlertIconData = {
