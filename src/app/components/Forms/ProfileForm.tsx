@@ -39,13 +39,12 @@ const ProfileForm: FC = () => {
             // to do: push local state changes to firebase
             updateProfileDetails();
             console.log("completed update");
-            toast.success("");
+            toast.success("Successfully saved profile details");
         }
     }
 
     function handleABNInput(event: ChangeEvent<HTMLInputElement>) {
         const inputValue = event.target.value ?? "";
-        console.log(inputValue);
         // console.log(merchantDetails.ABN);
         if (/^\d*$/.test(inputValue)) {
             setProfileDetails((prevState: Partial<SellerType>) => ({
@@ -60,7 +59,6 @@ const ProfileForm: FC = () => {
 
     function handlePostcodeInput(event: ChangeEvent<HTMLInputElement>) {
         const inputValue = event.target.value ?? "";
-        console.log(inputValue);
         // console.log(merchantDetails.ABN);
         if (/^\d*$/.test(inputValue)) {
             setLocationDetails((prevState: Partial<LocationType>) => ({

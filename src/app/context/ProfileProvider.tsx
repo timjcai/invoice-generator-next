@@ -137,13 +137,19 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
 
     async function updateProfileDetails() {
         if (uid !== null) {
-            const profileRef = doc(db, "profile", uid as string);
-            console.log(profileRef);
-            const locationRef = doc(
-                db,
-                "businessLocation",
-                profileId.businessLocationId!
+            const q = query(
+                collection(db, "profile"),
+                where("user_id", "==", uid as string)
             );
+            console.log(profileDetails);
+            const querySnapshot = await getDocs(q);
+            const profileLocationId =
+                querySnapshot.docs[0].data().businessLocation;
+            const profileId = querySnapshot.docs[0].id;
+
+            const profileRef = doc(db, "profile", profileId);
+            const locationRef = doc(db, "businessLocation", profileLocationId);
+
             await updateDoc(profileRef, profileDetails);
             await updateDoc(locationRef, locationDetails);
         }
