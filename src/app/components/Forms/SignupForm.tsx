@@ -12,30 +12,43 @@ import { LoginPayload } from "@/app/types";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/app/server";
 import { redirect } from "next/dist/server/api-utils";
-import { useAuth } from "@/app/context";
+import { ProfileContextValue, useAuth, useProfileContext } from "@/app/context";
 import AuthButtons from "../common/AuthButtons";
 import { useRouter } from "next/navigation";
 import { PayzoSecondaryLogo } from "../common";
+
+// libraries:
+import { toast } from "react-toastify";
 
 export const SignupForm = () => {
     const [userEmail, setUserEmail] = useState<string>("");
     const [userPassword, setUserPassword] = useState<string>("");
     const [userPasswordAgain, setUserPasswordAgain] = useState<string>("");
+
+    // context
     const { googleSignIn, signUp, currentUser } = useAuth();
+    const {} = useProfileContext() as ProfileContextValue;
+
     const router = useRouter();
 
     const handleSignUpSubmission = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (userPassword.length < 6) {
+            return toast.warn("password need to be at least 6 characters");
+        }
+        let user = null;
         try {
             if (
                 userEmail !== null &&
                 userPassword !== null &&
+                userPassword.length > 6 &&
                 signUp !== undefined
             ) {
-                const user = signUp({
+                user = await signUp({
                     email: userEmail,
                     password: userPassword,
                 });
+                console.log("creating user...");
                 if (user !== null) {
                     router.push("/dashboard");
                 }
@@ -43,7 +56,6 @@ export const SignupForm = () => {
         } catch (error) {
             console.error("Error:", error);
         }
-        console.log("creating user...");
     };
 
     return (
@@ -65,8 +77,7 @@ export const SignupForm = () => {
                     onSubmit={(e) => handleSignUpSubmission(e)}
                 >
                     <label htmlFor="email" className="text-md font-medium mb-2">
-                        {" "}
-                        de Email Address
+                        Email Address
                     </label>
                     <input
                         id="email"

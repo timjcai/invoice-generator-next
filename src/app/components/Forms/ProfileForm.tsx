@@ -39,6 +39,7 @@ const ProfileForm: FC = () => {
             // to do: push local state changes to firebase
             updateProfileDetails();
             console.log("completed update");
+            toast.success("");
         }
     }
 
@@ -71,6 +72,7 @@ const ProfileForm: FC = () => {
 
     return (
         <div className="w-full">
+            <p>{uid}</p>
             <form className="flex flex-col">
                 <label
                     htmlFor="businessName"
@@ -289,7 +291,7 @@ const ProfileForm: FC = () => {
                     onClick={(e) => profileSaveButtonAction(e)}
                     // disabled={!userEmail || !userPassword}
                 >
-                    Save
+                    {uid !== null ? "Save" : "Create"}
                 </button>
             </form>
         </div>

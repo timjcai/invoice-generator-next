@@ -41,7 +41,7 @@ export interface ProfileContextValue {
     uid: string | null;
     loading: boolean;
     profileId: Partial<ProfileIdProps>;
-    createProfile: () => void;
+    createProfile: (uid: string) => void;
 }
 
 export type ProviderProps = {
@@ -63,7 +63,7 @@ export function useProfileContext() {
 }
 
 export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
-    const [uid, setUid] = useState<string | null>();
+    const [uid, setUid] = useState<string | null>(null);
     const [profileId, setProfileId] = useState<Partial<ProfileIdProps>>({});
     const [profileDetails, setProfileDetails] = useState<Partial<SellerType>>(
         {}
@@ -149,7 +149,7 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
         }
     }
 
-    async function createProfile() {
+    async function createProfile(uid: string) {
         try {
             const paymentRef = await addDoc(collection(db, "paymentDetails"), {
                 BSB: 0,
