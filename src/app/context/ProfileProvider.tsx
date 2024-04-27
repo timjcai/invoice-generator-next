@@ -38,7 +38,7 @@ export interface ProfileContextValue {
     setPaymentDetails: Dispatch<SetStateAction<Partial<BankTransferType>>>;
     getProfileDetails: (uid: string) => void;
     updateProfileDetails: () => void;
-    uid: string;
+    uid: string | null;
     loading: boolean;
     profileId: Partial<ProfileIdProps>;
     createProfile: () => void;
@@ -63,7 +63,7 @@ export function useProfileContext() {
 }
 
 export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
-    const [uid, setUid] = useState<string>("");
+    const [uid, setUid] = useState<string | null>();
     const [profileId, setProfileId] = useState<Partial<ProfileIdProps>>({});
     const [profileDetails, setProfileDetails] = useState<Partial<SellerType>>(
         {}
@@ -81,7 +81,7 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
             if (user) {
                 setUid(user.uid);
             } else {
-                setUid("");
+                setUid(null);
             }
             setLoading(false);
         });
@@ -131,19 +131,22 @@ export const ProfileProvider: FC<ProviderProps> = ({ children }) => {
             setLoading(false);
         } catch (error) {
             console.error("error fetching data", error);
+            setLoading(false);
         }
     }
 
     async function updateProfileDetails() {
-        const profileRef = doc(db, "profile", uid);
-        console.log(profileRef);
-        const locationRef = doc(
-            db,
-            "businessLocation",
-            profileId.businessLocationId!
-        );
-        await updateDoc(profileRef, profileDetails);
-        await updateDoc(locationRef, locationDetails);
+        if (uid !== null) {
+            const profileRef = doc(db, "profile", uid as string);
+            console.log(profileRef);
+            const locationRef = doc(
+                db,
+                "businessLocation",
+                profileId.businessLocationId!
+            );
+            await updateDoc(profileRef, profileDetails);
+            await updateDoc(locationRef, locationDetails);
+        }
     }
 
     async function createProfile() {

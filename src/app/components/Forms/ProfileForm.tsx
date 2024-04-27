@@ -14,6 +14,9 @@ import React, { ChangeEvent, FC, useState } from "react";
 import { SkeletonBar, SkeletonEllipsis } from "../UI";
 import { StateSelector } from "../common";
 
+// libraries:
+import { toast } from "react-toastify";
+
 const ProfileForm: FC = () => {
     const {
         profileDetails,
@@ -30,9 +33,13 @@ const ProfileForm: FC = () => {
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) {
         e.preventDefault();
-        // to do: push local state changes to firebase
-        updateProfileDetails();
-        console.log("completed update");
+        if (uid === null) {
+            toast.warn("Create a free account to use this feature");
+        } else {
+            // to do: push local state changes to firebase
+            updateProfileDetails();
+            console.log("completed update");
+        }
     }
 
     function handleABNInput(event: ChangeEvent<HTMLInputElement>) {
@@ -276,6 +283,7 @@ const ProfileForm: FC = () => {
                     )}
                 </div>
                 <button
+                    // disabled={uid === null ? true : false}
                     type="submit"
                     className="w-full border-2 bg-[#212122] border-[#212122] py-2 text-white font-light rounded-md mt-4 mb-4 disabled:opacity-40"
                     onClick={(e) => profileSaveButtonAction(e)}

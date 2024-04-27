@@ -10,7 +10,7 @@ export const PayzoLogo = () => {
                 src="/brandAssets/payzo-logo.png"
                 alt="me"
                 width="100"
-                height="42"
+                height="5"
             />
         </Link>
     );
