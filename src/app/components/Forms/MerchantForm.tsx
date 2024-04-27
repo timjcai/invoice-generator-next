@@ -35,7 +35,9 @@ export const MerchantForm: FC = () => {
     const { uid } = useProfileContext() as ProfileContextValue;
 
     useEffect(() => {
-        getMerchantIndex(uid);
+        if (uid !== null && uid !== undefined) {
+            getMerchantIndex(uid as string);
+        }
         getMerchantDetails(merchantId);
         // function createSelectorOptions() {
         //     let billerArray = [] as SelectorOptions[];
@@ -79,8 +81,8 @@ export const MerchantForm: FC = () => {
         e.preventDefault();
         // to do: push local state changes to firebase
         console.log(merchantId);
-        if (merchantId === null) {
-            createMerchant(merchantDetails, uid);
+        if (merchantId === null && uid !== null) {
+            createMerchant(merchantDetails, uid as string);
             console.log("no merchant id - creating a new Merchant account");
         } else {
             updateMerchantDetails();
@@ -88,7 +90,7 @@ export const MerchantForm: FC = () => {
             console.log(
                 "updating local state - push local state changes to Firebase"
             );
-            await getMerchantIndex(uid);
+            await getMerchantIndex(uid as string);
         }
 
         setLoading(false);
@@ -96,7 +98,6 @@ export const MerchantForm: FC = () => {
 
     function handleABNInput(event: ChangeEvent<HTMLInputElement>) {
         const inputValue = event.target.value ?? "";
-        console.log(inputValue);
         // console.log(merchantDetails.ABN);
         if (/^\d*$/.test(inputValue)) {
             setMerchantDetails((prevState: Partial<BuyerType>) => ({
@@ -111,7 +112,6 @@ export const MerchantForm: FC = () => {
 
     function handlePostcodeInput(event: ChangeEvent<HTMLInputElement>) {
         const inputValue = event.target.value ?? "";
-        console.log(inputValue);
         // console.log(merchantDetails.ABN);
         if (/^\d*$/.test(inputValue)) {
             setMerchantLocation((prevState: Partial<LocationType>) => ({

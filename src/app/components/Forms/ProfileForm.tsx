@@ -70,7 +70,7 @@ const ProfileForm: FC = () => {
 
     return (
         <div className="w-full">
-            <p>{uid}</p>
+            {/* <p>{uid}</p> */}
             <form className="flex flex-col">
                 <label
                     htmlFor="businessName"

@@ -14,7 +14,7 @@ export interface SellerType extends UserType {
 
 export interface BuyerType extends UserType {
     paymentDetails: PaymentDetailType;
-    slug: string;
+    slug?: string;
 }
 
 
