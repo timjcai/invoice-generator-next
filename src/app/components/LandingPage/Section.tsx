@@ -19,7 +19,7 @@ export const SectionWide1 = () => {
                     <h3 className="tracking-tight text-[48px] font-semibold">
                         Save client business details
                     </h3>
-                    <p className="text-[#b3b6bc]">Create once, reuse forever</p>
+                    <p className="text-slate-600">Create once, reuse forever</p>
                 </div>
             </div>
             <SaveDetailsAnimation />
@@ -45,7 +45,7 @@ export const SectionWide2 = () => {
                     <h3 className="tracking-tight text-[48px] font-semibold">
                         Bulk create invoices
                     </h3>
-                    <p className="text-[white]">Create once, reuse forever</p>
+                    <p className="text-slate-600">Create once, reuse forever</p>
                 </div>
             </div>
             <div className="absolute bg-black opacity-50 w-full h-full rounded-2xl flex justify-center items-center">
@@ -69,9 +69,11 @@ export const SectionLong1 = () => {
             </span>
             <div className="flex flex-col">
                 <h3 className="tracking-tight text-[48px] font-semibold">
-                    Create templates
+                    Auto Generated
                 </h3>
-                <p className="text-[#b3b6bc]">Speed up your workflow</p>
+                <p className="text-slate-600">
+                    Easy to track, invoicing history
+                </p>
             </div>
         </section>
     );
@@ -93,7 +95,7 @@ export const SectionLong2 = () => {
                 <h3 className="tracking-tight text-[48px] font-semibold">
                     Calculated for you
                 </h3>
-                <p className="text-[white]">
+                <p className="text-slate-600">
                     Automatically calculate your subtotals and tax rates
                 </p>
             </div>

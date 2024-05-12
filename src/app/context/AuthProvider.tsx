@@ -52,7 +52,8 @@ export const AuthProvider: FC<ProviderProps> = ({ children }) => {
             .then((userCredentials) => {
                 const user = userCredentials.user;
                 setCurrentUser(user);
-                createProfile();
+                console.log(user);
+                createProfile(user.uid);
                 return user;
             })
             .catch((error) => {

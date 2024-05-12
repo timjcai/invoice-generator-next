@@ -10,7 +10,10 @@ import {
     faBookmark,
     faCalculator,
     faCheckCircle,
+    faCircleCheck,
+    faCircleInfo,
     faCircleLeft,
+    faCircleQuestion,
     faCircleRight,
     faCircleUser,
     faClipboard,
@@ -29,6 +32,7 @@ import {
     faPlay,
     faPlus,
     faShop,
+    faTriangleExclamation,
     faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { faCloud } from "@fortawesome/free-solid-svg-icons/faCloud";
@@ -68,6 +72,10 @@ const iconMapping: { [key in IconType]: IconDefinition } = {
     template: faFile,
     calculate: faCalculator,
     bulk: faHive,
+    "icon-correct": faCircleCheck,
+    "icon-warning": faTriangleExclamation,
+    "icon-faq": faCircleQuestion,
+    "icon-info": faCircleInfo,
 };
 
 export const Icon: FC<IconProps> = ({ label, style }) => {

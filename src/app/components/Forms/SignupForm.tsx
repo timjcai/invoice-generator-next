@@ -12,29 +12,43 @@ import { LoginPayload } from "@/app/types";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/app/server";
 import { redirect } from "next/dist/server/api-utils";
-import { useAuth } from "@/app/context";
+import { ProfileContextValue, useAuth, useProfileContext } from "@/app/context";
 import AuthButtons from "../common/AuthButtons";
 import { useRouter } from "next/navigation";
+import { PayzoSecondaryLogo } from "../common";
+
+// libraries:
+import { toast } from "react-toastify";
 
 export const SignupForm = () => {
     const [userEmail, setUserEmail] = useState<string>("");
     const [userPassword, setUserPassword] = useState<string>("");
     const [userPasswordAgain, setUserPasswordAgain] = useState<string>("");
+
+    // context
     const { googleSignIn, signUp, currentUser } = useAuth();
+    const {} = useProfileContext() as ProfileContextValue;
+
     const router = useRouter();
 
     const handleSignUpSubmission = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (userPassword.length < 6) {
+            return toast.warn("password need to be at least 6 characters");
+        }
+        let user = null;
         try {
             if (
                 userEmail !== null &&
                 userPassword !== null &&
+                userPassword.length > 6 &&
                 signUp !== undefined
             ) {
-                const user = signUp({
+                user = await signUp({
                     email: userEmail,
                     password: userPassword,
                 });
+                console.log("creating user...");
                 if (user !== null) {
                     router.push("/dashboard");
                 }
@@ -42,21 +56,12 @@ export const SignupForm = () => {
         } catch (error) {
             console.error("Error:", error);
         }
-        console.log("creating user...");
     };
 
     return (
         <div className="bg-white h-fit border-2 border-white rounded-lg py-12 px-8 w-[480px] mt-4">
             <div className="flex flex-col items-center">
-                <a href="/">
-                    <Image
-                        className="rounded-full mb-4"
-                        src="/bulkinvgen-logo.jpg"
-                        alt="me"
-                        width="64"
-                        height="64"
-                    />
-                </a>
+                <PayzoSecondaryLogo />
                 <p className="mb-2 text-2xl font-semibold">Hello 👋</p>
                 <p className="text-[#404347] mb-8">Create an account using:</p>
                 <AuthButtons />

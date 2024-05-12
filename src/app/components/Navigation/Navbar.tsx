@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ProfileContextValue, useProfileContext } from "@/app/context";
 import { signOut } from "firebase/auth";
 import { auth } from "@/app/server";
+import { PayzoSecondaryLogo } from "../common";
 
 export const Navbar = () => {
     const { uid } = useProfileContext() as ProfileContextValue;
@@ -13,32 +14,20 @@ export const Navbar = () => {
     return (
         <div className="flex items-center justify-center w-full bg-white border-b-2 border-[#e5e7eb] mb-[40px] px-4 md:px-[200px] py-[12px]">
             <div className="flex flex-row justify-between items-center max-w-8xl w-[80vw]">
-                <div className="flex flex-row">
-                    <NavbarLinkButton
-                        label={
-                            <Link href="/">
-                                <Image
-                                    className="rounded-full"
-                                    src="/bulkinvgen-logo.jpg"
-                                    alt="me"
-                                    width="42"
-                                    height="42"
-                                />
-                            </Link>
-                        }
-                    />
+                <div className="flex flex-row justify-center items-center">
+                    <div className="pt-2">
+                        <NavbarLinkButton label={<PayzoSecondaryLogo />} />
+                    </div>
+
                     <div className="flex flex-row justify-between">
-                        {uid ? (
-                            <NavbarLinkButton
-                                label={<Link href="/dashboard">Dashboard</Link>}
-                            />
-                        ) : (
-                            <></>
-                        )}
+                        <NavbarLinkButton
+                            label={<Link href="/dashboard">Dashboard</Link>}
+                        />
+
                         <NavbarLinkButton
                             label={<Link href="/pricing">Pricing</Link>}
                         />
-                        <NavbarLinkButton
+                        {/* <NavbarLinkButton
                             label={
                                 <a
                                     href="https://www.buymeacoffee.com/shelbythesnag"
@@ -47,7 +36,7 @@ export const Navbar = () => {
                                     Donate
                                 </a>
                             }
-                        />
+                        /> */}
                         <NavbarLinkButton label={<a>Support</a>} />
                     </div>
                 </div>

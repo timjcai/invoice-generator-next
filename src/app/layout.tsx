@@ -12,6 +12,11 @@ import {
     MerchantProvider,
 } from "./context";
 import InvoiceGeneratorProvider from "./context/InvoiceGeneratorProvider";
+import Footer from "./components/LandingPage/Footer";
+
+// Toast Library
+import { Bounce, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -46,6 +51,14 @@ export default async function RootLayout({
                         </MerchantProvider>
                     </AuthProvider>
                 </ProfileProvider>
+                <ToastContainer
+                    position="bottom-left"
+                    newestOnTop={false}
+                    pauseOnHover
+                    closeOnClick
+                    autoClose={5000}
+                    hideProgressBar={false}
+                />
             </body>
         </html>
     );

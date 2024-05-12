@@ -14,6 +14,7 @@ import {
 } from "./Section";
 import { AvatarCard } from "../Card";
 import { HeroAnimation } from "./Animations";
+import Footer from "./Footer";
 
 export const LandingPage = () => {
     const { googleSignIn } = useAuth() as AuthContextValue;
@@ -118,6 +119,7 @@ export const LandingPage = () => {
                 <SectionWide2 />
             </div>
             <FAQSection />
+            <Footer />
         </div>
     );
 };
