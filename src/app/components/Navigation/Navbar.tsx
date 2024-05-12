@@ -6,7 +6,7 @@ import Image from "next/image";
 import { ProfileContextValue, useProfileContext } from "@/app/context";
 import { signOut } from "firebase/auth";
 import { auth } from "@/app/server";
-import { PayzoLogo, PayzoSecondaryLogo } from "../common";
+import { PayzoSecondaryLogo } from "../common";
 
 export const Navbar = () => {
     const { uid } = useProfileContext() as ProfileContextValue;
@@ -14,8 +14,11 @@ export const Navbar = () => {
     return (
         <div className="flex items-center justify-center w-full bg-white border-b-2 border-[#e5e7eb] mb-[40px] px-4 md:px-[200px] py-[12px]">
             <div className="flex flex-row justify-between items-center max-w-8xl w-[80vw]">
-                <div className="flex flex-row">
-                    <NavbarLinkButton label={<PayzoLogo />} />
+                <div className="flex flex-row justify-center items-center">
+                    <div className="pt-2">
+                        <NavbarLinkButton label={<PayzoSecondaryLogo />} />
+                    </div>
+
                     <div className="flex flex-row justify-between">
                         <NavbarLinkButton
                             label={<Link href="/dashboard">Dashboard</Link>}

@@ -262,6 +262,34 @@ export const MerchantForm: FC = () => {
                             <SkeletonBar />
                         </div>
                     )}
+                    <label
+                        htmlFor="suburb"
+                        className="text-md font-medium mb-2"
+                    >
+                        Suburb
+                    </label>
+                    {!loading ? (
+                        <input
+                            id="suburb"
+                            type="text"
+                            placeholder="Enter your Suburb"
+                            className="col-span-5 border-2 border-[#EDEEEF] p-3 mb-4 rounded-md"
+                            required={true}
+                            value={merchantLocation?.suburb}
+                            onChange={(e) =>
+                                setMerchantLocation(
+                                    (prevState: Partial<LocationType>) => ({
+                                        ...prevState,
+                                        suburb: e.target.value,
+                                    })
+                                )
+                            }
+                        ></input>
+                    ) : (
+                        <div className="col-span-5 mb-4">
+                            <SkeletonBar />
+                        </div>
+                    )}
 
                     <label
                         htmlFor="country"

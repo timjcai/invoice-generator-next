@@ -18,14 +18,17 @@ export const PayzoLogo = () => {
 
 export const PayzoSecondaryLogo = () => {
     return (
-        <div className="mb-4 border-2 rounded-[100px] p-2 bg-[var(--avocado)] border-[var(--lush-green)]">
-            <Link href="/">
+        <div className="mb-4 border-2 rounded-[100px] p-2 bg-[var(--avocado)] border-[var(--lush-green)] h-fit">
+            <Link
+                href="/"
+                className="flex items-center place-content-center h-fit"
+            >
                 <Image
                     className="rounded-full"
                     src="/brandAssets/payzo-secondary-logo.png"
                     alt="me"
-                    width="42"
-                    height="42"
+                    width="36"
+                    height="36"
                 />
             </Link>
         </div>
